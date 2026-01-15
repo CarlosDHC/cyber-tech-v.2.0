@@ -1,8 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, EffectFade, Pagination } from 'swiper/modules';
 import styles from "./Home.module.css";
 import challenges from "../../data/challenges.json";
+
+// Importação obrigatória dos estilos base do Swiper
+import 'swiper/css';
+import 'swiper/css/effect-fade';
+import 'swiper/css/pagination';
+
+
 
 // Ícones
 import iconAlgoritmo from "../../assets/icons/icon-algoritmo.png";
@@ -60,6 +69,24 @@ function Home() {
     flexShrink: 0,
   };
 
+  const slides = [
+    {
+      id: 1,
+      image: '/tec-carro.jpg', // Coloque o caminho das suas imagens aqui
+    
+    },
+    {
+      id: 2,
+      image: '/eng-carro.jpg'
+     
+    },
+    {
+      id: 3,
+      image: '/di-carro.jpg',
+ 
+    }
+  ];
+
   return (
     <motion.div
       className={styles.home}
@@ -70,23 +97,48 @@ function Home() {
     >
       {/* HERO */}
       <section className={styles.heroSection}>
-        <motion.h1
-          className={styles.mainTitle}
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.15 }}
-        >
-          Aprenda programação
-        </motion.h1>
-        <motion.h2
-          className={styles.subtitle}
-          initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.25 }}
-        >
-          Conceitos básicos de lógica de programação para iniciantes
-        </motion.h2>
-      </section>
+      <Swiper
+        modules={[Autoplay, EffectFade, Pagination]}
+        effect="fade" // Transição suave de esmaecimento
+        autoplay={{
+          delay: 4000,
+          disableOnInteraction: false,
+        }}
+        pagination={{ clickable: true }}
+        loop={true}
+        className={styles.mySwiper}
+      >
+        {slides.map((slide) => (
+          <SwiperSlide key={slide.id} className={styles.slideItem}>
+            {/* Imagem de fundo */}
+            <img src={slide.image} alt={slide.title} className={styles.carouselImage} />
+            
+            {/* Overlay para o texto aparecer sobre a imagem */}
+            <div className={styles.overlay}>
+              <motion.h1
+                key={`title-${slide.id}`} // Key necessária para reiniciar animação
+                className={styles.mainTitle}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                {slide.title}
+              </motion.h1>
+              
+              <motion.h2
+                key={`sub-${slide.id}`}
+                className={styles.subtitle}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                {slide.subtitle}
+              </motion.h2>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </section>
 
       <div className="container">
         {/* DESTAQUE */}
