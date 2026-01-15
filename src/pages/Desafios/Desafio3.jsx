@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Desafio.css";
 import { db, auth } from "../../../FirebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 export default function Desafio3() {
@@ -122,13 +122,14 @@ export default function Desafio3() {
   // Salvar no Firebase
   useEffect(() => {
     if (finalizado && !salvo && auth.currentUser) {
+      // Aplique este bloco nos 4 ficheiros de desafio
       const salvarNoBanco = async () => {
         try {
           await addDoc(collection(db, "pontuacoes"), {
             uid: auth.currentUser.uid,
             email: auth.currentUser.email,
-            nome: auth.currentUser.displayName || "Usuário",
-            desafio: "Desafio 3 - Condicionais",
+            nome: auth.currentUser.displayName || "Aluno",
+            desafio: "Desafio 3 - Condicionais", // Mantenha o nome original de cada um
             nota: pontuacao,
             total: total,
             data: new Date().toISOString()
@@ -201,26 +202,26 @@ export default function Desafio3() {
       {finalizado && (
         <div className="final-score">
           {msg} Sua nota final é {pontuacao}/{total} ({porcentagem}%).
-          {salvo && <p style={{fontSize: "0.9rem", color: "green", marginTop: "5px"}}>Nota salva com sucesso!</p>}
+          {salvo && <p style={{ fontSize: "0.9rem", color: "green", marginTop: "5px" }}>Nota salva com sucesso!</p>}
         </div>
       )}
 
       <div className="navigation-links">
-              <Link to="/desafios" className="back-link">
-                <img src="/flecha1.png" alt="Voltar" className="logo-img" />
-                Voltar
-              </Link>
+        <Link to="/desafios" className="back-link">
+          <img src="/flecha1.png" alt="Voltar" className="logo-img" />
+          Voltar
+        </Link>
 
-              <Link to="/desafios" className="menu-link">
-                        <img src="/azulejos.png" alt="Menu" className="logo-img" />
-                      </Link>
-              
-      
-              <Link to="/desafios/desafio4" className="next-link">
-                Próximo
-                <img src="/flecha2.png" alt="Próximo" className="logo-img" />
-              </Link>
-            </div>
+        <Link to="/desafios" className="menu-link">
+          <img src="/azulejos.png" alt="Menu" className="logo-img" />
+        </Link>
+
+
+        <Link to="/desafios/desafio4" className="next-link">
+          Próximo
+          <img src="/flecha2.png" alt="Próximo" className="logo-img" />
+        </Link>
+      </div>
 
     </div>
   );

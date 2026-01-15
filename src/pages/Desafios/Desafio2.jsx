@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Desafio.css";
 import { db, auth } from "../../../FirebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 export default function Desafio2() {
@@ -57,13 +57,14 @@ export default function Desafio2() {
   // Salvar no Firebase
   useEffect(() => {
     if (verificarFim && !salvo && auth.currentUser) {
+      // Aplique este bloco nos ficheiros de desafio
       const salvarNoBanco = async () => {
         try {
           await addDoc(collection(db, "pontuacoes"), {
             uid: auth.currentUser.uid,
             email: auth.currentUser.email,
-            nome: auth.currentUser.displayName || "Usuário",
-            desafio: "Desafio 2 - Operações",
+            nome: auth.currentUser.displayName || "Aluno",
+            desafio: "Desafio 2 - Operações", // Mantenha o nome original de cada um
             nota: pontuacao,
             total: total,
             data: new Date().toISOString()
@@ -124,11 +125,11 @@ export default function Desafio2() {
           )}
         </div>
       ))}
-      
+
       {verificarFim && salvo && (
-         <div className="final-score">
-           <p style={{fontSize: "1rem", color: "green", textAlign: "center"}}>Nota salva com sucesso!</p>
-         </div>
+        <div className="final-score">
+          <p style={{ fontSize: "1rem", color: "green", textAlign: "center" }}>Nota salva com sucesso!</p>
+        </div>
       )}
 
       <div className="navigation-links">
@@ -138,9 +139,9 @@ export default function Desafio2() {
         </Link>
 
         <Link to="/desafios" className="menu-link">
-                  <img src="/azulejos.png" alt="Menu" className="logo-img" />
-                </Link>
-        
+          <img src="/azulejos.png" alt="Menu" className="logo-img" />
+        </Link>
+
 
         <Link to="/desafios/desafio3" className="next-link">
           Próximo
