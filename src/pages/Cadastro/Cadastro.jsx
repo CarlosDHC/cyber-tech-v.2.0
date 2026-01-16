@@ -4,7 +4,8 @@ import styles from "./Cadastro.module.css";
 
 import { auth, db } from "../../../FirebaseConfig.js";
 
-import { createUserWithEmailAndPassword } from "firebase/auth";
+// Importação necessária do updateProfile para vincular o nome ao Auth do Firebase
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { setDoc, doc } from "firebase/firestore";
 
 const Cadastro = () => {
@@ -39,11 +40,17 @@ const Cadastro = () => {
     setLoading(true);
 
     try {
-      //Cria o usuário no Firebase Authentication
+      // 1. Cria o usuário no Firebase Authentication
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      //Salva os dados no Firestore
+      // 2. ATUALIZAÇÃO IMPORTANTE: Vincula o nome ao perfil de autenticação
+      // Isso garante que auth.currentUser.displayName não seja nulo nos desafios
+      await updateProfile(user, {
+        displayName: nome
+      });
+
+      // 3. Salva os dados detalhados no Firestore
       await setDoc(doc(db, "users", user.uid), {
         uid: user.uid,
         name: nome, 
@@ -54,17 +61,17 @@ const Cadastro = () => {
         criadoEm: new Date().toISOString(),
       });
 
-      console.log(" Usuário cadastrado com sucesso:", user.uid);
+      console.log("Usuário cadastrado com sucesso:", user.uid);
       setLoading(false);
 
-      // Redireciona após o sucesso
+      // Redireciona para o login após o sucesso
       navigate("/login");
 
     } catch (err) {
       setLoading(false);
+      console.error("Erro detalhado no cadastro:", err);
 
-      console.error(" Erro detalhado no cadastro:", err);
-
+      // Tratamento de erros amigável para o usuário
       if (err.code === "auth/email-already-in-use") {
         setError("Este e-mail já está em uso.");
       } else if (err.code === "auth/invalid-email") {
@@ -72,7 +79,7 @@ const Cadastro = () => {
       } else if (err.code === "auth/weak-password") {
         setError("A senha é muito fraca. Escolha uma mais forte.");
       } else if (err.code === "auth/network-request-failed") {
-        setError("Falha de conexão. Verifique sua internet e tente novamente.");
+        setError("Falha de conexão. Verifique sua internet.");
       } else {
         setError("Ocorreu um erro ao tentar cadastrar.");
       }

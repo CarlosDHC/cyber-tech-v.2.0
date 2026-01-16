@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./Desafio.css";
 import { db, auth } from "../../../FirebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Desafio1() {
   const total = 6;
@@ -47,19 +47,19 @@ export default function Desafio1() {
   // Salvar no Firebase
   useEffect(() => {
     if (verificarFim && !salvo && auth.currentUser) {
+      // Aplique este bloco nos ficheiros de desafio
       const salvarNoBanco = async () => {
         try {
           await addDoc(collection(db, "pontuacoes"), {
             uid: auth.currentUser.uid,
             email: auth.currentUser.email,
-            nome: auth.currentUser.displayName || "Usuário",
+            nome: auth.currentUser.displayName || "Aluno",
             desafio: "Desafio 1 - Introdução",
             nota: pontuacao,
             total: total,
             data: new Date().toISOString()
           });
           setSalvo(true);
-          console.log("Nota salva com sucesso!");
         } catch (error) {
           console.error("Erro ao salvar nota:", error);
         }
@@ -182,7 +182,7 @@ resultado = a % b`,
         </div>
       )}
 
-      
+
       <div className="navigation-links">
         <Link to="/desafios" className="back-link">
           <img src="/flecha1.png" alt="Voltar" className="logo-img" />

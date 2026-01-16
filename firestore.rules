@@ -28,5 +28,12 @@ service cloud.firestore {
     match /admins/{userId} {
       allow read: if request.auth != null;
     }
+
+    // Regras para o Fórum/Chat
+    match /forum_messages/{messageId} {
+      allow read, create: if request.auth != null;
+      // Opcional: apenas o autor pode deletar sua própria mensagem
+      allow delete: if request.auth != null && request.auth.uid == resource.data.userId;
+    }
   }
 }

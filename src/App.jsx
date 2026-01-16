@@ -14,6 +14,7 @@ import ScrollToTop from "./components/ScrollToTop.jsx";
 import Home from './pages/Home/Home.jsx';
 import Blog from './pages/Blog/Blog.jsx';
 import ChallengeList from './pages/ChallengeList/ChallengeList.jsx';
+import Forum from './pages/Forum/Forum.jsx';
 
 // Blog
 import Algoritmo from "./pages/Blog/Algoritmo";
@@ -98,7 +99,7 @@ function App() {
             <Route path="/funcoes" element={<ProtectedRoute><AnimatedPage><Funcoes /></AnimatedPage></ProtectedRoute>} />
             <Route path="/operacao" element={<ProtectedRoute><AnimatedPage><Operacao /></AnimatedPage></ProtectedRoute>} />
             <Route path="/tipo" element={<ProtectedRoute><AnimatedPage><Tipo /></AnimatedPage></ProtectedRoute>} />
-            
+
             <Route path="/blog/post/:id" element={
               <ProtectedRoute><AnimatedPage><PostDinamico /></AnimatedPage></ProtectedRoute>
             } />
@@ -112,7 +113,13 @@ function App() {
 
 
             <Route path="/perfil" element={<ProtectedRoute><AnimatedPage><Perfil /></AnimatedPage></ProtectedRoute>} />
-
+            <Route path="/forum" element={
+              <ProtectedRoute>
+                <AnimatedPage>
+                  <Forum />
+                </AnimatedPage>
+              </ProtectedRoute>
+            } />
             {/* --- NOVA ROTA ADICIONADA --- */}
             <Route path="/alterar-senha" element={
               <ProtectedRoute>
@@ -131,9 +138,9 @@ function App() {
           </Routes>
         </AnimatePresence>
       </main>
-      
+
       <main className={isAdminRoute ? 'admin-main' : 'public-main'}>
-         {/* Este bloco main extra parece redundante se você já tem o main acima com as rotas, 
+        {/* Este bloco main extra parece redundante se você já tem o main acima com as rotas, 
              mas mantive conforme seu arquivo original para não quebrar layout */}
       </main>
 

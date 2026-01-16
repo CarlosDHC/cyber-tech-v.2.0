@@ -48,12 +48,13 @@ export default function DesafioDiaENoite() {
   // Salvar no Firebase
   useEffect(() => {
     if (verificarFim && !salvo && auth.currentUser) {
+      // Aplique este bloco nos ficheiros de desafio
       const salvarNoBanco = async () => {
         try {
           await addDoc(collection(db, "pontuacoes"), {
             uid: auth.currentUser.uid,
             email: auth.currentUser.email,
-            nome: auth.currentUser.displayName || "Usuário",
+            nome: auth.currentUser.displayName || "Aluno",
             desafio: "Desafio 4 - Funções",
             nota: pontuacao,
             total: total,

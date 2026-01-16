@@ -49,14 +49,17 @@ export default function Admin() {
         // 1. Buscando Contagens
         const usersColl = collection(db, "users");
         const blogColl = collection(db, "blog");
+        const adminsColl = collection(db, "admins"); // Referência para coleção de admins
         
-        const [usersSnap, blogSnap] = await Promise.all([
+        const [usersSnap, blogSnap, adminsSnap] = await Promise.all([
             getCountFromServer(usersColl).catch(() => ({ data: () => ({ count: 0 }) })), 
-            getCountFromServer(blogColl).catch(() => ({ data: () => ({ count: 0 }) }))
+            getCountFromServer(blogColl).catch(() => ({ data: () => ({ count: 0 }) })),
+            getCountFromServer(adminsColl).catch(() => ({ data: () => ({ count: 0 }) })) // Busca total de admins
         ]);
 
         setStats({
-          users: usersSnap.data().count,
+          // Subtrai os admins do total de usuários para mostrar apenas alunos
+          users: usersSnap.data().count - adminsSnap.data().count,
           posts: blogSnap.data().count,
         });
 
@@ -71,14 +74,12 @@ export default function Admin() {
         querySnapshot.forEach((doc) => {
           const data = doc.data();
           
-          // Se não tiver nome, cai em 'Outros', mas vamos filtrar depois
           const nomeDesafio = data.desafio ? data.desafio.split(" - ")[0].trim() : "Outros"; 
           
           if (!agrupamento[nomeDesafio]) {
             agrupamento[nomeDesafio] = { somaNotas: 0, quantidade: 0 };
           }
 
-          // Cálculo da nota 0-10
           const notaBruta = Number(data.nota || 0);
           let totalQuestoes = Number(data.total);
           if (!totalQuestoes || totalQuestoes === 0) {
@@ -87,18 +88,15 @@ export default function Admin() {
 
           const nota0a10 = (notaBruta / totalQuestoes) * 10;
 
-          // Soma no desafio específico
           agrupamento[nomeDesafio].somaNotas += nota0a10;
           agrupamento[nomeDesafio].quantidade += 1;
 
-          // Soma no Geral
           agrupamento["Geral"].somaNotas += nota0a10;
           agrupamento["Geral"].quantidade += 1;
         });
 
-        // Transforma em array e FILTRA "Outros"
         const dadosGrafico = Object.keys(agrupamento)
-          .filter(chave => chave !== "Outros") // <--- FILTRO ADICIONADO AQUI
+          .filter(chave => chave !== "Outros")
           .map(chave => {
             const item = agrupamento[chave];
             const media = item.quantidade > 0 ? (item.somaNotas / item.quantidade) : 0;
@@ -110,7 +108,6 @@ export default function Admin() {
             };
           });
 
-        // Ordenação
         dadosGrafico.sort((a, b) => {
             if (a.name === 'Geral') return 1;
             if (b.name === 'Geral') return -1;
@@ -132,7 +129,6 @@ export default function Admin() {
 
   return (
     <div className={styles.container}>
-
       <aside className={`${styles.sidebar} ${collapsed ? styles.sidebarCollapsed : ""}`}>
         <button
           className={styles.toggleBtn}
