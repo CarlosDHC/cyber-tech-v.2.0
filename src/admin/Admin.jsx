@@ -160,6 +160,13 @@ export default function Admin() {
             </Link>
           </li>
           <li>
+            <Link to="/admin/newdesafios" data-tooltip="Desafios" className={styles.navLink}>
+              <img src="/desafio.png" alt="Desafios" />
+              <span className={styles.linkText}>Desafios</span>
+            </Link>
+          </li>
+          
+          <li>
             <Link to="/admin/curtidas" data-tooltip="like" className={styles.navLink}>
               <img src="/curti.png" alt="curti" />
               <span className={styles.linkText}>like</span>

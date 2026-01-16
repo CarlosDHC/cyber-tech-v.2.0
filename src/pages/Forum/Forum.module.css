@@ -1,120 +1,283 @@
-/* src/pages/Forum/Forum.module.css */
+/* Container Principal */
+.forumPage {
+  background-color: #f3f4f6; /* Fundo cinza claro */
+  min-height: 100vh;
+  padding-top: 100px; /* Espaço para o Header do site */
+  padding-bottom: 60px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-.chatContainer {
+.contentWrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
   display: flex;
-  flex-direction: column;
-  height: 80vh; /* Altura fixa para permitir scroll interno */
-  max-width: 900px;
-  margin: 20px auto;
-  background-color: #1a1a1a; /* Fundo escuro padrão do projeto */
-  border-radius: 12px;
-  border: 1px solid #333;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-}
-
-.messagesList {
-  flex: 1;
-  padding: 20px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  background-image: linear-gradient(to bottom, #1a1a1a, #121212);
-}
-
-/* Estilo para o scrollbar */
-.messagesList::-webkit-scrollbar {
-  width: 6px;
-}
-
-.messagesList::-webkit-scrollbar-thumb {
-  background: #444;
-  border-radius: 10px;
-}
-
-.message {
-  max-width: 70%;
-  padding: 12px 16px;
-  border-radius: 15px;
+  gap: 30px; /* Espaço entre o feed e a sidebar */
   position: relative;
-  font-size: 0.95rem;
-  line-height: 1.4;
-  color: #fff;
 }
 
-.myMsg {
-  align-self: flex-end;
-  background-color: #007bff; /* Azul padrão para o usuário atual */
-  border-bottom-right-radius: 2px;
-}
-
-.otherMsg {
-  align-self: flex-start;
-  background-color: #333; /* Cinza para outros alunos */
-  border-bottom-left-radius: 2px;
-}
-
-.message small {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 4px;
-  font-size: 0.75rem;
-  color: #aaa;
-}
-
-.myMsg small {
-  color: #e0e0e0;
-  text-align: right;
-}
-
-.inputArea {
+/* --- COLUNA ESQUERDA (FEED DE PERGUNTAS) --- */
+.feedSection {
+  flex: 1; /* Ocupa todo o espaço disponível */
   display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Card da Pergunta/Post */
+.postCard {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.postCard:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border-color: #d1d5db;
+}
+
+/* Cabeçalho do Post (Autor, Data) */
+.postHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #e0e7ff;
+  color: #2563EB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.authorInfo h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.authorInfo span {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+/* Conteúdo do Post */
+.postContent h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.25rem;
+  color: #111827;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.postContent p {
+  color: #4b5563;
+  line-height: 1.6;
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+
+/* Tags (ex: #javascript) */
+.tags {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.tag {
+  background-color: #eff6ff;
+  color: #2563EB;
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* Rodapé do Post (Likes, Comentários) */
+.postFooter {
+  border-top: 1px solid #f3f4f6;
+  padding-top: 15px;
+  display: flex;
+  gap: 20px;
+}
+
+.actionBtn {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6b7280;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.actionBtn:hover {
+  color: #2563EB;
+}
+
+/* Área de Comentários (Respostas) */
+.commentsSection {
+  margin-top: 20px;
+  background-color: #fafafa;
+  border-radius: 8px;
+  padding: 15px;
+  border: 1px solid #f0f0f0;
+}
+
+.comment {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.comment:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* --- ÁREA DE INPUT NO FINAL (FIXA OU NO FLUXO) --- */
+.newQuestionArea {
+  background: white;
+  border-radius: 12px;
   padding: 20px;
-  background-color: #222;
-  border-top: 1px solid #333;
+  border: 1px solid #e5e7eb;
+  margin-top: 10px;
+  box-shadow: 0 -4px 10px rgba(0,0,0,0.03);
+}
+
+.newQuestionArea h3 {
+  margin-top: 0;
+  color: #1f2937;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }
 
-.inputArea input {
-  flex: 1;
-  padding: 12px 15px;
+.inputGroup input,
+.inputGroup textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
   border-radius: 8px;
-  border: 1px solid #444;
-  background-color: #111;
-  color: white;
+  font-family: inherit;
   outline: none;
-  transition: border-color 0.3s;
 }
 
-.inputArea input:focus {
-  border-color: #007bff;
+.inputGroup input:focus,
+.inputGroup textarea:focus {
+  border-color: #2563EB;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
 
-.inputArea button {
-  padding: 10px 20px;
-  background-color: #007bff;
+.submitBtn {
+  align-self: flex-end;
+  background-color: #2563EB;
   color: white;
   border: none;
-  border-radius: 8px;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-weight: 600;
   cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s, transform 0.2s;
+  transition: background 0.2s;
 }
 
-.inputArea button:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px);
+.submitBtn:hover {
+  background-color: #1d4ed8;
 }
 
-/* Ajustes Responsivos */
-@media (max-width: 768px) {
-  .chatContainer {
-    height: 90vh;
-    margin: 10px;
+/* --- BARRA LATERAL (SIDEBAR) STICKY --- */
+.sidebarSection {
+  width: 320px; /* Largura fixa */
+  height: fit-content; /* Importante para o sticky funcionar */
+  position: sticky;
+  top: 100px; /* Distância do topo quando rolar (ajuste conforme altura do seu header) */
+}
+
+/* Card da Sidebar */
+.sidebarCard {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.sidebarTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f3f4f6;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.topicList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.topicItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #f9fafb;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.topicItem:hover {
+  color: #2563EB;
+}
+
+.topicItem span {
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.topicCount {
+  background-color: #eff6ff;
+  color: #2563EB;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+/* Responsividade */
+@media (max-width: 900px) {
+  .contentWrapper {
+    flex-direction: column;
   }
   
-  .message {
-    max-width: 85%;
+  .sidebarSection {
+    width: 100%;
+    position: static; /* Remove o sticky no mobile */
+    order: -1; /* Sidebar aparece antes no mobile, ou remova para aparecer depois */
+    margin-bottom: 20px;
   }
 }
