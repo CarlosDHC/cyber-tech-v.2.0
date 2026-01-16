@@ -157,7 +157,7 @@ export default function DesafioDiaENoite() {
       )}
 
       <div className="navigation-links">
-        <Link to="/desafios/desafios3" className="back-link">
+        <Link to="/desafios/desafios4" className="back-link">
           <img src="/flecha1.png" alt="Voltar" className="logo-img" />
           Voltar
         </Link>

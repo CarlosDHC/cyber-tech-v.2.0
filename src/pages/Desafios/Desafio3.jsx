@@ -206,7 +206,7 @@ export default function Desafio3() {
       )}
 
       <div className="navigation-links">
-              <Link to="/desafios" className="back-link">
+              <Link to="/desafios/desafios2" className="back-link">
                 <img src="/flecha1.png" alt="Voltar" className="logo-img" />
                 Voltar
               </Link>
