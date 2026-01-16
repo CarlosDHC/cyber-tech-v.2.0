@@ -49,6 +49,8 @@ import Desafio2 from './pages/Desafios/Desafio2.jsx';
 import Desafio3 from './pages/Desafios/Desafio3.jsx';
 import Desafio4 from './pages/Desafios/Desafio4.jsx';
 
+
+
 // Novas páginas
 import Sobre from './pages/Sobre/Sobre.jsx';
 import Privacidade from './pages/Privacidade/Privacidade.jsx';
@@ -108,6 +110,8 @@ function App() {
             <Route path="/desafios/desafio2" element={<ProtectedRoute><AnimatedPage><Desafio2 /></AnimatedPage></ProtectedRoute>} />
             <Route path="/desafios/desafio3" element={<ProtectedRoute><AnimatedPage><Desafio3 /></AnimatedPage></ProtectedRoute>} />
             <Route path="/desafios/desafio4" element={<ProtectedRoute><AnimatedPage><Desafio4 /></AnimatedPage></ProtectedRoute>} />
+
+
 
             <Route path="/perfil" element={<ProtectedRoute><AnimatedPage><Perfil /></AnimatedPage></ProtectedRoute>} />
             <Route path="/forum" element={
