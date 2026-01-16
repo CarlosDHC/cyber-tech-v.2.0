@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // Alteração 1: Adicionado useNavigate
 import './Blog.css';
 
 // Imports do Firebase
@@ -122,6 +122,9 @@ function Blog() {
   const [mostrarMais, setMostrarMais] = useState(false);
   const [postsDinamicos, setPostsDinamicos] = useState([]);
   const [loading, setLoading] = useState(true);
+  
+  // Alteração 2: Hook para navegação
+  const navigate = useNavigate();
 
   // Busca posts novos do Firebase
   useEffect(() => {
@@ -238,6 +241,49 @@ function Blog() {
           {mostrarMais ? 'Ver menos ▲' : 'Ver mais curiosidades ▼'}
         </button>
       </div>
+
+      {/* --- INÍCIO DO BOTÃO FLUTUANTE DO FÓRUM (Alteração 3) --- */}
+      <button
+        onClick={() => navigate('/forum')}
+        title="Abrir Fórum de Dúvidas"
+        style={{
+          position: 'fixed',
+          bottom: '30px',
+          right: '30px',
+          width: '60px',
+          height: '60px',
+          backgroundColor: '#ffffff',
+          border: '2px solid #2563EB', // Azul
+          borderRadius: '50%', // Redondo
+          boxShadow: '0 4px 10px rgba(0,0,0,0.2)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer',
+          zIndex: 1000,
+          transition: 'transform 0.2s ease',
+        }}
+        onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
+        onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+      >
+        {/* Ícone de Nuvem de Chat com 3 pontos */}
+        <svg 
+          width="32" 
+          height="32" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          xmlns="http://www.w3.org/2000/svg"
+          style={{ color: '#2563EB' }}
+        >
+          <path d="M17.5 19C19.9853 19 22 16.9853 22 14.5C22 12.132 20.177 10.244 17.819 10.022C17.369 6.634 14.475 4 11 4C7.034 4 3.755 6.84 3.1 10.605C1.353 11.238 0 12.937 0 15C0 17.761 2.239 20 5 20H17.5V19Z" 
+                stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+          <circle cx="8" cy="14" r="1.5" fill="currentColor"/>
+          <circle cx="12" cy="14" r="1.5" fill="currentColor"/>
+          <circle cx="16" cy="14" r="1.5" fill="currentColor"/>
+        </svg>
+      </button>
+      {/* --- FIM DO BOTÃO FLUTUANTE --- */}
+
     </div>
   );
 }
