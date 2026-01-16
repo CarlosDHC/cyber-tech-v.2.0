@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./Desafio.css";
-import { db, auth } from "../../../FirebaseConfig";
+import { db, auth } from "../../../../FirebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
 
-export default function Desafio3() {
+export default function DesafioTec3() {
   const total = 5;
   const corretas = [
     ["if", "elif", "else"],

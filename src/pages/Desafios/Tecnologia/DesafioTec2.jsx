@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./Desafio.css";
-import { db, auth } from "../../../FirebaseConfig";
+import { db, auth } from "../../../../FirebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
 
-export default function Desafio2() {
+export default function DesafioTec2() {
   const total = 7;
   const corretas = [["+"], ["-"], ["*"], ["/"], ["%"], ["**"], ["and"]];
 

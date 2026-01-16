@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./Desafio.css";
-import { db, auth } from "../../../FirebaseConfig";
+import { db, auth } from "../../../../FirebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
-export default function Desafio1() {
-  const total = 6;
-  const corretas = ["b", "c", "c", "b", "b", "a"];
+
+export default function DesafioTec4() {
+  const total = 5;
+  const corretas = ["b", "b", "a", "a", "a"];
 
   const [pontuacao, setPontuacao] = useState(0);
   const [respondidas, setRespondidas] = useState(Array(total).fill(false));
@@ -54,7 +55,7 @@ export default function Desafio1() {
             uid: auth.currentUser.uid,
             email: auth.currentUser.email,
             nome: auth.currentUser.displayName || "Aluno",
-            desafio: "Desafio 1 - Introdução",
+            desafio: "Desafio 4 - Funções",
             nota: pontuacao,
             total: total,
             data: new Date().toISOString()
@@ -70,80 +71,53 @@ export default function Desafio1() {
 
   const desafios = [
     {
-      titulo: "O que é um algoritmo?",
-      codigo: `Um algoritmo em programação é:`,
+      titulo: "Saudação do Dia",
+      codigo: `Qual função retorna "Bom dia!" se a hora for menor que 12, e "Boa noite!" caso contrário?`,
       alternativas: {
-        a: "Um erro que ocorre durante a execução do código.",
-        b: "Um conjunto de instruções que resolvem um problema passo a passo.",
-        c: "Um tipo especial de variável usada no Python.",
-        d: "Uma biblioteca padrão do Python.",
+        a: `def saudacao():\n    if hora < 12:\n        return "Boa noite!"\n    else:\n        return "Bom dia!"`,
+        b: `def saudacao(hora):\n    if hora < 12:\n        return "Bom dia!"\n    else:\n        return "Boa noite!"`,
+        c: `def saudacao():\n    print("Bom dia!")`,
+        d: `saudacao(hora):\n    return "Bom dia!"`,
       },
     },
     {
-      titulo: "Variáveis em Python",
-      codigo: `Qual linha cria corretamente uma variável chamada nome com o valor "Victor"?`,
+      titulo: "Verificar se é Dia",
+      codigo: `Qual função retorna True se for dia (entre 6h e 18h) e False se for noite?`,
       alternativas: {
-        a: 'var nome = "Victor"',
-        b: 'nome: "Victor"',
-        c: 'nome = "Victor"',
-        d: 'string nome = "Victor"',
+        a: `def eh_dia(hora):\n    return hora < 6`,
+        b: `def eh_dia(hora):\n    return hora >= 6 and hora < 18`,
+        c: `def eh_dia(hora):\n    print("Dia" if hora < 18)`,
+        d: `def eh_dia():\n    return hora >= 6`,
       },
     },
     {
-      titulo: "Tipos de Dados",
-      codigo: `Qual das opções abaixo representa um valor booleano no Python?`,
+      titulo: "Nascer do Sol",
+      codigo: `O que será impresso ao executar o código abaixo?\n\ndef nascer_do_sol():\n    return "O sol está nascendo!"\n\nmensagem = nascer_do_sol()\nprint(mensagem)`,
       alternativas: {
-        a: '"True"',
-        b: "1",
-        c: "True",
-        d: "'False'",
+        a: `O sol está nascendo!`,
+        b: `mensagem`,
+        c: `None`,
+        d: `Erro: falta argumento`,
       },
     },
     {
-      titulo: "Condicionais (if, elif, else)",
-      codigo: `O que o código abaixo imprime?
-
-x = 10
-if x > 15:
-    print("Maior que 15")
-elif x == 10:
-    print("Igual a 10")
-else:
-    print("Menor que 10")`,
+      titulo: "Função com parâmetro",
+      codigo: `Qual função imprime "É dia claro!" se for antes das 18h, e "Boa noite!" caso contrário?`,
       alternativas: {
-        a: "Maior que 15",
-        b: "Igual a 10",
-        c: "Menor que 10",
-        d: "Erro no código",
+        a: `def tempo(hora):\n    if hora < 18:\n        print("É dia claro!")\n    else:\n        print("Boa noite!")`,
+        b: `def tempo():\n    if hora < 18:\n        return "É dia claro!"`,
+        c: `tempo(hora):\n    print("É dia claro!")`,
+        d: `def tempo(hora):\n    print("Boa tarde!")`,
       },
     },
     {
-      titulo: "Funções em Python",
-      codigo: `Qual é a saída deste código?
-
-def saudacao():
-    return "Olá, mundo!"
-
-print(saudacao())`,
+      titulo: "Função sem retorno",
+      codigo: `O que acontece com o código abaixo?\n\ndef boa_noite():\n    print("Boa noite!")\n\nresultado = boa_noite()\nprint(resultado)`,
       alternativas: {
-        a: "saudacao()",
-        b: "Olá, mundo!",
-        c: "return Olá, mundo!",
-        d: "Erro: falta argumento",
-      },
-    },
-    {
-      titulo: "Operações matemáticas",
-      codigo: `Qual será o valor de resultado?
-
-a = 8
-b = 3
-resultado = a % b`,
-      alternativas: {
-        a: "2",
-        b: "3",
-        c: "1",
-        d: "5",
+        a: `Boa noite!\nNone`,
+        b: `None`,
+        c: `Boa noite!\nBoa noite!`,
+        d: `Erro: função sem retorno`,
       },
     },
   ];
@@ -151,8 +125,8 @@ resultado = a % b`,
   return (
     <div className="pagina-desafios">
       <div className="scoreboard">{atualizarPlacar()}</div>
-      <h1>Desafios de Python</h1>
-      <p className="subtitle">Clique na alternativa correta! (Apenas uma tentativa)</p>
+      <h1>Desafios — Funções: Dia e Noite</h1>
+      <p className="subtitle">Escolha a alternativa correta! (Apenas uma tentativa)</p>
       {desafios.map((d, i) => (
         <div key={i} className="challenge-container">
           <h2>{`Desafio ${i + 1} — ${d.titulo}`}</h2>
@@ -166,7 +140,8 @@ resultado = a % b`,
                 onClick={() => verificar(i, letra)}
                 disabled={respondidas[i]}
               >
-                <strong>{letra.toUpperCase()}.</strong> {texto}
+                <strong>{letra.toUpperCase()}.</strong>
+                <pre>{texto}</pre>
               </button>
             ))}
           </div>
@@ -182,9 +157,8 @@ resultado = a % b`,
         </div>
       )}
 
-
       <div className="navigation-links">
-        <Link to="/desafios" className="back-link">
+        <Link to="/desafios/desafios3" className="back-link">
           <img src="/flecha1.png" alt="Voltar" className="logo-img" />
           Voltar
         </Link>
@@ -193,7 +167,7 @@ resultado = a % b`,
           <img src="/azulejos.png" alt="Menu" className="logo-img" />
         </Link>
 
-        <Link to="/desafios/desafio2" className="next-link">
+        <Link to="/desafios" className="next-link">
           Próximo
           <img src="/flecha2.png" alt="Próximo" className="logo-img" />
         </Link>
