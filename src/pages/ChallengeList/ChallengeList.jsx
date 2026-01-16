@@ -14,62 +14,34 @@ function ChallengeList() {
       <div className={styles.challengeCardsList}>
         {/* Desafio 1 */}
         <Link to="/desafios/desafio1" className={styles.challengeCard}>
-          <video
-            src="/videos/menino.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-          ></video>
+          <img 
+            src="img_desafios/algoritmo.jpg">
+          </img>
           <p>O que é um algoritmo?</p>
         </Link>
 
         {/* Desafio 2 */}
         <Link to="/desafios/desafio2" className={styles.challengeCard}>
-          <video
-            src="/videos/algoritmo.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-          ></video>
+          <img
+            src="/img_desafios/operacoes.jpg"
+          ></img>
           <p>Operações</p>
         </Link>
 
         {/* Desafio 3 */}
         <Link to="/desafios/desafio3" className={styles.challengeCard}>
-          <video
-            src="/videos/comida.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-          ></video>
+         <img
+            src="/img_desafios/condicionais.jpg"
+          ></img>
           <p>Condicionais</p>
         </Link>
 
         {/* Desafio 4 */}
         <Link to="/desafios/desafio4" className={styles.challengeCard}>
-          <video
-            src="/videos/sollua.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-          ></video>
+          <img
+            src="/img_desafios/funcoes.jpg"
+          ></img>
           <p>Funções</p>
-        </Link>
-
-         {/* Desafio 5 */}
-        <Link to="/desafios/desafio5" className={styles.challengeCard}>
-          <video
-            src="/videos/comida.mp4"
-            autoPlay
-            loop
-            muted
-            playsInline
-          ></video>
-          <p>TESTE</p>
         </Link>
       </div>
     </div>

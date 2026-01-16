@@ -47,7 +47,7 @@ import Desafio1 from './pages/Desafios/Desafio1.jsx';
 import Desafio2 from './pages/Desafios/Desafio2.jsx';
 import Desafio3 from './pages/Desafios/Desafio3.jsx';
 import Desafio4 from './pages/Desafios/Desafio4.jsx';
-import Desafio5 from './pages/Desafios/Desafio5.jsx';
+
 
 
 // Novas páginas
@@ -109,7 +109,7 @@ function App() {
             <Route path="/desafios/desafio2" element={<ProtectedRoute><AnimatedPage><Desafio2 /></AnimatedPage></ProtectedRoute>} />
             <Route path="/desafios/desafio3" element={<ProtectedRoute><AnimatedPage><Desafio3 /></AnimatedPage></ProtectedRoute>} />
             <Route path="/desafios/desafio4" element={<ProtectedRoute><AnimatedPage><Desafio4 /></AnimatedPage></ProtectedRoute>} />
-            <Route path="/desafios/desafio5" element={<ProtectedRoute><AnimatedPage><Desafio5 /></AnimatedPage></ProtectedRoute>} />
+
 
 
             <Route path="/perfil" element={<ProtectedRoute><AnimatedPage><Perfil /></AnimatedPage></ProtectedRoute>} />
