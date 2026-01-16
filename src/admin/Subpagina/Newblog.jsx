@@ -11,7 +11,7 @@ export default function NewBlog() {
   const [titulo, setTitulo] = useState("");
   const [resumo, setResumo] = useState("");
   const [capa, setCapa] = useState("");
-  
+
   // --- NOVOS ESTADOS ---
   const [autor, setAutor] = useState("");
   const [tempoLeitura, setTempoLeitura] = useState("");
@@ -98,10 +98,31 @@ export default function NewBlog() {
         </button>
         <h2 className={styles.title}>Painel Admin</h2>
         <ul className={styles.navList}>
-          <li><Link to="/admin" className={styles.navLink}><img src="/casa.png" alt="" /><span className={styles.linkText}>Home</span></Link></li>
-          <li><Link to="/admin/notas" className={styles.navLink}><img src="/estrela.png" alt="" /><span className={styles.linkText}>Notas</span></Link></li>
+          <li>
+            <Link to="/admin" className={styles.navLink}>
+              <img src="/casa.png" alt="" />
+              <span className={styles.linkText}>Home</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/admin/notas" className={styles.navLink}>
+              <img src="/estrela.png" alt="" />
+              <span className={styles.linkText}>Notas</span>
+            </Link>
+          </li>
           <li><Link to="/admin/newblog" className={`${styles.navLink} ${styles.active}`}><img src="/blog.png" alt="" /><span className={styles.linkText}>Blog</span></Link></li>
-          <li><Link to="/admin/curtidas" className={styles.navLink}><img src="/curti.png" alt="" /><span className={styles.linkText}>Curtidas</span></Link></li>
+          <li>
+            <Link to="/admin/newdesafios" data-tooltip="Desafios" className={styles.navLink}>
+              <img src="/desafio.png" alt="Desafios" />
+              <span className={styles.linkText}>Desafios</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/admin/curtidas" className={styles.navLink}>
+              <img src="/curti.png" alt="" />
+              <span className={styles.linkText}>Curtidas</span>
+            </Link>
+          </li>
         </ul>
       </aside>
 
@@ -115,11 +136,11 @@ export default function NewBlog() {
 
         <div className={styles.editorContainer}>
           <div className={styles.formColumn}>
-            
+
             {/* Metadados com Labels */}
             <div className={styles.metaBox}>
               <h3>Informações da Capa</h3>
-              
+
               <div className={styles.inputGroup}>
                 <label className={styles.fieldLabel}>Título Principal</label>
                 <input
@@ -140,7 +161,7 @@ export default function NewBlog() {
                     onChange={e => setAutor(e.target.value)}
                   />
                 </div>
-                
+
                 <div className={styles.inputGroup} style={{ flex: 1 }}>
                   <label className={styles.fieldLabel}>Tempo (minutos)</label>
                   <input
@@ -178,15 +199,15 @@ export default function NewBlog() {
                   onChange={e => setCapa(e.target.value)}
                 />
               </div>
-              
+
               {capa && (
                 <div style={{ marginTop: '10px' }}>
-                  <p style={{fontSize: '0.8rem', color: '#666', marginBottom: '5px'}}>Pré-visualização da Capa:</p>
-                  <img 
-                    src={capa} 
-                    alt="Pré-visualização da capa" 
-                    style={{ maxWidth: '100%', maxHeight: '300px', borderRadius: '8px', objectFit: 'cover' }} 
-                    onError={(e) => e.target.style.display = 'none'} 
+                  <p style={{ fontSize: '0.8rem', color: '#666', marginBottom: '5px' }}>Pré-visualização da Capa:</p>
+                  <img
+                    src={capa}
+                    alt="Pré-visualização da capa"
+                    style={{ maxWidth: '100%', maxHeight: '300px', borderRadius: '8px', objectFit: 'cover' }}
+                    onError={(e) => e.target.style.display = 'none'}
                   />
                 </div>
               )}
@@ -255,11 +276,11 @@ export default function NewBlog() {
                       />
                       {secao.content && (
                         <div style={{ marginTop: '10px' }}>
-                          <img 
-                            src={secao.content} 
-                            alt="Pré-visualização" 
+                          <img
+                            src={secao.content}
+                            alt="Pré-visualização"
                             style={{ maxWidth: '100%', borderRadius: '8px' }}
-                            onError={(e) => e.target.style.display = 'none'} 
+                            onError={(e) => e.target.style.display = 'none'}
                           />
                         </div>
                       )}

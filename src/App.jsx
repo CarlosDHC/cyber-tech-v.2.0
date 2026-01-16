@@ -36,6 +36,7 @@ import Perfil from './pages/Perfil/Perfil.jsx';
 import Admin from './admin/Admin.jsx';
 import Newblog from './admin/Subpagina/Newblog.jsx';
 import Comentarios from './admin/Subpagina/Curtidas.jsx';
+import Newdesafios from './admin/Subpagina/Newdesafios.jsx';
 import Notas from './admin/Subpagina/Notas.jsx';
 
 // Rotas protegidas
@@ -129,6 +130,7 @@ function App() {
             <Route path="/admin" element={<ProtectedAdminRoute><AnimatedPage><Admin /></AnimatedPage></ProtectedAdminRoute>} />
             <Route path="/admin/newblog" element={<ProtectedAdminRoute><AnimatedPage><Newblog /></AnimatedPage></ProtectedAdminRoute>} />
             <Route path="/admin/curtidas" element={<ProtectedAdminRoute><AnimatedPage><Comentarios /></AnimatedPage></ProtectedAdminRoute>} />
+            <Route path="/admin/newdesafios" element={<ProtectedAdminRoute><AnimatedPage><Newdesafios/></AnimatedPage></ProtectedAdminRoute>} />
             <Route path="/admin/notas" element={<ProtectedAdminRoute><AnimatedPage><Notas /></AnimatedPage></ProtectedAdminRoute>} />
 
           </Routes>

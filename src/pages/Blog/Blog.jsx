@@ -3,21 +3,21 @@ import { Link } from 'react-router-dom';
 import './Blog.css';
 
 // Imports do Firebase
-import { 
-  collection, getDocs, orderBy, query, 
-  addDoc, deleteDoc, where, onSnapshot, doc 
+import {
+  collection, getDocs, orderBy, query,
+  addDoc, deleteDoc, where, onSnapshot, doc
 } from "firebase/firestore";
-import { db, auth } from "../../../FirebaseConfig"; 
+import { db, auth } from "../../../FirebaseConfig";
 
 const postsOriginais = [
-  
+
 ];
 
 // CARD INDIVIDUAL DE LIKE
 function PostCard({ post }) {
   const [likesCount, setLikesCount] = useState(0);
   const [userLiked, setUserLiked] = useState(false);
-  const [likeDocId, setLikeDocId] = useState(null); 
+  const [likeDocId, setLikeDocId] = useState(null);
 
   // Monitora os likes deste post 
   useEffect(() => {
@@ -30,7 +30,7 @@ function PostCard({ post }) {
         const meuLike = snapshot.docs.find(d => d.data().userId === auth.currentUser.uid);
         if (meuLike) {
           setUserLiked(true);
-          setLikeDocId(meuLike.id); 
+          setLikeDocId(meuLike.id);
         } else {
           setUserLiked(false);
           setLikeDocId(null);
@@ -44,7 +44,7 @@ function PostCard({ post }) {
   }, [post.id]);
 
   const handleLike = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     if (!auth.currentUser) {
       alert("Você precisa estar logado para curtir!");
@@ -57,10 +57,10 @@ function PostCard({ post }) {
       } else {
         await addDoc(collection(db, "likes"), {
           postId: post.id,
-          postTitle: post.titulo,
-          userId: auth.currentUser.uid,
-          userEmail: auth.currentUser.email,
-          userName: auth.currentUser.displayName || "Usuário",
+          postTitle: post.title,
+          userId: user.uid,
+          userName: user.displayName,
+          userEmail: user.email,
           data: new Date().toISOString()
         });
       }
@@ -76,9 +76,9 @@ function PostCard({ post }) {
     <div className="post-card-alg">
       <Link to={linkDestino} className="read-more-link">
         <div className="post-image">
-          <img 
-            src={post.imagem || "/placeholder-blog.png"} 
-            alt={`Imagem sobre ${post.titulo}`} 
+          <img
+            src={post.imagem || "/placeholder-blog.png"}
+            alt={`Imagem sobre ${post.titulo}`}
             className="post-img-blog"
             onError={(e) => e.target.src = "https://placehold.co/600x400?text=Blog+CyberTech"}
           />
@@ -91,24 +91,24 @@ function PostCard({ post }) {
             <p><img src='/user.png' className='user' alt="Autor" /> {post.autor || "Autor Desconhecido"}</p>
             <p><img src='/calendar.png' alt="Data" className='user' /> {post.data}</p>
             <p>
-              <img src='/time-left.png' className='user' alt="Tempo" /> 
+              <img src='/time-left.png' className='user' alt="Tempo" />
               {post.tempoLeitura}
             </p>
           </div>
         </div>
       </Link>
-      
+
       <div className="post-feedback">
-        <button 
-          className={`like-btn ${userLiked ? 'curtido' : ''}`} 
+        <button
+          className={`like-btn ${userLiked ? 'curtido' : ''}`}
           onClick={handleLike}
           aria-label="Curtir esta postagem"
-          style={{display: 'flex', alignItems: 'center', gap: '6px', background:'transparent', border:'none', cursor:'pointer'}}
+          style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'transparent', border: 'none', cursor: 'pointer' }}
         >
-          <span className="heart-icon" style={{fontSize: '1.4rem'}}>
-            {userLiked ? '❤️' : '🤍'} 
-          </span> 
-          <span style={{fontWeight: 'bold', color: '#555', fontSize: '1rem'}}>
+          <span className="heart-icon" style={{ fontSize: '1.4rem' }}>
+            {userLiked ? '❤️' : '🤍'}
+          </span>
+          <span style={{ fontWeight: 'bold', color: '#555', fontSize: '1rem' }}>
             {likesCount > 0 ? likesCount : ''}
           </span>
         </button>
@@ -129,11 +129,11 @@ function Blog() {
       try {
         const q = query(collection(db, "blog"), orderBy("dataCriacao", "desc"));
         const querySnapshot = await getDocs(q);
-        
+
         const novosPosts = querySnapshot.docs.map(doc => {
           const data = doc.data();
-          const dataFormatada = data.dataCriacao 
-            ? new Date(data.dataCriacao).toLocaleDateString('pt-BR') 
+          const dataFormatada = data.dataCriacao
+            ? new Date(data.dataCriacao).toLocaleDateString('pt-BR')
             : "Recente";
 
           return {
@@ -146,7 +146,7 @@ function Blog() {
             slug: null
           };
         });
-        
+
         setPostsDinamicos(novosPosts);
       } catch (error) {
         console.error("Erro ao buscar posts:", error);
@@ -165,8 +165,8 @@ function Blog() {
       <div className='hero-section'></div>
 
       <div className="post-container-blog">
-        {loading && <p style={{textAlign:'center', width:'100%', color:'#666'}}>Carregando posts...</p>}
-        
+        {loading && <p style={{ textAlign: 'center', width: '100%', color: '#666' }}>Carregando posts...</p>}
+
         {todosOsPosts.map((post) => (
           <PostCard key={post.id} post={post} />
         ))}
@@ -181,16 +181,16 @@ function Blog() {
           comédia britânico “Monty Python’s Flying Circus”, que o criador da linguagem,
           Guido van Rossum, adorava assistir.
         </p>
-        
+
         <strong>É uma linguagem muito simples de ler</strong>
         <p>
           O Python foi criado para ser fácil de entender até por quem não programa.
           O próprio Guido dizia que o código Python deve parecer “inglês legível”.
         </p>
-        <p style={{fontFamily: 'monospace', background: '#f0f0f0', padding: '10px', borderRadius: '4px', marginTop: '5px'}}>
-           if idade &gt;= 18: <br/> print("Você é maior de idade!") 
+        <p style={{ fontFamily: 'monospace', background: '#f0f0f0', padding: '10px', borderRadius: '4px', marginTop: '5px' }}>
+          if idade &gt;= 18: <br /> print("Você é maior de idade!")
         </p>
-        <br/>
+        <br />
 
         {mostrarMais && (
           <div className="conteudo-extra">
