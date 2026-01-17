@@ -193,7 +193,7 @@ resultado = a % b`,
           <img src="/azulejos.png" alt="Menu" className="logo-img" />
         </Link>
 
-        <Link to="/desafios/desafio2" className="next-link">
+        <Link to="/desafios/Tecnologia/DesafioTec2" className="next-link">
           Próximo
           <img src="/flecha2.png" alt="Próximo" className="logo-img" />
         </Link>
