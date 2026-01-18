@@ -181,20 +181,22 @@ export default function DesafioDireito2() {
       )}
 
       <div className="navigation-links">
-        <Link to="/desafios/Direito/DireitoDir1" className="back-link">
-          <img src="/flecha1.png" alt="Voltar" className="logo-img" />
-          Voltar
-        </Link>
-
-        <Link to="/desafios" className="menu-link">
-          <img src="/azulejos.png" alt="Menu" className="logo-img" />
-        </Link>
-
-        <Link to="/desafios/DireitoDir3" className="next-link">
-          Próximo
-          <img src="/flecha2.png" alt="Próximo" className="logo-img" />
-        </Link>
-      </div>
-    </div>
-  );
-}
+              <Link to="/desafios/Direito/DesafioDir1" className="back-link">
+                <img src="/flecha1.png" alt="Voltar" className="logo-img" />
+                Voltar
+              </Link>
+      
+              <Link to="/desafios" className="menu-link">
+                <img src="/azulejos.png" alt="Menu" className="logo-img" />
+              </Link>
+      
+              <Link to="/desafios/Direito/DesafioDir3" className="next-link">
+                Próximo
+                <img src="/flecha2.png" alt="Próximo" className="logo-img" />
+              </Link>
+            </div>
+      
+          </div>
+        );
+      }
+      
