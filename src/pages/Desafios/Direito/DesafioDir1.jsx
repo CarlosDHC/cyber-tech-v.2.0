@@ -180,7 +180,7 @@ export default function DesafioDireito1() {
         </div>
       )}
 
-      <div className="navigation-links">
+<div className="navigation-links">
         <Link to="/desafios" className="back-link">
           <img src="/flecha1.png" alt="Voltar" className="logo-img" />
           Voltar
@@ -195,6 +195,8 @@ export default function DesafioDireito1() {
           <img src="/flecha2.png" alt="Próximo" className="logo-img" />
         </Link>
       </div>
+
     </div>
   );
 }
+
