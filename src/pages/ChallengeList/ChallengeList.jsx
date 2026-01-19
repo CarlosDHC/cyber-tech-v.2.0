@@ -25,7 +25,7 @@ function ChallengeList() {
           <img
             src="/img_desafios/direito.jpg"
           ></img>
-          <p>Direito</p>
+          <p>Direito</p> 
         </Link>
 
         {/* Desafio 3 */}
