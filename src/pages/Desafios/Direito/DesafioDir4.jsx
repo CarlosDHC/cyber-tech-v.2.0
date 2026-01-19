@@ -186,7 +186,7 @@ export default function DesafioDireito4() {
             Voltar
           </Link>
   
-          <Link to="/desafios" className="menu-link">
+        <Link to="/desafios/Direito/DesafioDir4" className="next-link">
             <img src="/azulejos.png" alt="Menu" className="logo-img" />
           </Link>
   

@@ -189,7 +189,7 @@ resultado = a % b`,
           Voltar
         </Link>
 
-        <Link to="/desafios" className="menu-link">
+        <Link to="/desafios/CapitulosTecnologia" className="menu-link">
           <img src="/azulejos.png" alt="Menu" className="logo-img" />
         </Link>
 

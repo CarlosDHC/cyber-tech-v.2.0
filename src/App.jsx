@@ -42,6 +42,11 @@ import Notas from './admin/Subpagina/Notas.jsx';
 // Rotas protegidas
 import ProtectedRoute from './context/ProtectedRoute.jsx';
 import ProtectedAdminRoute from './context/ProtectedAdminRoute.jsx';
+// Capitulos 
+import CapitulosTecnologia from './pages/Desafios/CapitulosTecnologia.jsx';
+import CapitulosDireito from './pages/Desafios/CapitulosDireito.jsx';
+import CapitulosEngenharia from './pages/Desafios/CapitulosEngenharia.jsx';
+
 
 // Desafios tecnologia 
 import DesafioTec1 from './pages/Desafios/Tecnologia/DesafioTec1.jsx';
@@ -59,7 +64,7 @@ import DesafioEng4 from './pages/Desafios/Engenharia/DesafioEng4.jsx';
 import DesafioDir1 from './pages/Desafios/Direito/DesafioDir1.jsx';
 import DesafioDir2 from './pages/Desafios/Direito/DesafioDir2.jsx';
 import DesafioDir3 from './pages/Desafios/Direito/DesafioDir3.jsx';
-import DesafioDir4 from './pages/Desafios/Direito/DesafioDir4.jsx';
+import DesafioDir4 from './pages/Desafios/Direito//DesafioDir4.jsx';
 
 
 
@@ -116,6 +121,11 @@ function App() {
             <Route path="/blog/post/:id" element={
               <ProtectedRoute><AnimatedPage><PostDinamico /></AnimatedPage></ProtectedRoute>
             } />
+            {/* --- Rotas Capitulos --- */}
+            <Route path="/desafios/capitulostecnologia" element={<ProtectedRoute><AnimatedPage><CapitulosTecnologia /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/desafios/capitulosengenharia" element={<ProtectedRoute><AnimatedPage><CapitulosEngenharia /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/desafios/capitulosdireito" element={<ProtectedRoute><AnimatedPage><CapitulosDireito /></AnimatedPage></ProtectedRoute>} />
+
             {/* --- Rotas Tecnologia --- */}
             <Route path="/desafios" element={<ProtectedRoute><AnimatedPage><ChallengeList /></AnimatedPage></ProtectedRoute>} />
             <Route path="/desafios/tecnologia/desafiotec1" element={<ProtectedRoute><AnimatedPage><DesafioTec1 /></AnimatedPage></ProtectedRoute>} />

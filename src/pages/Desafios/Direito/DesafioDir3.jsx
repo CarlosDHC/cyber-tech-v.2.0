@@ -190,7 +190,7 @@ export default function DesafioDireito3() {
                <img src="/azulejos.png" alt="Menu" className="logo-img" />
              </Link>
      
-             <Link to="/desafios/Direito/DesafioDir4" className="next-link">
+             <Link to="/desafios/Direito/DesafioDir3" className="next-link">
                Próximo
                <img src="/flecha2.png" alt="Próximo" className="logo-img" />
              </Link>

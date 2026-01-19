@@ -4,7 +4,7 @@ import { db, auth } from "../../../../FirebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
-export default function DesafioDireito1() {
+export default function DesafioDir1() {
   const total = 6;
   const corretas = ["b", "c", "a", "b", "c", "a"];
 
@@ -181,12 +181,12 @@ export default function DesafioDireito1() {
       )}
 
 <div className="navigation-links">
-        <Link to="/desafios" className="back-link">
+        <Link to="/desafios/CapitulosDireito" className="back-link">
           <img src="/flecha1.png" alt="Voltar" className="logo-img" />
           Voltar
         </Link>
 
-        <Link to="/desafios" className="menu-link">
+        <Link to="/desafios/CapitulosDireito" className="menu-link">
           <img src="/azulejos.png" alt="Menu" className="logo-img" />
         </Link>
 
@@ -199,4 +199,5 @@ export default function DesafioDireito1() {
     </div>
   );
 }
+
 
