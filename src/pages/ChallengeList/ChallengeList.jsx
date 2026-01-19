@@ -13,7 +13,7 @@ function ChallengeList() {
 
       <div className={styles.challengeCardsList}>
         {/* Desafio 1 */}
-        <Link to="/desafios/tecnologia/DesafioDir1" className={styles.challengeCard}>
+        <Link to="/desafios/Tecnologia/DesafioTec1" className={styles.challengeCard}>
           <img 
             src="img_desafios/tecnologia.jpg">
           </img>
@@ -21,7 +21,7 @@ function ChallengeList() {
         </Link>
 
         {/* Desafio 2 */}
-        <Link to="/desafios/desafio2" className={styles.challengeCard}>
+        <Link to="/desafios/Direito/DesafioDir1" className={styles.challengeCard}>
           <img
             src="/img_desafios/direito.jpg"
           ></img>

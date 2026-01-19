@@ -158,7 +158,7 @@ export default function DesafioTec4() {
       )}
 
       <div className="navigation-links">
-        <Link to="/desafios/desafios3" className="back-link">
+        <Link to="/desafios/Tecnologia/DesafioTec3" className="back-link">
           <img src="/flecha1.png" alt="Voltar" className="logo-img" />
           Voltar
         </Link>

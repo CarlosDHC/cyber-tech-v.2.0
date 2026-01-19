@@ -207,7 +207,7 @@ export default function DesafioTec3() {
       )}
 
       <div className="navigation-links">
-      <Link to="/desafios/desafios2" className="back-link">
+      <Link to="/desafios/Tecnologia/DesafioTec2" className="back-link">
           Voltar
           <img src="/flecha1.png" alt="Voltar" className="logo-img" />
       </Link>
@@ -217,7 +217,7 @@ export default function DesafioTec3() {
         </Link>
 
 
-        <Link to="/desafios/desafio4" className="next-link">
+        <Link to="/desafios/Tecnologia/DesafioTec4" className="next-link">
           Próximo
           <img src="/flecha2.png" alt="Próximo" className="logo-img" />
         </Link>

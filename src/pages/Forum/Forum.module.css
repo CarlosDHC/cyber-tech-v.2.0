@@ -1,30 +1,89 @@
-/* Container Principal */
+/* Container Principal da Página */
 .forumPage {
   background-color: #f3f4f6; /* Fundo cinza claro */
   min-height: 100vh;
-  padding-top: 100px; /* Espaço para o Header do site */
   padding-bottom: 60px;
+  padding-top: 100px; /* Ajuste conforme a altura do seu Header */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Wrapper centralizado */
 .contentWrapper {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
+  padding: 0 5px 0 0 0;
   display: flex;
-  gap: 30px; /* Espaço entre o feed e a sidebar */
+  gap: 30px;
   position: relative;
+  /* Garante que o topo da Sidebar alinhe com o topo do Feed */
+  align-items: flex-start; 
 }
 
-/* --- COLUNA ESQUERDA (FEED DE PERGUNTAS) --- */
+/* --- COLUNA ESQUERDA (FEED) --- */
 .feedSection {
-  flex: 1; /* Ocupa todo o espaço disponível */
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-/* Card da Pergunta/Post */
+/* Título da Página */
+.pageTitle {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 10px;
+  padding-left: 15px;
+  border-left: 5px solid #2563EB; /* Detalhe azul */
+  line-height: 1.2;
+}
+
+.pageTitle span {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #6b7280;
+  margin-top: 5px;
+}
+
+/* --- BADGE DE FILTRO ATIVO (NOVO) --- */
+.activeFilterBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+  background-color: #e0e7ff; /* Azul bem claro */
+  color: #2563EB;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.1);
+  animation: fadeIn 0.3s ease;
+}
+
+.clearFilterBtn {
+  background: none;
+  border: none;
+  color: #666;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.clearFilterBtn:hover {
+  background-color: rgba(0,0,0,0.05);
+  color: #dc2626; /* Vermelho ao passar o mouse */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- CARD DE POSTAGEM --- */
 .postCard {
   background: #ffffff;
   border: 1px solid #e5e7eb;
@@ -39,7 +98,7 @@
   border-color: #d1d5db;
 }
 
-/* Cabeçalho do Post (Autor, Data) */
+/* Header do Post */
 .postHeader {
   display: flex;
   align-items: center;
@@ -86,11 +145,13 @@
   line-height: 1.6;
   font-size: 1rem;
   margin-bottom: 15px;
+  white-space: pre-line;
 }
 
-/* Tags (ex: #javascript) */
+/* Tags (Chips no Post) */
 .tags {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 15px;
 }
@@ -102,9 +163,16 @@
   border-radius: 15px;
   font-size: 0.75rem;
   font-weight: 600;
+  cursor: pointer; /* Agora clicável para filtrar */
+  transition: background 0.2s;
 }
 
-/* Rodapé do Post (Likes, Comentários) */
+.tag:hover {
+  background-color: #dbeafe;
+  text-decoration: underline;
+}
+
+/* Rodapé do Post */
 .postFooter {
   border-top: 1px solid #f3f4f6;
   padding-top: 15px;
@@ -121,41 +189,112 @@
   color: #6b7280;
   font-size: 0.9rem;
   cursor: pointer;
-  transition: color 0.2s;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.2s;
 }
 
 .actionBtn:hover {
+  background-color: #f3f4f6;
   color: #2563EB;
 }
 
-/* Área de Comentários (Respostas) */
+/* Like Ativo */
+.liked {
+  color: #2563EB;
+  background-color: #eff6ff;
+  font-weight: 600;
+}
+
+/* --- SESSÃO DE COMENTÁRIOS --- */
 .commentsSection {
   margin-top: 20px;
   background-color: #fafafa;
-  border-radius: 8px;
-  padding: 15px;
+  border-radius: 12px;
+  padding: 20px;
   border: 1px solid #f0f0f0;
+}
+
+.commentsList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 20px;
 }
 
 .comment {
   display: flex;
-  gap: 10px;
-  margin-bottom: 15px;
-  border-bottom: 1px solid #eee;
+  flex-direction: column;
+  gap: 4px;
   padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
 }
 
 .comment:last-child {
   border-bottom: none;
-  margin-bottom: 0;
   padding-bottom: 0;
 }
 
-/* --- ÁREA DE INPUT NO FINAL (FIXA OU NO FLUXO) --- */
+.commentAuthor {
+  font-weight: bold;
+  font-size: 0.85rem;
+  color: #2563EB;
+}
+
+.commentText {
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+/* Input de Resposta (Estilo Pílula) */
+.commentInputGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #fff;
+  padding: 5px 5px 5px 15px;
+  border-radius: 30px;
+  border: 1px solid #d1d5db;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.commentInputGroup:focus-within {
+  border-color: #2563EB;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.commentInputGroup input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 0.9rem;
+  outline: none;
+  color: #1f2937;
+}
+
+.commentBtn {
+  background-color: #2563EB;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.commentBtn:hover {
+  background-color: #1d4ed8;
+}
+
+/* --- ÁREA DE NOVA PERGUNTA --- */
 .newQuestionArea {
   background: white;
   border-radius: 12px;
-  padding: 20px;
+  padding: 24px;
   border: 1px solid #e5e7eb;
   margin-top: 10px;
   box-shadow: 0 -4px 10px rgba(0,0,0,0.03);
@@ -164,26 +303,30 @@
 .newQuestionArea h3 {
   margin-top: 0;
   color: #1f2937;
+  margin-bottom: 15px;
 }
 
 .inputGroup {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 }
 
-.inputGroup input,
-.inputGroup textarea {
+.mainInput, 
+.mainTextarea {
   width: 100%;
   padding: 12px;
   border: 1px solid #d1d5db;
   border-radius: 8px;
   font-family: inherit;
   outline: none;
+  background-color: #fff;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
 }
 
-.inputGroup input:focus,
-.inputGroup textarea:focus {
+.mainInput:focus, 
+.mainTextarea:focus {
   border-color: #2563EB;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
@@ -204,15 +347,69 @@
   background-color: #1d4ed8;
 }
 
-/* --- BARRA LATERAL (SIDEBAR) STICKY --- */
-.sidebarSection {
-  width: 320px; /* Largura fixa */
-  height: fit-content; /* Importante para o sticky funcionar */
-  position: sticky;
-  top: 100px; /* Distância do topo quando rolar (ajuste conforme altura do seu header) */
+.submitBtn:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
 }
 
-/* Card da Sidebar */
+.loginWarn {
+  color: #666;
+  font-style: italic;
+}
+
+/* --- SELETOR DE TAGS (CHIPS) --- */
+.tagsLabel {
+  font-size: 0.9rem;
+  color: #374151;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.tagSelectorContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tagOption {
+  background-color: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  color: #4b5563;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+}
+
+.tagOption:hover {
+  background-color: #e5e7eb;
+  border-color: #d1d5db;
+}
+
+.tagOptionSelected {
+  background-color: #2563EB;
+  color: white;
+  border-color: #2563EB;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
+}
+
+.tagOptionSelected:hover {
+  background-color: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+/* --- BARRA LATERAL (SIDEBAR) --- */
+.sidebarSection {
+  width: 320px;
+  height: fit-content;
+  position: sticky;
+  top: 120px; /* Ajuste conforme Header */
+}
+
 .sidebarCard {
   background: white;
   border-radius: 12px;
@@ -234,50 +431,101 @@
   gap: 8px;
 }
 
+/* Lista de Tópicos */
 .topicList {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .topicItem {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid #f9fafb;
+  padding: 12px 10px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: color 0.2s;
-}
-
-.topicItem:hover {
-  color: #2563EB;
-}
-
-.topicItem span {
-  font-size: 0.9rem;
+  transition: all 0.2s;
   color: #4b5563;
 }
 
-.topicCount {
+.topicItem:hover {
+  background-color: #f3f4f6;
+  color: #2563EB;
+  padding-left: 15px; /* Efeito de movimento */
+}
+
+/* NOVO: Item de Tópico Selecionado (Filtro Ativo) */
+.topicItemActive {
   background-color: #eff6ff;
   color: #2563EB;
+  border-left: 4px solid #2563EB;
+  font-weight: 700;
+  padding-left: 12px; /* Compensa a borda */
+}
+
+.topicCount {
+  background-color: #f3f4f6;
+  color: #6b7280;
   font-size: 0.75rem;
   padding: 2px 8px;
   border-radius: 10px;
   font-weight: 600;
+  transition: background 0.2s, color 0.2s;
 }
 
-/* Responsividade */
+/* Contador fica azul quando ativo */
+.topicItemActive .topicCount {
+  background-color: #2563EB;
+  color: white;
+}
+
+.rulesList {
+  padding-left: 20px;
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+.loadingMsg {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  margin-top: 20px;
+}
+
+/* --- RESPONSIVIDADE --- */
 @media (max-width: 900px) {
   .contentWrapper {
     flex-direction: column;
+    align-items: stretch;
   }
   
   .sidebarSection {
     width: 100%;
-    position: static; /* Remove o sticky no mobile */
-    order: -1; /* Sidebar aparece antes no mobile, ou remova para aparecer depois */
+    position: static;
+    order: -1;
     margin-bottom: 20px;
+  }
+  
+  .pageTitle {
+    font-size: 1.5rem;
+  }
+  
+  .commentInputGroup {
+    flex-direction: column;
+    align-items: stretch;
+    border-radius: 12px;
+    padding: 10px;
+    gap: 10px;
+  }
+  
+  .commentBtn {
+    width: 100%;
+    text-align: center;
+    border-radius: 8px;
   }
 }
