@@ -53,7 +53,7 @@ export default function DesafioDir1() {
             uid: auth.currentUser.uid,
             email: auth.currentUser.email,
             nome: auth.currentUser.displayName || "Aluno",
-            desafio: "Desafio 1 - Introdução ao Direito",
+            desafio: "Desafio 1 - Noções Introdutórias de Direito",
             nota: pontuacao,
             total: total,
             data: new Date().toISOString(),
@@ -134,7 +134,7 @@ export default function DesafioDir1() {
     <div className="pagina-desafios">
       <div className="scoreboard">{atualizarPlacar()}</div>
 
-      <h1>Desafios de Direito</h1>
+      <h1>Desafio 1 - Noções Introdutórias de Direito</h1>
       <p className="subtitle">
         Clique na alternativa correta! (Apenas uma tentativa)
       </p>

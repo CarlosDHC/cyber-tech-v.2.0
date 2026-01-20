@@ -134,7 +134,7 @@ export default function DesafioDireito3() {
     <div className="pagina-desafios">
       <div className="scoreboard">{atualizarPlacar()}</div>
 
-      <h1>Desafio de Direito — Constitucional</h1>
+      <h1>Desafio 3 - Direito Constitucional</h1>
       <p className="subtitle">
         Clique na alternativa correta! (Apenas uma tentativa)
       </p>
@@ -186,11 +186,11 @@ export default function DesafioDireito3() {
                Voltar
              </Link>
      
-             <Link to="/desafios" className="menu-link">
+             <Link to="/desafios/CapitulosDireito" className="menu-link">
                <img src="/azulejos.png" alt="Menu" className="logo-img" />
              </Link>
      
-             <Link to="/desafios/Direito/DesafioDir3" className="next-link">
+             <Link to="/desafios/Direito/DesafioDir4" className="next-link">
                Próximo
                <img src="/flecha2.png" alt="Próximo" className="logo-img" />
              </Link>

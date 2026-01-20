@@ -16,7 +16,7 @@ function ChallengeList() {
                  <img
                    src="/img_desafios/algoritmo.jpg"
                  ></img>
-                 <p>O que é um algoritmo?</p> 
+                 <p>Projeto Estrutural</p> 
                </Link>
        
                {/* Desafio 2 */}
@@ -24,7 +24,7 @@ function ChallengeList() {
                  <img
                    src="/img_desafios/operacoes.jpg"
                  ></img>
-                 <p>Operações</p> 
+                 <p>Planejamento Urbano</p> 
                </Link>
        
                {/* Desafio 3 */}
@@ -32,14 +32,20 @@ function ChallengeList() {
                 <img
                    src="/img_desafios/condicionais.jpg"
                  ></img>
-                 <p>Condicionais</p>
+                 <p>Infraestrutura</p>
                </Link>
                {/* Desafio 4 */}
                <Link to="/desafios/Engenharia/DesafioEng4" className={styles.challengeCard}>
                 <img
                    src="/img_desafios/funcoes.jpg"
                  ></img>
-                 <p>Funções</p>
+                 <p>Geotecnia e Solos</p>
+               </Link>
+               <Link to="/desafios/Engenharia/DesafioEng4" className={styles.challengeCard}>
+                <img
+                   src="/img_desafios/funcoes.jpg"
+                 ></img>
+                 <p>Solos e Hidráulica</p>
                </Link>
              </div>
            </div>

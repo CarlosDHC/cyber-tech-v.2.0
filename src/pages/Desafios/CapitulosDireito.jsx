@@ -14,31 +14,37 @@ function ChallengeList() {
         {/* Desafio 1 */}
         <Link to="/desafios/Direito/DesafioDir1" className={styles.challengeCard}>
           <img
-            src="/img_desafios/algoritmo.jpg"
+            src="/img_desafios/foto8.jpg"
           ></img>
-          <p>O que é um algoritmo?</p> 
+          <p>Legislação</p> 
         </Link> 
 
         {/* Desafio 2 */}
         <Link to="/desafios/Direito/DesafioDir2" className={styles.challengeCard}>
           <img
-            src="/img_desafios/direito.jpg"
+            src="/img_desafios/foto3.jpg"
           ></img>
-          <p>Direito</p> 
+          <p>Ética do sistema judiciário</p> 
         </Link>
 
         {/* Desafio 3 */}
         <Link to="/desafios/Direito/DesafioDir3" className={styles.challengeCard}>
          <img
-            src="/img_desafios/engenharia.jpg"
+            src="/img_desafios/foto2.jpg"
           ></img>
-          <p>Engenharia</p>
+          <p>Direitos & Deveres</p>
         </Link>
         <Link to="/desafios/Direito/DesafioDir4" className={styles.challengeCard}>
          <img
-            src="/img_desafios/engenharia.jpg"
+            src="/img_desafios/foto1.jpg"
           ></img>
-          <p>Engenharia</p>
+          <p>Advocacia</p>
+        </Link>
+        <Link to="/desafios/Direito/DesafioDir4" className={styles.challengeCard}>
+         <img
+            src="/img_desafios/foto1.jpg"
+          ></img>
+          <p>Constituição, Processo e Jurisprudência</p>
         </Link>
       </div>
     </div>

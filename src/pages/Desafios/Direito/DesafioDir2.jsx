@@ -53,7 +53,7 @@ export default function DesafioDireito2() {
             uid: auth.currentUser.uid,
             email: auth.currentUser.email,
             nome: auth.currentUser.displayName || "Aluno",
-            desafio: "Desafio 2 - Teoria Geral do Direito",
+            desafio: "Desafio 2 - Os Pilares do Direito",
             nota: pontuacao,
             total: total,
             data: new Date().toISOString(),
@@ -134,7 +134,7 @@ export default function DesafioDireito2() {
     <div className="pagina-desafios">
       <div className="scoreboard">{atualizarPlacar()}</div>
 
-      <h1>Desafio de Direito — Teoria Geral</h1>
+      <h1>Desafio 2 - Os Pilares do Direito</h1>
       <p className="subtitle">
         Clique na alternativa correta! (Apenas uma tentativa)
       </p>
@@ -186,11 +186,11 @@ export default function DesafioDireito2() {
                 Voltar
               </Link>
       
-              <Link to="/desafios" className="menu-link">
+              <Link to="/desafios/CapitulosDireito" className="menu-link">
                 <img src="/azulejos.png" alt="Menu" className="logo-img" />
               </Link>
       
-              <Link to="/desafios/Direito/DesafioDir2" className="next-link">
+              <Link to="/desafios/Direito/DesafioDir3" className="next-link">
                 Próximo
                 <img src="/flecha2.png" alt="Próximo" className="logo-img" />
               </Link>
