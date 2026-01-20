@@ -23,6 +23,10 @@ import Condicionais from "./pages/Blog/Condicionais.jsx";
 import Funcoes from "./pages/Blog/Funcoes.jsx";
 import Operacao from "./pages/Blog/Operacao.jsx";
 import Tipo from "./pages/Blog/Tipo.jsx"
+import Tecnologia from "./pages/Blog/Tecnologia.jsx"
+import Engenharia from "./pages/Blog/Engenharia.jsx"
+import Direito from "./pages/Blog/Direito.jsx"
+
 const PostDinamico = React.lazy(() => import("./pages/Blog/PostDinamico"));
 
 // Autenticação
@@ -99,7 +103,9 @@ function App() {
             <Route path="/funcoes" element={<ProtectedRoute><AnimatedPage><Funcoes /></AnimatedPage></ProtectedRoute>} />
             <Route path="/operacao" element={<ProtectedRoute><AnimatedPage><Operacao /></AnimatedPage></ProtectedRoute>} />
             <Route path="/tipo" element={<ProtectedRoute><AnimatedPage><Tipo /></AnimatedPage></ProtectedRoute>} />
-
+            <Route path="/tecnologia" element={<ProtectedRoute><AnimatedPage><Tecnologia /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/engenharia" element={<ProtectedRoute><AnimatedPage><Engenharia /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/direito" element={<ProtectedRoute><AnimatedPage><Direito /></AnimatedPage></ProtectedRoute>} />
             <Route path="/blog/post/:id" element={
               <ProtectedRoute><AnimatedPage><PostDinamico /></AnimatedPage></ProtectedRoute>
             } />

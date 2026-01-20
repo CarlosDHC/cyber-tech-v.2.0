@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import './Blog.css';
+import './Direito.css';
 
 // Imports do Firebase
 import { 
@@ -118,7 +118,7 @@ function PostCard({ post }) {
 }
 
 // COMPONENTE PRINCIPAL
-function Blog() {
+function Direito() {
   const [mostrarMais, setMostrarMais] = useState(false);
   const [postsDinamicos, setPostsDinamicos] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -162,7 +162,7 @@ function Blog() {
 
   return (
     <div className="blog-page">
-      <div className='hero-section-tec'></div>
+      <div className='hero-sectionn-tec'></div>
 
       <div className="post-container-blog">
         {loading && <p style={{textAlign:'center', width:'100%', color:'#666'}}>Carregando posts...</p>}
@@ -242,4 +242,4 @@ function Blog() {
   );
 }
 
-export default Blog;
+export default Direito;
