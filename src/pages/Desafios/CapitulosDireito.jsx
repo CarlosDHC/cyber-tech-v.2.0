@@ -16,7 +16,7 @@ function ChallengeList() {
           <img
             src="/img_desafios/algoritmo.jpg"
           ></img>
-          <p>O que é um algoritmo?</p> 
+          <p>Noções Introdutórias de Direito</p> 
         </Link> 
 
         {/* Desafio 2 */}
@@ -24,7 +24,7 @@ function ChallengeList() {
           <img
             src="/img_desafios/direito.jpg"
           ></img>
-          <p>Direito</p> 
+          <p>Os Pilares do Direito</p> 
         </Link>
 
         {/* Desafio 3 */}
@@ -32,13 +32,13 @@ function ChallengeList() {
          <img
             src="/img_desafios/engenharia.jpg"
           ></img>
-          <p>Engenharia</p>
+          <p>Direito Constitucional</p>
         </Link>
         <Link to="/desafios/Direito/DesafioDir4" className={styles.challengeCard}>
          <img
             src="/img_desafios/engenharia.jpg"
           ></img>
-          <p>Engenharia</p>
+          <p>Direito Civil</p>
         </Link>
       </div>
     </div>
