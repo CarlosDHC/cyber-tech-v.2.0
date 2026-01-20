@@ -18,11 +18,11 @@ export default function Admin() {
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState(null);
 
-  const [collapsed, setCollapsed] = useState(false);
+  // Definimos como 'true' para começar sempre reduzida
+  const [collapsed, setCollapsed] = useState(true);
 
   const isDashboard = location.pathname === '/admin';
 
-  // Cores para o gráfico
   const COLORS = {
     'Desafio 1': '#0088FE',
     'Desafio 2': '#00C49F',
@@ -46,24 +46,21 @@ export default function Admin() {
       setErrorMsg(null);
       
       try {
-        // 1. Buscando Contagens
         const usersColl = collection(db, "users");
         const blogColl = collection(db, "blog");
-        const adminsColl = collection(db, "admins"); // Referência para coleção de admins
+        const adminsColl = collection(db, "admins");
         
         const [usersSnap, blogSnap, adminsSnap] = await Promise.all([
             getCountFromServer(usersColl).catch(() => ({ data: () => ({ count: 0 }) })), 
             getCountFromServer(blogColl).catch(() => ({ data: () => ({ count: 0 }) })),
-            getCountFromServer(adminsColl).catch(() => ({ data: () => ({ count: 0 }) })) // Busca total de admins
+            getCountFromServer(adminsColl).catch(() => ({ data: () => ({ count: 0 }) }))
         ]);
 
         setStats({
-          // Subtrai os admins do total de usuários para mostrar apenas alunos
           users: usersSnap.data().count - adminsSnap.data().count,
           posts: blogSnap.data().count,
         });
 
-        // 2. Buscando Dados do Gráfico
         const pontuacoesRef = collection(db, "pontuacoes");
         const querySnapshot = await getDocs(query(pontuacoesRef));
         
@@ -73,7 +70,6 @@ export default function Admin() {
 
         querySnapshot.forEach((doc) => {
           const data = doc.data();
-          
           const nomeDesafio = data.desafio ? data.desafio.split(" - ")[0].trim() : "Outros"; 
           
           if (!agrupamento[nomeDesafio]) {
@@ -87,10 +83,8 @@ export default function Admin() {
           }
 
           const nota0a10 = (notaBruta / totalQuestoes) * 10;
-
           agrupamento[nomeDesafio].somaNotas += nota0a10;
           agrupamento[nomeDesafio].quantidade += 1;
-
           agrupamento["Geral"].somaNotas += nota0a10;
           agrupamento["Geral"].quantidade += 1;
         });
@@ -100,7 +94,6 @@ export default function Admin() {
           .map(chave => {
             const item = agrupamento[chave];
             const media = item.quantidade > 0 ? (item.somaNotas / item.quantidade) : 0;
-            
             return {
               name: chave,
               media: Number(media.toFixed(1)),
@@ -115,7 +108,6 @@ export default function Admin() {
         });
 
         setChartData(dadosGrafico);
-
       } catch (error) {
         console.error("Erro Dashboard:", error);
         setErrorMsg("Erro ao carregar dados.");
@@ -129,10 +121,11 @@ export default function Admin() {
 
   return (
     <div className={styles.container}>
+      {/* Sidebar usa o estado 'collapsed' para alternar as classes */}
       <aside className={`${styles.sidebar} ${collapsed ? styles.sidebarCollapsed : ""}`}>
         <button
           className={styles.toggleBtn}
-          onClick={() => setCollapsed((prev) => !prev)}
+          onClick={() => setCollapsed(!collapsed)} // Permite abrir e fechar
           aria-label={collapsed ? "Abrir menu" : "Fechar menu"}
         >
           <img src="/menu.png" alt="menu" />
@@ -165,7 +158,6 @@ export default function Admin() {
               <span className={styles.linkText}>Desafios</span>
             </Link>
           </li>
-          
           <li>
             <Link to="/admin/curtidas" data-tooltip="like" className={styles.navLink}>
               <img src="/curti.png" alt="curti" />
@@ -179,9 +171,7 @@ export default function Admin() {
         {isDashboard ? (
            <div className="dashboard-content">
              <h1 style={{color: '#333'}}>Visão Geral</h1>
-             
              {errorMsg && <p style={{color:'red'}}>{errorMsg}</p>}
-
              {loading ? <p>Carregando...</p> : (
                <>
                  <div className={styles.cards} style={{marginBottom: '30px', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))'}}>
@@ -217,10 +207,7 @@ export default function Admin() {
                             />
                             <Bar dataKey="media" name="Média" radius={[6, 6, 0, 0]} barSize={50}>
                               {chartData.map((entry, index) => (
-                                <Cell 
-                                  key={`cell-${index}`} 
-                                  fill={COLORS[entry.name] || '#8884d8'} 
-                                />
+                                <Cell key={`cell-${index}`} fill={COLORS[entry.name] || '#8884d8'} />
                               ))}
                             </Bar>
                           </BarChart>

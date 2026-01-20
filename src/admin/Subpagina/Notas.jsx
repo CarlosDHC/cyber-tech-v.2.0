@@ -9,7 +9,7 @@ import { collection, getDocs, orderBy, query } from "firebase/firestore";
 export default function Notas() {
   const [alunos, setAlunos] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
 
   useEffect(() => {
     const buscarNotas = async () => {
@@ -67,7 +67,7 @@ export default function Notas() {
       <aside className={`${styles.sidebar} ${collapsed ? styles.sidebarCollapsed : ""}`}>
         <button
           className={styles.toggleBtn}
-          onClick={() => setCollapsed((prev) => !prev)}
+          onClick={() => setCollapsed(!collapsed)}
         >
           <img src="/menu.png" alt="menu" />
         </button>
