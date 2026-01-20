@@ -134,7 +134,7 @@ export default function DesafioDireito2() {
     <div className="pagina-desafios">
       <div className="scoreboard">{atualizarPlacar()}</div>
 
-      <h1>Desafio de Direito — Teoria Geral</h1>
+      <h1>Desafio 2 - Os Pilares do Direito</h1>
       <p className="subtitle">
         Clique na alternativa correta! (Apenas uma tentativa)
       </p>
