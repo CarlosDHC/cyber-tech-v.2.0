@@ -53,7 +53,7 @@ export default function DesafioDir1() {
             uid: auth.currentUser.uid,
             email: auth.currentUser.email,
             nome: auth.currentUser.displayName || "Aluno",
-            desafio: "Desafio 1 - Introdução ao Direito",
+            desafio: "Desafio 1 - Noções Introdutórias de Direito",
             nota: pontuacao,
             total: total,
             data: new Date().toISOString(),
