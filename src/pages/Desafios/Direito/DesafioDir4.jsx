@@ -53,7 +53,7 @@ export default function DesafioDireito4() {
             uid: auth.currentUser.uid,
             email: auth.currentUser.email,
             nome: auth.currentUser.displayName || "Aluno",
-            desafio: "Desafio 4 - Direito Civil (Parte Geral)",
+            desafio: "Desafio 4 - Direito Civil",
             nota: pontuacao,
             total: total,
             data: new Date().toISOString(),
@@ -186,12 +186,12 @@ export default function DesafioDireito4() {
             Voltar
           </Link>
   
-        <Link to="/desafios/Direito/DesafioDir4" className="next-link">
+        <Link to="/desafios/CapitulosDireito" className="next-link">
             <img src="/azulejos.png" alt="Menu" className="logo-img" />
           </Link>
-  
-  
-          <Link to="/desafios" className="next-link">
+
+
+          <Link to="/desafios/CapitulosDireito" className="next-link">
             Próximo
             <img src="/flecha2.png" alt="Próximo" className="logo-img" />
           </Link>
