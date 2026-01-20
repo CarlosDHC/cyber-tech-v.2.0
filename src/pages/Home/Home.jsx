@@ -47,6 +47,56 @@ function Home() {
     "dia-ou-noite": "Funções"    
   };
 
+  const [activeCarouselIndex, setActiveCarouselIndex] = React.useState(0);
+
+  const coursesData = [
+    {
+      id: 1,
+      title: "Direito",
+      image: "/di-art.jpg",
+      topics: [
+        "LEGISLAÇÃO",
+        "JUSTIÇA",
+        "DIREITOS & DEVERES",
+        "ADVOCACIA",
+        "CONSTITUIÇÃO",
+        "PROCESSO",
+        "JURISPRUDÊNCIA",
+        "ÉTICA"
+      ]
+    },
+    {
+      id: 2,
+      title: "Engenharia Civil",
+      image: "/eng-art.jpg",
+      topics: [
+        "PROJETO ESTRUTURAL",
+        "PLANEJAMENTO URBANO",
+        "INFRAESTRUTURA",
+        "GEOTECNIA E SOLOS",
+        "PONTES E VIADUTOS",
+        "CONSTITUIÇÃO",
+        "PROCESSO",
+        "FUNDAÇÕES"
+      ]
+    },
+    {
+      id: 3,
+      title: "Tecnologia",
+      image: "/tec-art.jpg",
+      topics: [
+        "PYTHON",
+        "FRONT-END",
+        "BACK-END",
+        "ALGORITMOS",
+        "DESENVOLVIMENTO",
+        "BANCO DE DADOS",
+        "CONCEITOS",
+        "INTRODUÇÃO"
+      ]
+    }
+  ];
+
   const featuredChallenges = challenges
     .filter((c) => c.slug !== "o-que-e-algoritmo")
     .slice(0, 3);
@@ -141,35 +191,73 @@ function Home() {
     </section>
 
       <div className="container">
-        {/* DESTAQUE */}
+        {/* CARROSSEL DE CURSOS COM TÓPICOS */}
         <motion.section
-          className={styles.algorithmSection}
+          className={styles.coursesCarouselSection}
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.25 }}
         >
-          <div className={styles.infoCard}>
-            <motion.video
-              src={videoMap["o-que-e-algoritmo"]}
-              className={styles.infoVideo}
-              autoPlay
-              loop
-              muted
-              playsInline
-              style={algoVideoStyle}
-            />
+          <div className={styles.carouselContainer}>
+            {/* Imagem do Carrossel */}
+            <div className={styles.carouselImageWrapper}>
+              <motion.img
+                key={activeCarouselIndex}
+                src={coursesData[activeCarouselIndex].image}
+                alt={coursesData[activeCarouselIndex].title}
+                className={styles.coursesImage}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5 }}
+              />
+              
+              {/* Botões de navegação */}
+              <button
+                className={styles.carouselBtn + " " + styles.prevBtn}
+                onClick={() => setActiveCarouselIndex((prev) => (prev - 1 + coursesData.length) % coursesData.length)}
+                aria-label="Slide anterior"
+              >
+                ❮
+              </button>
+              <button
+                className={styles.carouselBtn + " " + styles.nextBtn}
+                onClick={() => setActiveCarouselIndex((prev) => (prev + 1) % coursesData.length)}
+                aria-label="Próximo slide"
+              >
+                ❯
+              </button>
+            </div>
 
-            <div className={styles.infoText}>
-              <h3>O que é um algoritmo?</h3>
-              <p>
-                Um algoritmo é uma sequência lógica e finita de instruções que
-                resolve um problema ou realiza uma tarefa. É a base do raciocínio
-                computacional.
-              </p>
-              <motion.div whileHover={{ scale: 1.03 }}>
-                <Link to="/algoritmo" className="btn-primary">
-                  Ler mais
-                </Link>
+            {/* Tópicos do Curso */}
+            <div className={styles.topicsWrapper}>
+              <motion.h3
+                key={`title-${activeCarouselIndex}`}
+                className={styles.courseTitle}
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                {coursesData[activeCarouselIndex].title}
+              </motion.h3>
+
+              <motion.div
+                key={`topics-${activeCarouselIndex}`}
+                className={styles.topicsList}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.4, staggerChildren: 0.05 }}
+              >
+                {coursesData[activeCarouselIndex].topics.map((topic, index) => (
+                  <motion.div
+                    key={index}
+                    className={styles.topicItem}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                  >
+                    {topic}
+                  </motion.div>
+                ))}
               </motion.div>
             </div>
           </div>

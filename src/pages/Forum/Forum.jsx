@@ -165,7 +165,7 @@ const Forum = () => {
           
           {/* Card de Boas Vindas */}
           <div className={`${styles.sidebarCard} bg-blue-600 text-white`} style={{background: 'linear-gradient(135deg, #2563EB 0%, #1d4ed8 100%)', color: 'white'}}>
-            <h3 className="font-bold text-lg mb-2">Comunidade Cyber Tech</h3>
+            <h3 className="font-bold text-lg mb-2"><span style={{color: 'whitesmoke'}}>Comunidade Cyber Tech</span></h3>
             <p className="text-sm opacity-90 mb-4">
               Junte-se a discussões, compartilhe conhecimento e evolua sua carreira na programação.
             </p>

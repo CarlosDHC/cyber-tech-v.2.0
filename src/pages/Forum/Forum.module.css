@@ -2,7 +2,6 @@
 .forumPage {
   background-color: #f3f4f6; /* Fundo cinza claro */
   min-height: 100vh;
-  padding-top: 100px; /* Espaço para o Header do site */
   padding-bottom: 60px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
