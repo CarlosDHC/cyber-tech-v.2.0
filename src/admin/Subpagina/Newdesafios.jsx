@@ -6,80 +6,72 @@ import styles from "../Admin.module.css";
 import { db } from "../../../FirebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 
-export default function newdesafios() {
-    // Dados Principais
+export default function NewDesafios() {
+    // Dados de Identificação e Capa
     const [titulo, setTitulo] = useState("");
     const [resumo, setResumo] = useState("");
-    const [capa, setCapa] = useState("");
+    const [capa, setCapa] = useState(""); // Link da imagem do card/capa
+    const [area, setArea] = useState(""); // Direito, Engenharia, TI
+    const [tentativas, setTentativas] = useState(1);
 
-    // --- NOVOS ESTADOS ---
-    const [autor, setAutor] = useState("");
-    const [tempoLeitura, setTempoLeitura] = useState("");
+    // Conteúdo do Desafio (Texto e Imagem)
+    const [perguntaTexto, setPerguntaTexto] = useState("");
+    const [perguntaImagem, setPerguntaImagem] = useState(""); // Link da imagem do enunciado
 
-    // O "Corpo" do post é uma lista de blocos
-    const [secoes, setSecoes] = useState([
-        { id: 1, type: "paragraph", content: "" }
-    ]);
+    // Alternativas (Texto e Imagem)
+    const [alternativas, setAlternativas] = useState({
+        a: { texto: "", imagem: "" },
+        b: { texto: "", imagem: "" },
+        c: { texto: "", imagem: "" },
+        d: { texto: "", imagem: "" }
+    });
+    const [alternativaCorreta, setAlternativaCorreta] = useState("");
 
     const [loading, setLoading] = useState(false);
     const [collapsed, setCollapsed] = useState(false);
 
-    // --- FUNÇÕES DO CONSTRUTOR ---
-
-    const adicionarBloco = (tipo) => {
-        setSecoes([
-            ...secoes,
-            { id: Date.now(), type: tipo, content: "" }
-        ]);
+    // Funções de manipulação
+    const handleAlternativaChange = (letra, campo, valor) => {
+        setAlternativas(prev => ({
+            ...prev,
+            [letra]: { ...prev[letra], [campo]: valor }
+        }));
     };
 
-    const atualizarBloco = (id, valor) => {
-        setSecoes(secoes.map(secao =>
-            secao.id === id ? { ...secao, content: valor } : secao
-        ));
-    };
-
-    const removerBloco = (id) => {
-        if (secoes.length === 1) return; // Impede remover tudo
-        setSecoes(secoes.filter(secao => secao.id !== id));
-    };
-
-    const moverBloco = (index, direcao) => {
-        const novasSecoes = [...secoes];
-        const [itemRemovido] = novasSecoes.splice(index, 1);
-        novasSecoes.splice(index + direcao, 0, itemRemovido);
-        setSecoes(novasSecoes);
-    };
-
-    // --- SALVAR NO FIREBASE ---
-
-    async function salvarPost() {
-        if (!titulo || !resumo || !autor || !tempoLeitura) {
-            alert("Preencha o Título, Resumo, Autor e Tempo de Leitura.");
+    async function salvarDesafio() {
+        if (!titulo || !area || !alternativaCorreta || (!perguntaTexto && !perguntaImagem)) {
+            alert("Preencha os campos obrigatórios: Título, Área, Enunciado e Alternativa Correta.");
             return;
         }
 
         setLoading(true);
 
         try {
-            await addDoc(collection(db, "blog"), {
-                titulo: titulo,
-                resumo: resumo,
-                autor: autor,
-                tempoLeitura: tempoLeitura,
-                imagemUrl: capa || "https://placehold.co/600x400?text=Capa",
-                conteudo: secoes,
+            await addDoc(collection(db, "desafios"), {
+                titulo,
+                resumo,
+                imagemCapa: capa,
+                area,
+                tentativasPermitidas: Number(tentativas),
+                enunciado: {
+                    texto: perguntaTexto,
+                    imagem: perguntaImagem
+                },
+                alternativas,
+                alternativaCorreta,
                 dataCriacao: new Date().toISOString()
             });
 
-            alert("Post publicado com sucesso!");
-
-            setTitulo("");
-            setResumo("");
-            setCapa("");
-            setAutor("");
-            setTempoLeitura("");
-            setSecoes([{ id: Date.now(), type: "paragraph", content: "" }]);
+            alert("Desafio com imagens publicado!");
+            
+            // Limpar formulário
+            setTitulo(""); setResumo(""); setCapa(""); setArea("");
+            setPerguntaTexto(""); setPerguntaImagem("");
+            setAlternativas({
+                a: { texto: "", imagem: "" }, b: { texto: "", imagem: "" },
+                c: { texto: "", imagem: "" }, d: { texto: "", imagem: "" }
+            });
+            setAlternativaCorreta("");
 
         } catch (error) {
             console.error("Erro:", error);
@@ -91,215 +83,89 @@ export default function newdesafios() {
 
     return (
         <div className={styles.container}>
-            {/* SIDEBAR */}
             <aside className={`${styles.sidebar} ${collapsed ? styles.sidebarCollapsed : ""}`}>
-                <button className={styles.toggleBtn} onClick={() => setCollapsed(prev => !prev)}>
+                <button className={styles.toggleBtn} onClick={() => setCollapsed(!collapsed)}>
                     <img src="/menu.png" alt="menu" />
                 </button>
                 <h2 className={styles.title}>Painel Admin</h2>
                 <ul className={styles.navList}>
-                    <li>
-                        <Link to="/admin" className={styles.navLink}>
-                            <img src="/casa.png" alt="" />
-                            <span className={styles.linkText}>Home</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/admin/notas" className={styles.navLink}>
-                            <img src="/estrela.png" alt="" />
-                            <span className={styles.linkText}>Notas</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/admin/newblog" className={`${styles.navLink} ${styles.active}`}>
-                            <img src="/blog.png" alt="" />
-                            <span className={styles.linkText}>Blog</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/admin/newdesafios" data-tooltip="Desafios" className={styles.navLink}>
-                            <img src="/desafio.png" alt="Desafios" />
-                            <span className={styles.linkText}>Desafios</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/admin/curtidas" className={styles.navLink}>
-                            <img src="/curti.png" alt="" />
-                            <span className={styles.linkText}>Curtidas</span>
-                        </Link>
-                    </li>
+                    <li><Link to="/admin" className={styles.navLink}><img src="/casa.png" alt="" /><span className={styles.linkText}>Home</span></Link></li>
+                    <li><Link to="/admin/newdesafios" className={`${styles.navLink} ${styles.active}`}><img src="/desafio.png" alt="" /><span className={styles.linkText}>Desafios</span></Link></li>
                 </ul>
             </aside>
 
             <main className={styles.main}>
                 <div className={styles.headerFlex}>
-                    <h1>Editor Profissional</h1>
-                    <button className={styles.publishBtn} onClick={salvarPost} disabled={loading}>
-                        {loading ? "Publicando..." : "Publicar Artigo"}
+                    <h1>Novo Desafio (Multimídia)</h1>
+                    <button className={styles.publishBtn} onClick={salvarDesafio} disabled={loading}>
+                        {loading ? "Publicando..." : "Publicar"}
                     </button>
                 </div>
 
                 <div className={styles.editorContainer}>
                     <div className={styles.formColumn}>
-
-                        {/* Metadados com Labels */}
+                        
+                        {/* SEÇÃO 1: CABEÇALHO */}
                         <div className={styles.metaBox}>
-                            <h3>Informações da Capa</h3>
-
+                            <h3>Configurações e Capa</h3>
                             <div className={styles.inputGroup}>
-                                <label className={styles.fieldLabel}>Título Principal</label>
-                                <input
-                                    className={styles.inputField}
-                                    placeholder="Título Principal"
-                                    value={titulo}
-                                    onChange={e => setTitulo(e.target.value)}
-                                />
+                                <label className={styles.fieldLabel}>Título</label>
+                                <input className={styles.inputField} value={titulo} onChange={e => setTitulo(e.target.value)} />
                             </div>
-
                             <div style={{ display: 'flex', gap: '10px' }}>
-                                <div className={styles.inputGroup} style={{ flex: 1 }}>
-                                    <label className={styles.fieldLabel}>Nome do Autor</label>
-                                    <input
-                                        className={styles.inputField}
-                                        placeholder="Nome do Autor"
-                                        value={autor}
-                                        onChange={e => setAutor(e.target.value)}
-                                    />
+                                <div style={{ flex: 1 }}>
+                                    <label className={styles.fieldLabel}>Área</label>
+                                    <select className={styles.inputField} value={area} onChange={e => setArea(e.target.value)}>
+                                        <option value="">Selecione...</option>
+                                        <option value="Direito">Direito</option>
+                                        <option value="Engenharia">Engenharia</option>
+                                        <option value="TI">TI</option>
+                                    </select>
                                 </div>
-
-                                <div className={styles.inputGroup} style={{ flex: 1 }}>
-                                    <label className={styles.fieldLabel}>Tempo (minutos)</label>
-                                    <input
-                                        className={styles.inputField}
-                                        placeholder="Ex: 5"
-                                        value={tempoLeitura}
-                                        type="number"
-                                        min="0"
-                                        onChange={(e) => {
-                                            const valor = e.target.value;
-                                            if (valor === "" || parseInt(valor) >= 0) {
-                                                setTempoLeitura(valor);
-                                            }
-                                        }}
-                                    />
+                                <div style={{ flex: 1 }}>
+                                    <label className={styles.fieldLabel}>Tentativas</label>
+                                    <input className={styles.inputField} type="number" value={tentativas} onChange={e => setTentativas(e.target.value)} />
                                 </div>
                             </div>
-
-                            <div className={styles.inputGroup}>
-                                <label className={styles.fieldLabel}>Resumo Curto</label>
-                                <input
-                                    className={styles.inputField}
-                                    placeholder="Resumo curto (aparece no card)"
-                                    value={resumo}
-                                    onChange={e => setResumo(e.target.value)}
-                                />
+                            <div className={styles.inputGroup} style={{ marginTop: '10px' }}>
+                                <label className={styles.fieldLabel}>Link da Imagem de Capa</label>
+                                <input className={styles.inputField} value={capa} onChange={e => setCapa(e.target.value)} placeholder="URL da imagem principal" />
                             </div>
-
-                            <div className={styles.inputGroup}>
-                                <label className={styles.fieldLabel}>Link da Imagem de Capa (URL)</label>
-                                <input
-                                    className={styles.inputField}
-                                    placeholder="Link da Imagem de Capa (URL)"
-                                    value={capa}
-                                    onChange={e => setCapa(e.target.value)}
-                                />
-                            </div>
-
-                            {capa && (
-                                <div style={{ marginTop: '10px' }}>
-                                    <p style={{ fontSize: '0.8rem', color: '#666', marginBottom: '5px' }}>Pré-visualização da Capa:</p>
-                                    <img
-                                        src={capa}
-                                        alt="Pré-visualização da capa"
-                                        style={{ maxWidth: '100%', maxHeight: '300px', borderRadius: '8px', objectFit: 'cover' }}
-                                        onError={(e) => e.target.style.display = 'none'}
-                                    />
-                                </div>
-                            )}
                         </div>
 
-                        <hr className={styles.divider} />
+                        {/* SEÇÃO 2: O DESAFIO */}
+                        <div className={styles.metaBox} style={{ marginTop: '20px' }}>
+                            <h3>Enunciado do Desafio</h3>
+                            <textarea className={styles.textAreaBlock} placeholder="Texto do enunciado..." value={perguntaTexto} onChange={e => setPerguntaTexto(e.target.value)} />
+                            <input className={styles.inputField} style={{ marginTop: '10px' }} placeholder="Link da Imagem do Desafio (Opcional)" value={perguntaImagem} onChange={e => setPerguntaImagem(e.target.value)} />
+                        </div>
 
-                        <h3 style={{ marginBottom: '15px', color: '#333' }}>Conteúdo do Post</h3>
-
-                        <div className={styles.blocksList}>
-                            {secoes.map((secao, index) => (
-                                <div key={secao.id} className={styles.blockItem}>
-
-                                    <div className={styles.blockHeader}>
-                                        <span className={styles.blockLabel}>
-                                            {secao.type === 'subtitle' && ' Subtítulo'}
-                                            {secao.type === 'paragraph' && ' Parágrafo'}
-                                            {secao.type === 'image' && ' Imagem (URL)'}
-                                        </span>
-                                        <div className={styles.blockActions}>
-                                            <button onClick={() => removerBloco(secao.id)} className={styles.btnIcon} title="Remover">
-                                                <img src="/lixeira.png" alt="" />
-                                            </button>
-                                            {index > 0 && <button onClick={() => moverBloco(index, -1)} className={styles.btnIcon}>
-                                                <img src="/sobe.png" alt="sobe" />
-                                            </button>}
-                                            {index < secoes.length - 1 && <button onClick={() => moverBloco(index, 1)} className={styles.btnIcon}>
-                                                <img src="/dece.png" alt="dece" />
-                                            </button>}
-                                        </div>
+                        {/* SEÇÃO 3: ALTERNATIVAS */}
+                        <div className={styles.metaBox} style={{ marginTop: '20px' }}>
+                            <h3>Alternativas (Texto e Link de Imagem)</h3>
+                            {['a', 'b', 'c', 'd'].map((letra) => (
+                                <div key={letra} style={{ borderBottom: '1px solid #eee', paddingBottom: '15px', marginBottom: '15px' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '5px' }}>
+                                        <input type="radio" name="correta" checked={alternativaCorreta === letra} onChange={() => setAlternativaCorreta(letra)} />
+                                        <label className={styles.fieldLabel}>Alternativa {letra.toUpperCase()}</label>
                                     </div>
-
-                                    {/* Labels dinâmicos para os blocos */}
-                                    {secao.type === 'paragraph' && (
-                                        <div className={styles.inputGroup}>
-                                            <label className={styles.fieldLabel}>Texto do Parágrafo</label>
-                                            <textarea
-                                                className={styles.textAreaBlock}
-                                                placeholder="Escreva seu parágrafo..."
-                                                value={secao.content}
-                                                onChange={e => atualizarBloco(secao.id, e.target.value)}
-                                            />
-                                        </div>
-                                    )}
-
-                                    {secao.type === 'subtitle' && (
-                                        <div className={styles.inputGroup}>
-                                            <label className={styles.fieldLabel}>Título do Subtítulo</label>
-                                            <input
-                                                className={styles.inputBlock}
-                                                placeholder="Digite um subtítulo..."
-                                                value={secao.content}
-                                                onChange={e => atualizarBloco(secao.id, e.target.value)}
-                                            />
-                                        </div>
-                                    )}
-
-                                    {secao.type === 'image' && (
-                                        <div className={styles.inputGroup}>
-                                            <label className={styles.fieldLabel}>Caminho da Imagem (URL)</label>
-                                            <input
-                                                className={styles.inputBlock}
-                                                placeholder="Cole o link da imagem aqui..."
-                                                value={secao.content}
-                                                onChange={e => atualizarBloco(secao.id, e.target.value)}
-                                            />
-                                            {secao.content && (
-                                                <div style={{ marginTop: '10px' }}>
-                                                    <img
-                                                        src={secao.content}
-                                                        alt="Pré-visualização"
-                                                        style={{ maxWidth: '100%', borderRadius: '8px' }}
-                                                        onError={(e) => e.target.style.display = 'none'}
-                                                    />
-                                                </div>
-                                            )}
-                                        </div>
-                                    )}
+                                    <input 
+                                        className={styles.inputField} 
+                                        placeholder="Texto da alternativa" 
+                                        value={alternativas[letra].texto} 
+                                        onChange={e => handleAlternativaChange(letra, 'texto', e.target.value)} 
+                                    />
+                                    <input 
+                                        className={styles.inputField} 
+                                        style={{ marginTop: '5px', fontSize: '0.85rem' }} 
+                                        placeholder="URL da Imagem para esta resposta" 
+                                        value={alternativas[letra].imagem} 
+                                        onChange={e => handleAlternativaChange(letra, 'imagem', e.target.value)} 
+                                    />
                                 </div>
                             ))}
                         </div>
 
-                        <div className={styles.addButtons}>
-                            <button onClick={() => adicionarBloco('subtitle')} className={styles.btnAdd}>+ Subtítulo</button>
-                            <button onClick={() => adicionarBloco('paragraph')} className={styles.btnAdd}>+ Parágrafo</button>
-                            <button onClick={() => adicionarBloco('image')} className={styles.btnAdd}>+ Imagem</button>
-                        </div>
                     </div>
                 </div>
             </main>
