@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-import "./Desafio.css";
-import { db, auth } from "../../../FirebaseConfig";
+import "./DesafioDir.css";
+import { db, auth } from "../../../../FirebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
-
-export default function DesafioDiaENoite() {
-  const total = 5;
-  const corretas = ["b", "b", "a", "a", "a"];
+export default function DesafioDir1() {
+  const total = 6;
+  const corretas = ["b", "c", "a", "b", "c", "a"];
 
   const [pontuacao, setPontuacao] = useState(0);
   const [respondidas, setRespondidas] = useState(Array(total).fill(false));
@@ -41,24 +40,23 @@ export default function DesafioDiaENoite() {
 
   const verificarFim = respondidas.every((r) => r);
   const porcentagem = Math.round((pontuacao / total) * 100);
+
   let msg = "Precisa praticar mais...";
   if (porcentagem >= 85) msg = "Excelente!";
   else if (porcentagem >= 60) msg = "Bom trabalho!";
 
-  // Salvar no Firebase
   useEffect(() => {
     if (verificarFim && !salvo && auth.currentUser) {
-      // Aplique este bloco nos ficheiros de desafio
       const salvarNoBanco = async () => {
         try {
           await addDoc(collection(db, "pontuacoes"), {
             uid: auth.currentUser.uid,
             email: auth.currentUser.email,
             nome: auth.currentUser.displayName || "Aluno",
-            desafio: "Desafio 4 - Funções",
+            desafio: "Desafio 1 - Noções Introdutórias de Direito",
             nota: pontuacao,
             total: total,
-            data: new Date().toISOString()
+            data: new Date().toISOString(),
           });
           setSalvo(true);
         } catch (error) {
@@ -71,53 +69,63 @@ export default function DesafioDiaENoite() {
 
   const desafios = [
     {
-      titulo: "Saudação do Dia",
-      codigo: `Qual função retorna "Bom dia!" se a hora for menor que 12, e "Boa noite!" caso contrário?`,
+      titulo: "O que é o Direito?",
+      codigo: "O Direito pode ser definido como:",
       alternativas: {
-        a: `def saudacao():\n    if hora < 12:\n        return "Boa noite!"\n    else:\n        return "Bom dia!"`,
-        b: `def saudacao(hora):\n    if hora < 12:\n        return "Bom dia!"\n    else:\n        return "Boa noite!"`,
-        c: `def saudacao():\n    print("Bom dia!")`,
-        d: `saudacao(hora):\n    return "Bom dia!"`,
+        a: "Um conjunto de regras morais sem força obrigatória.",
+        b: "Um conjunto de normas que regulam a convivência em sociedade.",
+        c: "Apenas leis escritas pelo Poder Executivo.",
+        d: "Um ramo exclusivo da filosofia.",
       },
     },
     {
-      titulo: "Verificar se é Dia",
-      codigo: `Qual função retorna True se for dia (entre 6h e 18h) e False se for noite?`,
+      titulo: "Fontes do Direito",
+      codigo: "Qual das alternativas é considerada uma fonte formal do Direito?",
       alternativas: {
-        a: `def eh_dia(hora):\n    return hora < 6`,
-        b: `def eh_dia(hora):\n    return hora >= 6 and hora < 18`,
-        c: `def eh_dia(hora):\n    print("Dia" if hora < 18)`,
-        d: `def eh_dia():\n    return hora >= 6`,
+        a: "Opinião pessoal do juiz",
+        b: "Costumes sociais informais",
+        c: "A lei",
+        d: "Vontade individual",
       },
     },
     {
-      titulo: "Nascer do Sol",
-      codigo: `O que será impresso ao executar o código abaixo?\n\ndef nascer_do_sol():\n    return "O sol está nascendo!"\n\nmensagem = nascer_do_sol()\nprint(mensagem)`,
+      titulo: "Direito Público e Privado",
+      codigo: "O Direito Constitucional pertence a qual ramo?",
       alternativas: {
-        a: `O sol está nascendo!`,
-        b: `mensagem`,
-        c: `None`,
-        d: `Erro: falta argumento`,
+        a: "Direito Público",
+        b: "Direito Privado",
+        c: "Direito Empresarial",
+        d: "Direito Internacional Privado",
       },
     },
     {
-      titulo: "Função com parâmetro",
-      codigo: `Qual função imprime "É dia claro!" se for antes das 18h, e "Boa noite!" caso contrário?`,
+      titulo: "Princípio da Legalidade",
+      codigo: "O princípio da legalidade determina que:",
       alternativas: {
-        a: `def tempo(hora):\n    if hora < 18:\n        print("É dia claro!")\n    else:\n        print("Boa noite!")`,
-        b: `def tempo():\n    if hora < 18:\n        return "É dia claro!"`,
-        c: `tempo(hora):\n    print("É dia claro!")`,
-        d: `def tempo(hora):\n    print("Boa tarde!")`,
+        a: "Tudo é permitido ao cidadão",
+        b: "Ninguém é obrigado a fazer ou deixar de fazer algo senão em virtude de lei",
+        c: "A lei vale apenas para o Estado",
+        d: "As leis são opcionais",
       },
     },
     {
-      titulo: "Função sem retorno",
-      codigo: `O que acontece com o código abaixo?\n\ndef boa_noite():\n    print("Boa noite!")\n\nresultado = boa_noite()\nprint(resultado)`,
+      titulo: "Constituição Federal",
+      codigo: "Qual é a principal função da Constituição Federal?",
       alternativas: {
-        a: `Boa noite!\nNone`,
-        b: `None`,
-        c: `Boa noite!\nBoa noite!`,
-        d: `Erro: função sem retorno`,
+        a: "Criar leis municipais",
+        b: "Regular contratos privados",
+        c: "Organizar o Estado e garantir direitos fundamentais",
+        d: "Punir crimes",
+      },
+    },
+    {
+      titulo: "Direitos Fundamentais",
+      codigo: "Os direitos fundamentais têm como objetivo principal:",
+      alternativas: {
+        a: "Garantir dignidade, liberdade e igualdade às pessoas",
+        b: "Beneficiar apenas o Estado",
+        c: "Regular apenas a economia",
+        d: "Punir infrações administrativas",
       },
     },
   ];
@@ -125,49 +133,64 @@ export default function DesafioDiaENoite() {
   return (
     <div className="pagina-desafios">
       <div className="scoreboard">{atualizarPlacar()}</div>
-      <h1>Desafios — Funções: Dia e Noite</h1>
-      <p className="subtitle">Escolha a alternativa correta! (Apenas uma tentativa)</p>
+
+      <h1>Desafio 1 - Noções Introdutórias de Direito</h1>
+      <p className="subtitle">
+        Clique na alternativa correta! (Apenas uma tentativa)
+      </p>
+
       {desafios.map((d, i) => (
         <div key={i} className="challenge-container">
           <h2>{`Desafio ${i + 1} — ${d.titulo}`}</h2>
           <pre>{d.codigo}</pre>
+
           <div className="alternativas">
             {Object.entries(d.alternativas).map(([letra, texto]) => (
               <button
                 key={letra}
-                className={`alternativa-btn ${valores[i] === letra ? "selecionada" : ""
-                  } ${respondidas[i] ? "bloqueada" : ""}`}
+                className={`alternativa-btn ${
+                  valores[i] === letra ? "selecionada" : ""
+                } ${respondidas[i] ? "bloqueada" : ""}`}
                 onClick={() => verificar(i, letra)}
                 disabled={respondidas[i]}
               >
-                <strong>{letra.toUpperCase()}.</strong>
-                <pre>{texto}</pre>
+                <strong>{letra.toUpperCase()}.</strong> {texto}
               </button>
             ))}
           </div>
-          <div className={`feedback ${feedbacks[i].includes("Correto") ? "correct" : "incorrect"}`}>
+
+          <div
+            className={`feedback ${
+              feedbacks[i].includes("Correto") ? "correct" : "incorrect"
+            }`}
+          >
             {feedbacks[i]}
           </div>
         </div>
       ))}
+
       {verificarFim && (
         <div className="final-score">
           {msg} Sua nota final é {pontuacao}/{total} ({porcentagem}%).
-          {salvo && <p style={{ fontSize: "0.9rem", color: "green", marginTop: "5px" }}>Nota salva com sucesso!</p>}
+          {salvo && (
+            <p style={{ fontSize: "0.9rem", color: "green", marginTop: "5px" }}>
+              Nota salva com sucesso!
+            </p>
+          )}
         </div>
       )}
 
-      <div className="navigation-links">
-        <Link to="/desafios/desafios3" className="back-link">
+<div className="navigation-links">
+        <Link to="/desafios/CapitulosDireito" className="back-link">
           <img src="/flecha1.png" alt="Voltar" className="logo-img" />
           Voltar
         </Link>
 
-        <Link to="/desafios" className="menu-link">
+        <Link to="/desafios/CapitulosDireito" className="menu-link">
           <img src="/azulejos.png" alt="Menu" className="logo-img" />
         </Link>
 
-        <Link to="/desafios" className="next-link">
+        <Link to="/desafios/Direito/DesafioDir2" className="next-link">
           Próximo
           <img src="/flecha2.png" alt="Próximo" className="logo-img" />
         </Link>
@@ -176,3 +199,5 @@ export default function DesafioDiaENoite() {
     </div>
   );
 }
+
+

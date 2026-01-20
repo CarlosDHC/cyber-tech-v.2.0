@@ -16,7 +16,7 @@ import Blog from './pages/Blog/Blog.jsx';
 import ChallengeList from './pages/ChallengeList/ChallengeList.jsx';
 import Forum from './pages/Forum/Forum.jsx';
 
-// Blog
+// Blognpm
 import Algoritmo from "./pages/Blog/Algoritmo";
 import Variavel from "./pages/Blog/Variavel.jsx";
 import Condicionais from "./pages/Blog/Condicionais.jsx";
@@ -40,18 +40,36 @@ import Perfil from './pages/Perfil/Perfil.jsx';
 import Admin from './admin/Admin.jsx';
 import Newblog from './admin/Subpagina/Newblog.jsx';
 import Comentarios from './admin/Subpagina/Curtidas.jsx';
+import Newdesafios from './admin/Subpagina/Newdesafios.jsx';
 import Notas from './admin/Subpagina/Notas.jsx';
 
 // Rotas protegidas
 import ProtectedRoute from './context/ProtectedRoute.jsx';
 import ProtectedAdminRoute from './context/ProtectedAdminRoute.jsx';
+// Capitulos 
+import CapitulosTecnologia from './pages/Desafios/CapitulosTecnologia.jsx';
+import CapitulosDireito from './pages/Desafios/CapitulosDireito.jsx';
+import CapitulosEngenharia from './pages/Desafios/CapitulosEngenharia.jsx';
 
-// Desafios
-import Desafio1 from './pages/Desafios/Desafio1.jsx';
-import Desafio2 from './pages/Desafios/Desafio2.jsx';
-import Desafio3 from './pages/Desafios/Desafio3.jsx';
-import Desafio4 from './pages/Desafios/Desafio4.jsx';
-import Desafio5 from './pages/Desafios/Desafio5.jsx';
+
+// Desafios tecnologia 
+import DesafioTec1 from './pages/Desafios/Tecnologia/DesafioTec1.jsx';
+import DesafioTec2 from './pages/Desafios/Tecnologia/DesafioTec2.jsx';
+import DesafioTec3 from './pages/Desafios/Tecnologia/DesafioTec3.jsx';
+import DesafioTec4 from './pages/Desafios/Tecnologia/DesafioTec4.jsx';
+
+// Desafios engenharia
+import DesafioEng1 from './pages/Desafios/Engenharia/DesafioEng1.jsx';
+import DesafioEng2 from './pages/Desafios/Engenharia/DesafioEng2.jsx';
+import DesafioEng3 from './pages/Desafios/Engenharia/DesafioEng3.jsx';
+import DesafioEng4 from './pages/Desafios/Engenharia/DesafioEng4.jsx';
+
+// Desafios direito 
+import DesafioDir1 from './pages/Desafios/Direito/DesafioDir1.jsx';
+import DesafioDir2 from './pages/Desafios/Direito/DesafioDir2.jsx';
+import DesafioDir3 from './pages/Desafios/Direito/DesafioDir3.jsx';
+import DesafioDir4 from './pages/Desafios/Direito//DesafioDir4.jsx';
+
 
 
 // Novas páginas
@@ -109,14 +127,31 @@ function App() {
             <Route path="/blog/post/:id" element={
               <ProtectedRoute><AnimatedPage><PostDinamico /></AnimatedPage></ProtectedRoute>
             } />
+            {/* --- Rotas Capitulos --- */}
+            <Route path="/desafios/capitulostecnologia" element={<ProtectedRoute><AnimatedPage><CapitulosTecnologia /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/desafios/capitulosengenharia" element={<ProtectedRoute><AnimatedPage><CapitulosEngenharia /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/desafios/capitulosdireito" element={<ProtectedRoute><AnimatedPage><CapitulosDireito /></AnimatedPage></ProtectedRoute>} />
 
+            {/* --- Rotas Tecnologia --- */}
             <Route path="/desafios" element={<ProtectedRoute><AnimatedPage><ChallengeList /></AnimatedPage></ProtectedRoute>} />
-            <Route path="/desafios/desafio1" element={<ProtectedRoute><AnimatedPage><Desafio1 /></AnimatedPage></ProtectedRoute>} />
-            <Route path="/desafios/desafio2" element={<ProtectedRoute><AnimatedPage><Desafio2 /></AnimatedPage></ProtectedRoute>} />
-            <Route path="/desafios/desafio3" element={<ProtectedRoute><AnimatedPage><Desafio3 /></AnimatedPage></ProtectedRoute>} />
-            <Route path="/desafios/desafio4" element={<ProtectedRoute><AnimatedPage><Desafio4 /></AnimatedPage></ProtectedRoute>} />
-            <Route path="/desafios/desafio5" element={<ProtectedRoute><AnimatedPage><Desafio5 /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/desafios/tecnologia/desafiotec1" element={<ProtectedRoute><AnimatedPage><DesafioTec1 /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/desafios/tecnologia/desafiotec2" element={<ProtectedRoute><AnimatedPage><DesafioTec2 /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/desafios/tecnologia/desafiotec3" element={<ProtectedRoute><AnimatedPage><DesafioTec3 /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/desafios/tecnologia/desafiotec4" element={<ProtectedRoute><AnimatedPage><DesafioTec4 /></AnimatedPage></ProtectedRoute>} />
 
+            {/* --- Rotas Engenharia --- */}
+            <Route path="/desafios" element={<ProtectedRoute><AnimatedPage><ChallengeList /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/desafios/engenharia/desafioeng1" element={<ProtectedRoute><AnimatedPage><DesafioEng1 /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/desafios/engenharia/desafioeng2" element={<ProtectedRoute><AnimatedPage><DesafioEng2 /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/desafios/engenharia/desafioeng3" element={<ProtectedRoute><AnimatedPage><DesafioEng3 /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/desafios/engenharia/desafioeng4" element={<ProtectedRoute><AnimatedPage><DesafioEng4 /></AnimatedPage></ProtectedRoute>} />
+
+            {/* --- Rotas Direito --- */}
+            <Route path="/desafios" element={<ProtectedRoute><AnimatedPage><ChallengeList /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/desafios/direito/desafiodir1" element={<ProtectedRoute><AnimatedPage><DesafioDir1 /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/desafios/direito/desafiodir2" element={<ProtectedRoute><AnimatedPage><DesafioDir2 /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/desafios/direito/desafiodir3" element={<ProtectedRoute><AnimatedPage><DesafioDir3 /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/desafios/direito/desafiodir4" element={<ProtectedRoute><AnimatedPage><DesafioDir4 /></AnimatedPage></ProtectedRoute>} />
 
             <Route path="/perfil" element={<ProtectedRoute><AnimatedPage><Perfil /></AnimatedPage></ProtectedRoute>} />
             <Route path="/forum" element={
@@ -139,6 +174,7 @@ function App() {
             <Route path="/admin" element={<ProtectedAdminRoute><AnimatedPage><Admin /></AnimatedPage></ProtectedAdminRoute>} />
             <Route path="/admin/newblog" element={<ProtectedAdminRoute><AnimatedPage><Newblog /></AnimatedPage></ProtectedAdminRoute>} />
             <Route path="/admin/curtidas" element={<ProtectedAdminRoute><AnimatedPage><Comentarios /></AnimatedPage></ProtectedAdminRoute>} />
+            <Route path="/admin/newdesafios" element={<ProtectedAdminRoute><AnimatedPage><Newdesafios/></AnimatedPage></ProtectedAdminRoute>} />
             <Route path="/admin/notas" element={<ProtectedAdminRoute><AnimatedPage><Notas /></AnimatedPage></ProtectedAdminRoute>} />
 
           </Routes>

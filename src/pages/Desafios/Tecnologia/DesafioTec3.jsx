@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./Desafio.css";
-import { db, auth } from "../../../FirebaseConfig";
+import { db, auth } from "../../../../FirebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
 
-export default function Desafio3() {
+export default function DesafioTec3() {
   const total = 5;
   const corretas = [
     ["if", "elif", "else"],
@@ -207,22 +207,17 @@ export default function Desafio3() {
       )}
 
       <div className="navigation-links">
-              <Link to="/desafios/desafios2" className="back-link">
-                <img src="/flecha1.png" alt="Voltar" className="logo-img" />
-                Voltar
-              </Link>
-
-        <Link to="/desafios" className="back-link">
-          <img src="/flecha1.png" alt="Voltar" className="logo-img" />
+      <Link to="/desafios/Tecnologia/DesafioTec2" className="back-link">
           Voltar
-        </Link>
+          <img src="/flecha1.png" alt="Voltar" className="logo-img" />
+      </Link>
 
-        <Link to="/desafios" className="menu-link">
+        <Link to="/desafios/CapitulosTecnologia" className="menu-link">
           <img src="/azulejos.png" alt="Menu" className="logo-img" />
         </Link>
 
 
-        <Link to="/desafios/desafio4" className="next-link">
+        <Link to="/desafios/Tecnologia/DesafioTec4" className="next-link">
           Próximo
           <img src="/flecha2.png" alt="Próximo" className="logo-img" />
         </Link>

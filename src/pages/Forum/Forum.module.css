@@ -1,120 +1,531 @@
-/* src/pages/Forum/Forum.module.css */
-
-.chatContainer {
-  display: flex;
-  flex-direction: column;
-  height: 80vh; /* Altura fixa para permitir scroll interno */
-  max-width: 900px;
-  margin: 20px auto;
-  background-color: #1a1a1a; /* Fundo escuro padrão do projeto */
-  border-radius: 12px;
-  border: 1px solid #333;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+/* Container Principal da Página */
+.forumPage {
+  background-color: #f3f4f6; /* Fundo cinza claro */
+  min-height: 100vh;
+  padding-bottom: 60px;
+  padding-top: 100px; /* Ajuste conforme a altura do seu Header */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.messagesList {
+/* Wrapper centralizado */
+.contentWrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 5px 0 0 0;
+  display: flex;
+  gap: 30px;
+  position: relative;
+  /* Garante que o topo da Sidebar alinhe com o topo do Feed */
+  align-items: flex-start; 
+}
+
+/* --- COLUNA ESQUERDA (FEED) --- */
+.feedSection {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Título da Página */
+.pageTitle {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 10px;
+  padding-left: 15px;
+  border-left: 5px solid #2563EB; /* Detalhe azul */
+  line-height: 1.2;
+}
+
+.pageTitle span {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #6b7280;
+  margin-top: 5px;
+}
+
+/* --- BADGE DE FILTRO ATIVO (NOVO) --- */
+.activeFilterBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+  background-color: #e0e7ff; /* Azul bem claro */
+  color: #2563EB;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.1);
+  animation: fadeIn 0.3s ease;
+}
+
+.clearFilterBtn {
+  background: none;
+  border: none;
+  color: #666;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.clearFilterBtn:hover {
+  background-color: rgba(0,0,0,0.05);
+  color: #dc2626; /* Vermelho ao passar o mouse */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- CARD DE POSTAGEM --- */
+.postCard {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.postCard:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  border-color: #d1d5db;
+}
+
+/* Header do Post */
+.postHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #e0e7ff;
+  color: #2563EB;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.authorInfo h4 {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.authorInfo span {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+/* Conteúdo do Post */
+.postContent h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.25rem;
+  color: #111827;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.postContent p {
+  color: #4b5563;
+  line-height: 1.6;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  white-space: pre-line;
+}
+
+/* Tags (Chips no Post) */
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.tag {
+  background-color: #eff6ff;
+  color: #2563EB;
+  padding: 4px 12px;
+  border-radius: 15px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer; /* Agora clicável para filtrar */
+  transition: background 0.2s;
+}
+
+.tag:hover {
+  background-color: #dbeafe;
+  text-decoration: underline;
+}
+
+/* Rodapé do Post */
+.postFooter {
+  border-top: 1px solid #f3f4f6;
+  padding-top: 15px;
+  display: flex;
+  gap: 20px;
+}
+
+.actionBtn {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6b7280;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.actionBtn:hover {
+  background-color: #f3f4f6;
+  color: #2563EB;
+}
+
+/* Like Ativo */
+.liked {
+  color: #2563EB;
+  background-color: #eff6ff;
+  font-weight: 600;
+}
+
+/* --- SESSÃO DE COMENTÁRIOS --- */
+.commentsSection {
+  margin-top: 20px;
+  background-color: #fafafa;
+  border-radius: 12px;
   padding: 20px;
-  overflow-y: auto;
+  border: 1px solid #f0f0f0;
+}
+
+.commentsList {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  background-image: linear-gradient(to bottom, #1a1a1a, #121212);
+  margin-bottom: 20px;
 }
 
-/* Estilo para o scrollbar */
-.messagesList::-webkit-scrollbar {
-  width: 6px;
-}
-
-.messagesList::-webkit-scrollbar-thumb {
-  background: #444;
-  border-radius: 10px;
-}
-
-.message {
-  max-width: 70%;
-  padding: 12px 16px;
-  border-radius: 15px;
-  position: relative;
-  font-size: 0.95rem;
-  line-height: 1.4;
-  color: #fff;
-}
-
-.myMsg {
-  align-self: flex-end;
-  background-color: #007bff; /* Azul padrão para o usuário atual */
-  border-bottom-right-radius: 2px;
-}
-
-.otherMsg {
-  align-self: flex-start;
-  background-color: #333; /* Cinza para outros alunos */
-  border-bottom-left-radius: 2px;
-}
-
-.message small {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 4px;
-  font-size: 0.75rem;
-  color: #aaa;
-}
-
-.myMsg small {
-  color: #e0e0e0;
-  text-align: right;
-}
-
-.inputArea {
+.comment {
   display: flex;
-  padding: 20px;
-  background-color: #222;
-  border-top: 1px solid #333;
+  flex-direction: column;
+  gap: 4px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.comment:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.commentAuthor {
+  font-weight: bold;
+  font-size: 0.85rem;
+  color: #2563EB;
+}
+
+.commentText {
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+/* Input de Resposta (Estilo Pílula) */
+.commentInputGroup {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #fff;
+  padding: 5px 5px 5px 15px;
+  border-radius: 30px;
+  border: 1px solid #d1d5db;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.commentInputGroup:focus-within {
+  border-color: #2563EB;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.commentInputGroup input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 0.9rem;
+  outline: none;
+  color: #1f2937;
+}
+
+.commentBtn {
+  background-color: #2563EB;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.commentBtn:hover {
+  background-color: #1d4ed8;
+}
+
+/* --- ÁREA DE NOVA PERGUNTA --- */
+.newQuestionArea {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid #e5e7eb;
+  margin-top: 10px;
+  box-shadow: 0 -4px 10px rgba(0,0,0,0.03);
+}
+
+.newQuestionArea h3 {
+  margin-top: 0;
+  color: #1f2937;
+  margin-bottom: 15px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.mainInput, 
+.mainTextarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-family: inherit;
+  outline: none;
+  background-color: #fff;
+  font-size: 0.95rem;
+  transition: border-color 0.2s;
+}
+
+.mainInput:focus, 
+.mainTextarea:focus {
+  border-color: #2563EB;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.submitBtn {
+  align-self: flex-end;
+  background-color: #2563EB;
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.submitBtn:hover {
+  background-color: #1d4ed8;
+}
+
+.submitBtn:disabled {
+  background-color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.loginWarn {
+  color: #666;
+  font-style: italic;
+}
+
+/* --- SELETOR DE TAGS (CHIPS) --- */
+.tagsLabel {
+  font-size: 0.9rem;
+  color: #374151;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.tagSelectorContainer {
+  display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
-.inputArea input {
-  flex: 1;
-  padding: 12px 15px;
-  border-radius: 8px;
-  border: 1px solid #444;
-  background-color: #111;
-  color: white;
-  outline: none;
-  transition: border-color 0.3s;
+.tagOption {
+  background-color: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  color: #4b5563;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
 }
 
-.inputArea input:focus {
-  border-color: #007bff;
+.tagOption:hover {
+  background-color: #e5e7eb;
+  border-color: #d1d5db;
 }
 
-.inputArea button {
-  padding: 10px 20px;
-  background-color: #007bff;
+.tagOptionSelected {
+  background-color: #2563EB;
   color: white;
-  border: none;
+  border-color: #2563EB;
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
+}
+
+.tagOptionSelected:hover {
+  background-color: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+/* --- BARRA LATERAL (SIDEBAR) --- */
+.sidebarSection {
+  width: 320px;
+  height: fit-content;
+  position: sticky;
+  top: 120px; /* Ajuste conforme Header */
+}
+
+.sidebarCard {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.sidebarTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #f3f4f6;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Lista de Tópicos */
+.topicList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.topicItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 10px;
   border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s, transform 0.2s;
+  transition: all 0.2s;
+  color: #4b5563;
 }
 
-.inputArea button:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px);
+.topicItem:hover {
+  background-color: #f3f4f6;
+  color: #2563EB;
+  padding-left: 15px; /* Efeito de movimento */
 }
 
-/* Ajustes Responsivos */
-@media (max-width: 768px) {
-  .chatContainer {
-    height: 90vh;
-    margin: 10px;
+/* NOVO: Item de Tópico Selecionado (Filtro Ativo) */
+.topicItemActive {
+  background-color: #eff6ff;
+  color: #2563EB;
+  border-left: 4px solid #2563EB;
+  font-weight: 700;
+  padding-left: 12px; /* Compensa a borda */
+}
+
+.topicCount {
+  background-color: #f3f4f6;
+  color: #6b7280;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-weight: 600;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Contador fica azul quando ativo */
+.topicItemActive .topicCount {
+  background-color: #2563EB;
+  color: white;
+}
+
+.rulesList {
+  padding-left: 20px;
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+.loadingMsg {
+  text-align: center;
+  color: #666;
+  font-style: italic;
+  margin-top: 20px;
+}
+
+/* --- RESPONSIVIDADE --- */
+@media (max-width: 900px) {
+  .contentWrapper {
+    flex-direction: column;
+    align-items: stretch;
   }
   
-  .message {
-    max-width: 85%;
+  .sidebarSection {
+    width: 100%;
+    position: static;
+    order: -1;
+    margin-bottom: 20px;
+  }
+  
+  .pageTitle {
+    font-size: 1.5rem;
+  }
+  
+  .commentInputGroup {
+    flex-direction: column;
+    align-items: stretch;
+    border-radius: 12px;
+    padding: 10px;
+    gap: 10px;
+  }
+  
+  .commentBtn {
+    width: 100%;
+    text-align: center;
+    border-radius: 8px;
   }
 }
