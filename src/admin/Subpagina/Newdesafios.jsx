@@ -28,7 +28,7 @@ export default function NewDesafios() {
     const [alternativaCorreta, setAlternativaCorreta] = useState("");
 
     const [loading, setLoading] = useState(false);
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(true);
 
     // Funções de manipulação
     const handleAlternativaChange = (letra, campo, valor) => {
@@ -63,7 +63,7 @@ export default function NewDesafios() {
             });
 
             alert("Desafio com imagens publicado!");
-            
+
             // Limpar formulário
             setTitulo(""); setResumo(""); setCapa(""); setArea("");
             setPerguntaTexto(""); setPerguntaImagem("");
@@ -89,8 +89,36 @@ export default function NewDesafios() {
                 </button>
                 <h2 className={styles.title}>Painel Admin</h2>
                 <ul className={styles.navList}>
-                    <li><Link to="/admin" className={styles.navLink}><img src="/casa.png" alt="" /><span className={styles.linkText}>Home</span></Link></li>
-                    <li><Link to="/admin/newdesafios" className={`${styles.navLink} ${styles.active}`}><img src="/desafio.png" alt="" /><span className={styles.linkText}>Desafios</span></Link></li>
+                    <li>
+                        <Link to="/admin" data-tooltip="Home" className={styles.navLink}>
+                            <img src="/casa.png" alt="Home" />
+                            <span className={styles.linkText}>Home</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/admin/notas" data-tooltip="Notas" className={styles.navLink}>
+                            <img src="/estrela.png" alt="Notas" />
+                            <span className={styles.linkText}>Notas</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/admin/newblog" data-tooltip="Blog" className={styles.navLink}>
+                            <img src="/blog.png" alt="Blog" />
+                            <span className={styles.linkText}>Blog</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/admin/newdesafios" data-tooltip="Desafios" className={styles.navLink}>
+                            <img src="/desafio.png" alt="Desafios" />
+                            <span className={styles.linkText}>Desafios</span>
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/admin/curtidas" data-tooltip="like" className={styles.navLink}>
+                            <img src="/curti.png" alt="curti" />
+                            <span className={styles.linkText}>like</span>
+                        </Link>
+                    </li>
                 </ul>
             </aside>
 
@@ -104,7 +132,7 @@ export default function NewDesafios() {
 
                 <div className={styles.editorContainer}>
                     <div className={styles.formColumn}>
-                        
+
                         {/* SEÇÃO 1: CABEÇALHO */}
                         <div className={styles.metaBox}>
                             <h3>Configurações e Capa</h3>
@@ -149,18 +177,18 @@ export default function NewDesafios() {
                                         <input type="radio" name="correta" checked={alternativaCorreta === letra} onChange={() => setAlternativaCorreta(letra)} />
                                         <label className={styles.fieldLabel}>Alternativa {letra.toUpperCase()}</label>
                                     </div>
-                                    <input 
-                                        className={styles.inputField} 
-                                        placeholder="Texto da alternativa" 
-                                        value={alternativas[letra].texto} 
-                                        onChange={e => handleAlternativaChange(letra, 'texto', e.target.value)} 
+                                    <input
+                                        className={styles.inputField}
+                                        placeholder="Texto da alternativa"
+                                        value={alternativas[letra].texto}
+                                        onChange={e => handleAlternativaChange(letra, 'texto', e.target.value)}
                                     />
-                                    <input 
-                                        className={styles.inputField} 
-                                        style={{ marginTop: '5px', fontSize: '0.85rem' }} 
-                                        placeholder="URL da Imagem para esta resposta" 
-                                        value={alternativas[letra].imagem} 
-                                        onChange={e => handleAlternativaChange(letra, 'imagem', e.target.value)} 
+                                    <input
+                                        className={styles.inputField}
+                                        style={{ marginTop: '5px', fontSize: '0.85rem' }}
+                                        placeholder="URL da Imagem para esta resposta"
+                                        value={alternativas[letra].imagem}
+                                        onChange={e => handleAlternativaChange(letra, 'imagem', e.target.value)}
                                     />
                                 </div>
                             ))}

@@ -9,7 +9,7 @@ import { collection, getDocs, orderBy, query } from "firebase/firestore";
 export default function Curtidas() {
   const [curtidas, setCurtidas] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(true);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export default function Curtidas() {
       <aside className={`${styles.sidebar} ${collapsed ? styles.sidebarCollapsed : ""}`}>
         <button
           className={styles.toggleBtn}
-          onClick={() => setCollapsed((prev) => !prev)}
+          onClick={() => setCollapsed(!collapsed)}
           aria-label={collapsed ? "Abrir menu" : "Fechar menu"}
         >
           <img src="/menu.png" alt="menu" />
