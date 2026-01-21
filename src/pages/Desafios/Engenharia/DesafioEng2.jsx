@@ -4,7 +4,7 @@ import { db, auth } from "../../../../FirebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
-export default function DesafioDir1() {
+export default function DesafioEng2() {
   const total = 6;
   const corretas = ["b", "c", "a", "b", "c", "a"];
 
