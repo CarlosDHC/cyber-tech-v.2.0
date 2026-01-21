@@ -1,15 +1,10 @@
-
-function DesafioEng2() {
-  return (
-    <div>
-      <h1>Desafio Direito 1</h1>
 import React, { useState, useEffect } from "react";
 import "./DesafioEng.css";
 import { db, auth } from "../../../../FirebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
-export default function DesafioEng1() {
+export default function DesafioEng5() {
   const total = 6;
   const corretas = ["b", "c", "a", "b", "c", "a"];
 
@@ -204,7 +199,5 @@ export default function DesafioEng1() {
     </div>
   );
 }
-
-export default DesafioEng2;
 
 

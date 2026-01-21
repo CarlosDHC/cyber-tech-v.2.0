@@ -322,11 +322,19 @@ const Forum = () => {
         
         {/* BARRA LATERAL (Agora interativa) */}
         <aside className={styles.sidebarSection}>
-          <div className={styles.sidebarCard} style={{background: 'linear-gradient(135deg, #2563EB 0%, #1d4ed8 100%)', color: 'white'}}>
-            <h3 className="font-bold text-lg mb-2"><span style={{
-              color:'whitesmoke'
-            }}>Comunidade Cyber Tech</span></h3>
-            <p className="text-sm opacity-90 mb-4">Participe, ajude e ganhe relevância na plataforma.</p>
+          
+          {/* Card de Boas Vindas */}
+          <div className={`${styles.sidebarCard} bg-blue-600 text-white`} style={{background: 'linear-gradient(135deg, #2563EB 0%, #1d4ed8 100%)', color: 'white'}}>
+            <h3 className="font-bold text-lg mb-2"><span style={{color: 'whitesmoke'}}>Comunidade Cyber Tech</span></h3>
+            <p className="text-sm opacity-90 mb-4">
+              Junte-se a discussões, compartilhe conhecimento e evolua sua carreira na programação.
+            </p>
+            <div className="flex -space-x-2 overflow-hidden">
+               <div className="inline-block h-8 w-8 rounded-full ring-2 ring-white bg-gray-200"></div>
+               <div className="inline-block h-8 w-8 rounded-full ring-2 ring-white bg-gray-300"></div>
+               <div className="inline-block h-8 w-8 rounded-full ring-2 ring-white bg-gray-400"></div>
+               <div className="flex items-center justify-center h-8 w-8 rounded-full ring-2 ring-white bg-gray-500 text-xs text-white font-bold">+99</div>
+            </div>
           </div>
 
           <div className={styles.sidebarCard}>
