@@ -14,6 +14,7 @@ export default function DesafioDir1() {
   const [valores, setValores] = useState(Array(total).fill(""));
   const [tentativas, setTentativas] = useState(Array(total).fill(0));
   const [salvo, setSalvo] = useState(false);
+  
 
   const atualizarPlacar = () => `Pontuação: ${pontuacao} / ${total}`;
 
