@@ -29,7 +29,7 @@ export default function DesafioDir1() {
       novosFeedbacks[num] = "Correto!";
       setPontuacao((prev) => prev + 1);
     } else {
-      novosFeedbacks[num] = "Resposta incorreta. (sem nova tentativa)";
+      novosFeedbacks[num] = "Resposta incorreta.";
     }
 
     novasRespondidas[num] = true;
