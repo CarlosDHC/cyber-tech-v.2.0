@@ -94,6 +94,36 @@ function Home() {
         "CONCEITOS",
         "INTRODUÇÃO"
       ]
+    },
+    {
+      id: 4,
+      title: "Recursos Humanos",
+      image: "/rh-art.jpg",
+      topics: [
+        "RECRUTAMENTO & SELEÇÃO",
+        "TREINAMENTO & DESENVOLVIMENTO",
+        "RELAÇÕES TRABALHISTAS",
+        "CULTURA & ENGAJAMENTO",
+        "FOLHA DE PAGAMENTO",
+        "BENEFÍCIOS",
+        "AVALIAÇÃO DE DESEMPENHO",
+        "SEGURANÇA DO TRABALHO"
+      ]
+    },
+    {
+      id: 5,
+      title: "Marketing Digital",
+      image: "/marketing-art.jpg",
+      topics: [
+        "SEO & CONTEÚDO",
+        "MÍDIAS SOCIAIS & ANÚNCIOS",
+        "EMAIL MARKETING & AUTOMAÇÃO",
+        "ANÁLISE & ESTRATÉGIA",
+        "CRM & FERRAMENTAS",
+        "CRM",
+        "CONVERSÃO & VENDAS",
+        "CONVERSÃO & VENDAS"
+      ]
     }
   ];
 
@@ -134,6 +164,16 @@ function Home() {
       id: 3,
       image: '/di-carro.jpg',
  
+    },
+    {
+      id: 4,
+      image: '/rh-carro.jpg'
+     
+    },
+    {
+      id: 5,
+      image: '/marketing-carro.jpg'
+     
     }
   ];
 
