@@ -19,6 +19,7 @@ import iconPerson from "../../assets/icons/icon-person.png";
 import iconFood from "../../assets/icons/icon-food.png";
 import iconSunMoon from "../../assets/icons/icon-sun-moon.png";
 
+
 function Home() {
   const iconMap = {
     person: iconPerson,
@@ -28,10 +29,10 @@ function Home() {
   };
 
   const videoMap = {
-    "o-que-e-algoritmo": "/videos/algoritmo.mp4",
-    "estudar-ou-descansar": "/videos/menino.mp4",
-    "fome": "/videos/comida.mp4",
-    "dia-ou-noite": "/videos/sollua.mp4",
+    "o-que-e-algoritmo": "https://imgur.com/A6MA8Ua.jpg",
+    "estudar-ou-descansar": "https://imgur.com/A6MA8Ua.jpg",
+    "fome": "https://imgur.com/A6MA8Ua.jpg",
+    "dia-ou-noite": "https://imgur.com/A6MA8Ua.jpg",
   };
 
   const slugToRoute = {
@@ -42,9 +43,9 @@ function Home() {
   };
 
   const customTitles = {
-    "estudar-ou-descansar": "O que é um algoritmo?",  
-    "fome": "Condicionais",                
-    "dia-ou-noite": "Funções"    
+    "estudar-ou-descansar": "Tecnologia",  
+    "fome": "Engenharia Civil",                
+    "dia-ou-noite": "Direito"    
   };
 
   const [activeCarouselIndex, setActiveCarouselIndex] = React.useState(0);
@@ -310,8 +311,8 @@ function Home() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35 }}
         >
-          <h2>Desafios práticos</h2>
-          <p>Experimente o funcionamento de if/else por meio de exercícios</p>
+          <h2>Cursos</h2>
+          <p>Escolha a sua área de estudos.</p>
 
           <div className={styles.challengeCardsList}>
             {featuredChallenges.map((challenge) => {
