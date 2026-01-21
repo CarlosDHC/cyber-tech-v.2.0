@@ -231,6 +231,43 @@ function Home() {
     </section>
 
       <div className="container">
+        {/* SEÇÃO DE INTRODUÇÃO */}
+        <motion.section
+          className={styles.introductionSection}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3 }}
+        >
+          <div className={styles.introductionContent}>
+            <h2 className={styles.introductionTitle}>Bem-vindos à Jornada Multiprofissional Cyber Tech</h2>
+            
+            <p className={styles.introductionText}>
+              Nesta plataforma, você não apenas aprenderá conceitos isolados, mas como as engrenagens do mercado atual se conectam. Prepare-se para dominar as competências essenciais que definem o profissional do futuro:
+            </p>
+
+            <div className={styles.introductionCards}>
+              <div className={styles.introductionCard}>
+                <h3>Engenharia Civil & Tecnologia</h3>
+                <p>Entenda as bases da construção e infraestrutura integradas às inovações digitais e ferramentas que otimizam processos.</p>
+              </div>
+              
+              <div className={styles.introductionCard}>
+                <h3>Marketing Digital & RH</h3>
+                <p>Aprenda a construir uma marca forte e a gerir o capital mais valioso de qualquer empresa: as pessoas.</p>
+              </div>
+              
+              <div className={styles.introductionCard}>
+                <h3>Direito & Ética</h3>
+                <p>Navegue com segurança pelas normas jurídicas e regulamentações que regem os negócios e as relações de trabalho.</p>
+              </div>
+            </div>
+
+            <p className={styles.conclusionText}>
+              O objetivo é claro: transformar você em um líder versátil, capaz de entender desde a estrutura técnica até a gestão estratégica e humana de qualquer projeto.
+            </p>
+          </div>
+        </motion.section>
+
         {/* CARROSSEL DE CURSOS COM TÓPICOS */}
         <motion.section
           className={styles.coursesCarouselSection}

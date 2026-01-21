@@ -463,3 +463,99 @@
     height: 10px;
   }
 }
+
+/* ---------- Seção de Introdução ---------- */
+.introductionSection {
+  margin: 4rem 0;
+  padding: 3rem 2rem;
+  background: linear-gradient(135deg, rgba(9, 94, 139, 0.05) 0%, rgba(192, 220, 238, 0.1) 100%);
+  border-radius: 15px;
+  border-left: 5px solid var(--primary-blue);
+}
+
+.introductionContent {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.introductionTitle {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--primary-blue);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.introductionText {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-color);
+  margin-bottom: 2rem;
+  text-align: justify;
+}
+
+.introductionCards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.introductionCard {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  border-top: 4px solid var(--primary-blue);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.introductionCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 16px rgba(9, 94, 139, 0.15);
+}
+
+.introductionCard h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary-blue);
+  margin-bottom: 0.8rem;
+}
+
+.introductionCard p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-color);
+}
+
+.conclusionText {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-color);
+  margin-top: 2rem;
+  text-align: justify;
+  font-weight: 600;
+  padding: 1.5rem;
+  background: rgba(9, 94, 139, 0.08);
+  border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+  .introductionSection {
+    margin: 2rem 0;
+    padding: 2rem 1.5rem;
+  }
+
+  .introductionTitle {
+    font-size: 1.8rem;
+  }
+
+  .introductionText {
+    font-size: 0.95rem;
+  }
+
+  .introductionCards {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
