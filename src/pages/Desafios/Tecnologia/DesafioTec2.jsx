@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./Desafio.css";
-import { db, auth } from "../../../FirebaseConfig";
+import { db, auth } from "../../../../FirebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
 
-export default function Desafio2() {
+export default function DesafioTec2() {
   const total = 7;
   const corretas = [["+"], ["-"], ["*"], ["/"], ["%"], ["**"], ["and"]];
 
@@ -133,17 +133,17 @@ export default function Desafio2() {
       )}
 
       <div className="navigation-links">
-        <Link to="/desafios/desafio1" className="back-link">
+        <Link to="/desafios/Tecnologia/DesafioTec1" className="back-link">
           <img src="/flecha1.png" alt="Voltar" className="logo-img" />
           Voltar
         </Link>
 
-        <Link to="/desafios" className="menu-link">
+        <Link to="/desafios/CapitulosTecnologia" className="menu-link">
           <img src="/azulejos.png" alt="Menu" className="logo-img" />
         </Link>
 
 
-        <Link to="/desafios/desafio3" className="next-link">
+        <Link to="/desafios/Tecnologia/DesafioTec3" className="next-link">
           Próximo
           <img src="/flecha2.png" alt="Próximo" className="logo-img" />
         </Link>

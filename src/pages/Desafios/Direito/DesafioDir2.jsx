@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import "./Desafio.css";
-import { db, auth } from "../../../FirebaseConfig";
+import "./DesafioDir.css";
+import { db, auth } from "../../../../FirebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
-export default function Desafio1() {
+export default function DesafioDireito2() {
   const total = 6;
-  const corretas = ["b", "c", "c", "b", "b", "a"];
+  const corretas = ["c", "b", "a", "c", "b", "a"];
 
   const [pontuacao, setPontuacao] = useState(0);
   const [respondidas, setRespondidas] = useState(Array(total).fill(false));
@@ -40,24 +40,23 @@ export default function Desafio1() {
 
   const verificarFim = respondidas.every((r) => r);
   const porcentagem = Math.round((pontuacao / total) * 100);
+
   let msg = "Precisa praticar mais...";
   if (porcentagem >= 85) msg = "Excelente!";
   else if (porcentagem >= 60) msg = "Bom trabalho!";
 
-  // Salvar no Firebase
   useEffect(() => {
     if (verificarFim && !salvo && auth.currentUser) {
-      // Aplique este bloco nos ficheiros de desafio
       const salvarNoBanco = async () => {
         try {
           await addDoc(collection(db, "pontuacoes"), {
             uid: auth.currentUser.uid,
             email: auth.currentUser.email,
             nome: auth.currentUser.displayName || "Aluno",
-            desafio: "Desafio 1 - Introdução",
+            desafio: "Desafio 2 - Os Pilares do Direito",
             nota: pontuacao,
             total: total,
-            data: new Date().toISOString()
+            data: new Date().toISOString(),
           });
           setSalvo(true);
         } catch (error) {
@@ -70,80 +69,63 @@ export default function Desafio1() {
 
   const desafios = [
     {
-      titulo: "O que é um algoritmo?",
-      codigo: `Um algoritmo em programação é:`,
+      titulo: "Norma Jurídica",
+      codigo: "A norma jurídica pode ser definida como:",
       alternativas: {
-        a: "Um erro que ocorre durante a execução do código.",
-        b: "Um conjunto de instruções que resolvem um problema passo a passo.",
-        c: "Um tipo especial de variável usada no Python.",
-        d: "Uma biblioteca padrão do Python.",
+        a: "Uma regra moral sem obrigatoriedade",
+        b: "Um conselho do Estado",
+        c: "Uma regra de conduta imposta pelo Estado",
+        d: "Uma opinião do juiz",
       },
     },
     {
-      titulo: "Variáveis em Python",
-      codigo: `Qual linha cria corretamente uma variável chamada nome com o valor "Victor"?`,
+      titulo: "Coercibilidade",
+      codigo: "O que significa dizer que a norma jurídica é coercitiva?",
       alternativas: {
-        a: 'var nome = "Victor"',
-        b: 'nome: "Victor"',
-        c: 'nome = "Victor"',
-        d: 'string nome = "Victor"',
+        a: "Ela é opcional",
+        b: "Pode ser imposta com uso da força",
+        c: "Depende da vontade do cidadão",
+        d: "Só vale em contratos",
       },
     },
     {
-      titulo: "Tipos de Dados",
-      codigo: `Qual das opções abaixo representa um valor booleano no Python?`,
+      titulo: "Sanção",
+      codigo: "A sanção jurídica é:",
       alternativas: {
-        a: '"True"',
-        b: "1",
-        c: "True",
-        d: "'False'",
+        a: "A consequência do descumprimento da norma",
+        b: "Um prêmio dado pelo Estado",
+        c: "Uma regra moral",
+        d: "Uma sugestão",
       },
     },
     {
-      titulo: "Condicionais (if, elif, else)",
-      codigo: `O que o código abaixo imprime?
-
-x = 10
-if x > 15:
-    print("Maior que 15")
-elif x == 10:
-    print("Igual a 10")
-else:
-    print("Menor que 10")`,
+      titulo: "Direito Objetivo",
+      codigo: "Direito objetivo refere-se:",
       alternativas: {
-        a: "Maior que 15",
-        b: "Igual a 10",
-        c: "Menor que 10",
-        d: "Erro no código",
+        a: "Ao direito de uma pessoa específica",
+        b: "À vontade individual",
+        c: "Ao conjunto de normas jurídicas",
+        d: "À liberdade de pensamento",
       },
     },
     {
-      titulo: "Funções em Python",
-      codigo: `Qual é a saída deste código?
-
-def saudacao():
-    return "Olá, mundo!"
-
-print(saudacao())`,
+      titulo: "Direito Subjetivo",
+      codigo: "O direito subjetivo é:",
       alternativas: {
-        a: "saudacao()",
-        b: "Olá, mundo!",
-        c: "return Olá, mundo!",
-        d: "Erro: falta argumento",
+        a: "A norma criada pelo Estado",
+        b: "A faculdade de exigir um direito",
+        c: "Uma sanção",
+        d: "Um dever jurídico",
       },
     },
     {
-      titulo: "Operações matemáticas",
-      codigo: `Qual será o valor de resultado?
-
-a = 8
-b = 3
-resultado = a % b`,
+      titulo: "Finalidade do Direito",
+      codigo: "Qual é a principal finalidade do Direito?",
       alternativas: {
-        a: "2",
-        b: "3",
-        c: "1",
-        d: "5",
+        a: "Garantir a paz e a justiça social",
+        b: "Punir crimes apenas",
+        c: "Beneficiar o Estado",
+        d: "Regular somente contratos",
       },
     },
   ];
@@ -151,18 +133,24 @@ resultado = a % b`,
   return (
     <div className="pagina-desafios">
       <div className="scoreboard">{atualizarPlacar()}</div>
-      <h1>Desafios de Python</h1>
-      <p className="subtitle">Clique na alternativa correta! (Apenas uma tentativa)</p>
+
+      <h1>Desafio 2 - Os Pilares do Direito</h1>
+      <p className="subtitle">
+        Clique na alternativa correta! (Apenas uma tentativa)
+      </p>
+
       {desafios.map((d, i) => (
         <div key={i} className="challenge-container">
           <h2>{`Desafio ${i + 1} — ${d.titulo}`}</h2>
           <pre>{d.codigo}</pre>
+
           <div className="alternativas">
             {Object.entries(d.alternativas).map(([letra, texto]) => (
               <button
                 key={letra}
-                className={`alternativa-btn ${valores[i] === letra ? "selecionada" : ""
-                  } ${respondidas[i] ? "bloqueada" : ""}`}
+                className={`alternativa-btn ${
+                  valores[i] === letra ? "selecionada" : ""
+                } ${respondidas[i] ? "bloqueada" : ""}`}
                 onClick={() => verificar(i, letra)}
                 disabled={respondidas[i]}
               >
@@ -170,35 +158,45 @@ resultado = a % b`,
               </button>
             ))}
           </div>
-          <div className={`feedback ${feedbacks[i].includes("Correto") ? "correct" : "incorrect"}`}>
+
+          <div
+            className={`feedback ${
+              feedbacks[i].includes("Correto") ? "correct" : "incorrect"
+            }`}
+          >
             {feedbacks[i]}
           </div>
         </div>
       ))}
+
       {verificarFim && (
         <div className="final-score">
           {msg} Sua nota final é {pontuacao}/{total} ({porcentagem}%).
-          {salvo && <p style={{ fontSize: "0.9rem", color: "green", marginTop: "5px" }}>Nota salva com sucesso!</p>}
+          {salvo && (
+            <p style={{ fontSize: "0.9rem", color: "green", marginTop: "5px" }}>
+              Nota salva com sucesso!
+            </p>
+          )}
         </div>
       )}
 
-
       <div className="navigation-links">
-        <Link to="/desafios" className="back-link">
-          <img src="/flecha1.png" alt="Voltar" className="logo-img" />
-          Voltar
-        </Link>
-
-        <Link to="/desafios" className="menu-link">
-          <img src="/azulejos.png" alt="Menu" className="logo-img" />
-        </Link>
-
-        <Link to="/desafios/desafio2" className="next-link">
-          Próximo
-          <img src="/flecha2.png" alt="Próximo" className="logo-img" />
-        </Link>
-      </div>
-
-    </div>
-  );
-}
+              <Link to="/desafios/Direito/DesafioDir1" className="back-link">
+                <img src="/flecha1.png" alt="Voltar" className="logo-img" />
+                Voltar
+              </Link>
+      
+              <Link to="/desafios/CapitulosDireito" className="menu-link">
+                <img src="/azulejos.png" alt="Menu" className="logo-img" />
+              </Link>
+      
+              <Link to="/desafios/Direito/DesafioDir3" className="next-link">
+                Próximo
+                <img src="/flecha2.png" alt="Próximo" className="logo-img" />
+              </Link>
+            </div>
+      
+          </div>
+        );
+      }
+      

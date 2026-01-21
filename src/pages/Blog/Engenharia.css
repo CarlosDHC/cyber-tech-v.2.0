@@ -13,11 +13,11 @@ html, body {
 }
 
 /* HERO */
-.hero-section-tec{
+.hero-section-teec{
   width: 100%;
   height: 250px;
   background: linear-gradient(to bottom, #095e8b, #0541617c),
-              url('/Tec-blog.png'); 
+              url('/Eng-blog.png'); 
   background-size: cover;
   background-position: center;
 }

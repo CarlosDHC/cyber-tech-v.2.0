@@ -116,11 +116,13 @@
   justify-content: center;
   padding-left: 0;
   padding-right: 0;
+  padding: 5px; /*ADICIONADO*/
 }
 
 /* BOTÃO HAMBURGUER */
 .sidebarCollapsed .toggleBtn {
-  justify-content: center;
+  justify-content: right;
+  padding: 12px;
   padding-left: 0;
 }
 
