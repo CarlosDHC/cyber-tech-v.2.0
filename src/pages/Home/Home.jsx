@@ -19,7 +19,6 @@ import iconPerson from "../../assets/icons/icon-person.png";
 import iconFood from "../../assets/icons/icon-food.png";
 import iconSunMoon from "../../assets/icons/icon-sun-moon.png";
 
-
 function Home() {
   const iconMap = {
     person: iconPerson,
@@ -29,10 +28,10 @@ function Home() {
   };
 
   const videoMap = {
-    "o-que-e-algoritmo": "https://imgur.com/A6MA8Ua.jpg",
-    "estudar-ou-descansar": "https://imgur.com/A6MA8Ua.jpg",
-    "fome": "https://imgur.com/A6MA8Ua.jpg",
-    "dia-ou-noite": "https://imgur.com/A6MA8Ua.jpg",
+    "o-que-e-algoritmo": "/videos/comida.mp4",
+    "estudar-ou-descansar": "/videos/comida.mp4",
+    "fome": "/videos/comida.mp4",
+    "dia-ou-noite": "/videos/comida.mp4",
   };
 
   const slugToRoute = {
