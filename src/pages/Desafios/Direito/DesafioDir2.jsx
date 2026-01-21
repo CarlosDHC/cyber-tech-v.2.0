@@ -13,7 +13,6 @@ export default function DesafioDireito2() {
   const [feedbacks, setFeedbacks] = useState(Array(total).fill(""));
   const [valores, setValores] = useState(Array(total).fill(""));
   const [salvo, setSalvo] = useState(false);
-
   const atualizarPlacar = () => `Pontuação: ${pontuacao} / ${total}`;
 
   const verificar = (num, alternativa) => {
