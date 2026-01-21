@@ -36,7 +36,7 @@ export default function DesafioDir1() {
       if (novasTentativas[num] < 2) {
         novosFeedbacks[num] = "Resposta incorreta. Tente novamente!";
       } else {
-        novosFeedbacks[num] = "Resposta incorreta. ❌";
+        novosFeedbacks[num] = "Resposta incorreta.";
         novasRespondidas[num] = true;
       }
     }
