@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom'; // useNavigate adicionado
-import './Blog.css';
+import { Link } from 'react-router-dom';
+import './Engenharia.css';
 
 // Imports do Firebase
 import { 
@@ -10,7 +10,7 @@ import {
 import { db, auth } from "../../../FirebaseConfig"; 
 
 const postsOriginais = [
-  // Seus posts hardcoded originais aqui, se houver
+  
 ];
 
 // CARD INDIVIDUAL DE LIKE
@@ -87,6 +87,7 @@ function PostCard({ post }) {
         <div className="post-info">
           <h3 className="post-title">{post.titulo}</h3>
           <div className="post-meta">
+            {/* CORREÇÃO VISUAL: Se não tiver autor, usa um padrão */}
             <p><img src='/user.png' className='user' alt="Autor" /> {post.autor || "Autor Desconhecido"}</p>
             <p><img src='/calendar.png' alt="Data" className='user' /> {post.data}</p>
             <p>
@@ -117,13 +118,10 @@ function PostCard({ post }) {
 }
 
 // COMPONENTE PRINCIPAL
-function Blog() {
+function Engenharia() {
   const [mostrarMais, setMostrarMais] = useState(false);
   const [postsDinamicos, setPostsDinamicos] = useState([]);
   const [loading, setLoading] = useState(true);
-  
-  // Hook para navegação
-  const navigate = useNavigate();
 
   // Busca posts novos do Firebase
   useEffect(() => {
@@ -143,7 +141,7 @@ function Blog() {
             titulo: data.titulo,
             autor: data.autor || "Equipe CyberTech",
             data: dataFormatada,
-            tempoLeitura: data.tempoLeitura ? `${data.tempoLeitura} min` : "Leitura rápida",
+            tempoLeitura: data.tempoLeitura ? `${data.tempoLeitura} min` : "Leitura rápida", // Formata o tempo
             imagem: data.imagemUrl,
             slug: null
           };
@@ -164,7 +162,7 @@ function Blog() {
 
   return (
     <div className="blog-page">
-      <div className='hero-section-tec'></div>
+      <div className='hero-section-teec'></div>
 
       <div className="post-container-blog">
         {loading && <p style={{textAlign:'center', width:'100%', color:'#666'}}>Carregando posts...</p>}
@@ -240,51 +238,8 @@ function Blog() {
           {mostrarMais ? 'Ver menos ▲' : 'Ver mais curiosidades ▼'}
         </button>
       </div>
-
-      {/* --- BOTÃO FLUTUANTE DO FÓRUM (IMPLEMENTAÇÃO SOLICITADA) --- */}
-      <button
-        onClick={() => navigate('/forum')}
-        title="Abrir Fórum de Dúvidas"
-        style={{
-          position: 'fixed',
-          bottom: '30px',
-          right: '30px',
-          width: '60px',
-          height: '60px',
-          backgroundColor: '#ffffff',
-          border: '2px solid #2563EB', // Azul padrão
-          borderRadius: '50%',
-          boxShadow: '0 4px 10px rgba(0,0,0,0.2)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'pointer',
-          zIndex: 1000,
-          transition: 'transform 0.2s ease',
-        }}
-        onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
-        onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
-      >
-        {/* Ícone de Nuvem com 3 Pontos */}
-        <svg 
-          width="32" 
-          height="32" 
-          viewBox="0 0 24 24" 
-          fill="none" 
-          xmlns="http://www.w3.org/2000/svg"
-          style={{ color: '#2563EB' }}
-        >
-          <path d="M17.5 19C19.9853 19 22 16.9853 22 14.5C22 12.132 20.177 10.244 17.819 10.022C17.369 6.634 14.475 4 11 4C7.034 4 3.755 6.84 3.1 10.605C1.353 11.238 0 12.937 0 15C0 17.761 2.239 20 5 20H17.5V19Z" 
-                stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-          <circle cx="8" cy="14" r="1.5" fill="currentColor"/>
-          <circle cx="12" cy="14" r="1.5" fill="currentColor"/>
-          <circle cx="16" cy="14" r="1.5" fill="currentColor"/>
-        </svg>
-      </button>
-      {/* --- FIM DO BOTÃO FLUTUANTE --- */}
-
     </div>
   );
 }
 
-export default Blog;
+export default Engenharia;
