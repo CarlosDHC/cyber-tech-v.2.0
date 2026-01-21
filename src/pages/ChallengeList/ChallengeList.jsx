@@ -15,7 +15,7 @@ function ChallengeList() {
         {/* Desafio 1 */}
         <Link to="/desafios/CapitulosTecnologia" className={styles.challengeCard}>
           <img 
-            src="img_desafios/tecnologia.jpg">
+            src="https://imgur.com/A6MA8Ua.jpg"> 
           </img>
           <p>Tecnologia</p>
         </Link>
@@ -23,7 +23,7 @@ function ChallengeList() {
         {/* Desafio 2 */}
         <Link to="/desafios/CapitulosDireito" className={styles.challengeCard}>
           <img
-            src="/img_desafios/direito.jpg"
+            src="https://imgur.com/6RTD2WO.jpg"
           ></img>
           <p>Direito</p> 
         </Link>
@@ -31,7 +31,7 @@ function ChallengeList() {
         {/* Desafio 3 */}
         <Link to="/desafios/CapitulosEngenharia" className={styles.challengeCard}>
          <img
-            src="/img_desafios/engenharia.jpg"
+            src="https://imgur.com/5KHksLP.jpg"
           ></img>
           <p>Engenharia</p>
         </Link>
