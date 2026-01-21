@@ -14,7 +14,7 @@ function ChallengeList() {
         {/* Desafio 1 */}
         <Link to="/desafios/Direito/DesafioDir1" className={styles.challengeCard}>
           <img
-            src="/img_desafios/foto8.jpg"
+            src="https://imgur.com/oBy3VFB.jpg"
           ></img>
           <p>Legislação</p> 
         </Link> 
@@ -22,7 +22,7 @@ function ChallengeList() {
         {/* Desafio 2 */}
         <Link to="/desafios/Direito/DesafioDir2" className={styles.challengeCard}>
           <img
-            src="/img_desafios/foto3.jpg"
+            src="https://imgur.com/pKlyga5.jpg"
           ></img>
           <p>Ética do sistema judiciário</p> 
         </Link>
@@ -30,21 +30,21 @@ function ChallengeList() {
         {/* Desafio 3 */}
         <Link to="/desafios/Direito/DesafioDir3" className={styles.challengeCard}>
          <img
-            src="/img_desafios/foto2.jpg"
+            src="https://imgur.com/0cMEy3T.jpg"
           ></img>
           <p>Direitos & Deveres</p>
         </Link>
         <Link to="/desafios/Direito/DesafioDir4" className={styles.challengeCard}>
          <img
-            src="/img_desafios/foto1.jpg"
+            src="https://imgur.com/wcyzeFf.jpg"
           ></img>
           <p>Advocacia</p>
         </Link>
         <Link to="/desafios/Direito/DesafioDir4" className={styles.challengeCard}>
          <img
-            src="/img_desafios/foto1.jpg"
+            src="https://imgur.com/XAHCgaS.jpg"
           ></img>
-          <p>Constituição, Processo e Jurisprudência</p>
+          <p>Constituição e Jurisprudência</p>
         </Link>
       </div>
     </div>
