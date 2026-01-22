@@ -12,6 +12,7 @@ export default function DesafioDireito4() {
   const [respondidas, setRespondidas] = useState(Array(total).fill(false));
   const [feedbacks, setFeedbacks] = useState(Array(total).fill(""));
   const [valores, setValores] = useState(Array(total).fill(""));
+  const [tentativas, setTentativas] = useState(Array(total).fill(0));
   const [salvo, setSalvo] = useState(false);
 
   const atualizarPlacar = () => `Pontuação: ${pontuacao} / ${total}`;
@@ -22,17 +23,25 @@ export default function DesafioDireito4() {
     const novasRespondidas = [...respondidas];
     const novosFeedbacks = [...feedbacks];
     const novosValores = [...valores];
+    const novasTentativas = [...tentativas];
 
+    novasTentativas[num] += 1;
     novosValores[num] = alternativa;
 
     if (alternativa === corretas[num]) {
       novosFeedbacks[num] = "Correto!";
+      novasRespondidas[num] = true;
       setPontuacao((prev) => prev + 1);
     } else {
-      novosFeedbacks[num] = "Resposta incorreta. (sem nova tentativa)";
+      if (novasTentativas[num] < 2) {
+        novosFeedbacks[num] = "Resposta incorreta. Tente novamente!";
+      } else {
+        novosFeedbacks[num] = "Resposta incorreta.";
+        novasRespondidas[num] = true;
+      }
     }
 
-    novasRespondidas[num] = true;
+    setTentativas(novasTentativas);
     setValores(novosValores);
     setFeedbacks(novosFeedbacks);
     setRespondidas(novasRespondidas);
@@ -136,7 +145,7 @@ export default function DesafioDireito4() {
 
       <h1>Desafio 4 - Direito Civil</h1>
       <p className="subtitle">
-        Clique na alternativa correta! (Apenas uma tentativa)
+        Cada pergunta permite <strong>duas tentativas</strong>
       </p>
 
       {desafios.map((d, i) => (
@@ -166,6 +175,12 @@ export default function DesafioDireito4() {
           >
             {feedbacks[i]}
           </div>
+
+          {!respondidas[i] && tentativas[i] === 1 && (
+            <p style={{ fontSize: "0.8rem", color: "#ff9800" }}>
+              Última tentativa!
+            </p>
+          )}
         </div>
       ))}
 
@@ -180,24 +195,21 @@ export default function DesafioDireito4() {
         </div>
       )}
 
-   <div className="navigation-links">
-          <Link to="/desafios/Direito/DesafioDir3" className="back-link">
-            <img src="/flecha1.png" alt="Voltar" className="logo-img" />
-            Voltar
-          </Link>
-  
-        <Link to="/desafios/CapitulosDireito" className="next-link">
-            <img src="/azulejos.png" alt="Menu" className="logo-img" />
-          </Link>
+      <div className="navigation-links">
+        <Link to="/desafios/Direito/DesafioDir3" className="back-link">
+          <img src="/flecha1.png" alt="Voltar" className="logo-img" />
+          Voltar
+        </Link>
 
+        <Link to="/desafios/CapitulosDireito" className="menu-link">
+          <img src="/azulejos.png" alt="Menu" className="logo-img" />
+        </Link>
 
-          <Link to="/desafios/CapitulosDireito" className="next-link">
-            Próximo
-            <img src="/flecha2.png" alt="Próximo" className="logo-img" />
-          </Link>
-        </div>
-  
+        <Link to="/desafios/Direito/DesafioDir5" className="next-link">
+          Próximo
+          <img src="/flecha2.png" alt="Próximo" className="logo-img" />
+        </Link>
       </div>
-    );
-  }
-
+    </div>
+  );
+}
