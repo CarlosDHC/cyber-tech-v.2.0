@@ -12,7 +12,9 @@ export default function DesafioDir1() {
   const [respondidas, setRespondidas] = useState(Array(total).fill(false));
   const [feedbacks, setFeedbacks] = useState(Array(total).fill(""));
   const [valores, setValores] = useState(Array(total).fill(""));
+  const [tentativas, setTentativas] = useState(Array(total).fill(0));
   const [salvo, setSalvo] = useState(false);
+  
 
   const atualizarPlacar = () => `Pontuação: ${pontuacao} / ${total}`;
 
@@ -22,17 +24,25 @@ export default function DesafioDir1() {
     const novasRespondidas = [...respondidas];
     const novosFeedbacks = [...feedbacks];
     const novosValores = [...valores];
+    const novasTentativas = [...tentativas];
 
+    novasTentativas[num] += 1;
     novosValores[num] = alternativa;
 
     if (alternativa === corretas[num]) {
       novosFeedbacks[num] = "Correto!";
+      novasRespondidas[num] = true;
       setPontuacao((prev) => prev + 1);
     } else {
-      novosFeedbacks[num] = "Resposta incorreta. (sem nova tentativa)";
+      if (novasTentativas[num] < 2) {
+        novosFeedbacks[num] = "Resposta incorreta. Tente novamente!";
+      } else {
+        novosFeedbacks[num] = "Resposta incorreta.";
+        novasRespondidas[num] = true;
+      }
     }
 
-    novasRespondidas[num] = true;
+    setTentativas(novasTentativas);
     setValores(novosValores);
     setFeedbacks(novosFeedbacks);
     setRespondidas(novasRespondidas);
@@ -136,7 +146,7 @@ export default function DesafioDir1() {
 
       <h1>Desafio 1 - Noções Introdutórias de Direito</h1>
       <p className="subtitle">
-        Clique na alternativa correta! (Apenas uma tentativa)
+        Cada pergunta permite <strong>duas tentativas</strong>
       </p>
 
       {desafios.map((d, i) => (
@@ -166,6 +176,12 @@ export default function DesafioDir1() {
           >
             {feedbacks[i]}
           </div>
+
+          {!respondidas[i] && tentativas[i] === 1 && (
+            <p style={{ fontSize: "0.8rem", color: "#ff9800" }}>
+              Última tentativa!
+            </p>
+          )}
         </div>
       ))}
 
@@ -180,7 +196,7 @@ export default function DesafioDir1() {
         </div>
       )}
 
-<div className="navigation-links">
+      <div className="navigation-links">
         <Link to="/desafios/CapitulosDireito" className="back-link">
           <img src="/flecha1.png" alt="Voltar" className="logo-img" />
           Voltar
@@ -195,9 +211,6 @@ export default function DesafioDir1() {
           <img src="/flecha2.png" alt="Próximo" className="logo-img" />
         </Link>
       </div>
-
     </div>
   );
 }
-
-

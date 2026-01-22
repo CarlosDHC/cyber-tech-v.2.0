@@ -13,7 +13,7 @@ function ChallengeList() {
         {/* Desafio 1 */}
         <Link to="/desafios/Tecnologia/DesafioTec1" className={styles.challengeCard}>
           <img
-            src="/img_desafios/algoritmo.jpg"
+            src="https://imgur.com/IBcmitz.jpg" 
           ></img>
           <p>O que é um algoritmo?</p> 
         </Link>
@@ -21,7 +21,7 @@ function ChallengeList() {
         {/* Desafio 2 */}
         <Link to="/desafios/Tecnologia/DesafioTec2" className={styles.challengeCard}>
           <img
-            src="/img_desafios/operacoes.jpg"
+            src="https://imgur.com/7VyVCw2.jpg"
           ></img>
           <p>Operações</p> 
         </Link>
@@ -29,14 +29,14 @@ function ChallengeList() {
         {/* Desafio 3 */}
         <Link to="/desafios/Tecnologia/DesafioTec3" className={styles.challengeCard}>
          <img
-            src="/img_desafios/condicionais.jpg"
+            src="https://imgur.com/uAH3O0f.jpg" 
           ></img>
           <p>Condicionais</p>
         </Link>
         {/* Desafio 4 */}
         <Link to="/desafios/Tecnologia/DesafioTec4" className={styles.challengeCard}>
          <img
-            src="/img_desafios/funcoes.jpg"
+            src="https://imgur.com/n4dfJ4f.jpg"
           ></img>
           <p>Funções</p>
         </Link>

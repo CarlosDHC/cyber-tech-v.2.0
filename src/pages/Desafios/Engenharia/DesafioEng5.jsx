@@ -1,18 +1,17 @@
 import React, { useState, useEffect } from "react";
-import "./DesafioDir.css";
+import "./DesafioEng.css";
 import { db, auth } from "../../../../FirebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 
-export default function DesafioDireito2() {
+export default function DesafioEng5() {
   const total = 6;
-  const corretas = ["c", "b", "a", "c", "b", "a"];
+  const corretas = ["b", "c", "a", "b", "c", "a"];
 
   const [pontuacao, setPontuacao] = useState(0);
   const [respondidas, setRespondidas] = useState(Array(total).fill(false));
   const [feedbacks, setFeedbacks] = useState(Array(total).fill(""));
   const [valores, setValores] = useState(Array(total).fill(""));
-  const [tentativas, setTentativas] = useState(Array(total).fill(0));
   const [salvo, setSalvo] = useState(false);
 
   const atualizarPlacar = () => `Pontuação: ${pontuacao} / ${total}`;
@@ -23,25 +22,17 @@ export default function DesafioDireito2() {
     const novasRespondidas = [...respondidas];
     const novosFeedbacks = [...feedbacks];
     const novosValores = [...valores];
-    const novasTentativas = [...tentativas];
 
-    novasTentativas[num] += 1;
     novosValores[num] = alternativa;
 
     if (alternativa === corretas[num]) {
       novosFeedbacks[num] = "Correto!";
-      novasRespondidas[num] = true;
       setPontuacao((prev) => prev + 1);
     } else {
-      if (novasTentativas[num] < 2) {
-        novosFeedbacks[num] = "Resposta incorreta. Tente novamente!";
-      } else {
-        novosFeedbacks[num] = "Resposta incorreta.";
-        novasRespondidas[num] = true;
-      }
+      novosFeedbacks[num] = "Resposta incorreta.";
     }
 
-    setTentativas(novasTentativas);
+    novasRespondidas[num] = true;
     setValores(novosValores);
     setFeedbacks(novosFeedbacks);
     setRespondidas(novasRespondidas);
@@ -62,7 +53,7 @@ export default function DesafioDireito2() {
             uid: auth.currentUser.uid,
             email: auth.currentUser.email,
             nome: auth.currentUser.displayName || "Aluno",
-            desafio: "Desafio 2 - Os Pilares do Direito",
+            desafio: "Desafio 1 - Noções Introdutórias de Direito",
             nota: pontuacao,
             total: total,
             data: new Date().toISOString(),
@@ -78,63 +69,63 @@ export default function DesafioDireito2() {
 
   const desafios = [
     {
-      titulo: "Norma Jurídica",
-      codigo: "A norma jurídica pode ser definida como:",
+      titulo: "O que é o Direito?",
+      codigo: "O Direito pode ser definido como:",
       alternativas: {
-        a: "Uma regra moral sem obrigatoriedade",
-        b: "Um conselho do Estado",
-        c: "Uma regra de conduta imposta pelo Estado",
-        d: "Uma opinião do juiz",
+        a: "Um conjunto de regras morais sem força obrigatória.",
+        b: "Um conjunto de normas que regulam a convivência em sociedade.",
+        c: "Apenas leis escritas pelo Poder Executivo.",
+        d: "Um ramo exclusivo da filosofia.",
       },
     },
     {
-      titulo: "Coercibilidade",
-      codigo: "O que significa dizer que a norma jurídica é coercitiva?",
+      titulo: "Fontes do Direito",
+      codigo: "Qual das alternativas é considerada uma fonte formal do Direito?",
       alternativas: {
-        a: "Ela é opcional",
-        b: "Pode ser imposta com uso da força",
-        c: "Depende da vontade do cidadão",
-        d: "Só vale em contratos",
+        a: "Opinião pessoal do juiz",
+        b: "Costumes sociais informais",
+        c: "A lei",
+        d: "Vontade individual",
       },
     },
     {
-      titulo: "Sanção",
-      codigo: "A sanção jurídica é:",
+      titulo: "Direito Público e Privado",
+      codigo: "O Direito Constitucional pertence a qual ramo?",
       alternativas: {
-        a: "A consequência do descumprimento da norma",
-        b: "Um prêmio dado pelo Estado",
-        c: "Uma regra moral",
-        d: "Uma sugestão",
+        a: "Direito Público",
+        b: "Direito Privado",
+        c: "Direito Empresarial",
+        d: "Direito Internacional Privado",
       },
     },
     {
-      titulo: "Direito Objetivo",
-      codigo: "Direito objetivo refere-se:",
+      titulo: "Princípio da Legalidade",
+      codigo: "O princípio da legalidade determina que:",
       alternativas: {
-        a: "Ao direito de uma pessoa específica",
-        b: "À vontade individual",
-        c: "Ao conjunto de normas jurídicas",
-        d: "À liberdade de pensamento",
+        a: "Tudo é permitido ao cidadão",
+        b: "Ninguém é obrigado a fazer ou deixar de fazer algo senão em virtude de lei",
+        c: "A lei vale apenas para o Estado",
+        d: "As leis são opcionais",
       },
     },
     {
-      titulo: "Direito Subjetivo",
-      codigo: "O direito subjetivo é:",
+      titulo: "Constituição Federal",
+      codigo: "Qual é a principal função da Constituição Federal?",
       alternativas: {
-        a: "A norma criada pelo Estado",
-        b: "A faculdade de exigir um direito",
-        c: "Uma sanção",
-        d: "Um dever jurídico",
+        a: "Criar leis municipais",
+        b: "Regular contratos privados",
+        c: "Organizar o Estado e garantir direitos fundamentais",
+        d: "Punir crimes",
       },
     },
     {
-      titulo: "Finalidade do Direito",
-      codigo: "Qual é a principal finalidade do Direito?",
+      titulo: "Direitos Fundamentais",
+      codigo: "Os direitos fundamentais têm como objetivo principal:",
       alternativas: {
-        a: "Garantir a paz e a justiça social",
-        b: "Punir crimes apenas",
-        c: "Beneficiar o Estado",
-        d: "Regular somente contratos",
+        a: "Garantir dignidade, liberdade e igualdade às pessoas",
+        b: "Beneficiar apenas o Estado",
+        c: "Regular apenas a economia",
+        d: "Punir infrações administrativas",
       },
     },
   ];
@@ -143,9 +134,9 @@ export default function DesafioDireito2() {
     <div className="pagina-desafios">
       <div className="scoreboard">{atualizarPlacar()}</div>
 
-      <h1>Desafio 2 - Os Pilares do Direito</h1>
+      <h1>Desafio 1 - Noções Introdutórias de Direito</h1>
       <p className="subtitle">
-        Cada pergunta permite <strong>duas tentativas</strong>
+        Clique na alternativa correta! (Apenas uma tentativa)
       </p>
 
       {desafios.map((d, i) => (
@@ -175,12 +166,6 @@ export default function DesafioDireito2() {
           >
             {feedbacks[i]}
           </div>
-
-          {!respondidas[i] && tentativas[i] === 1 && (
-            <p style={{ fontSize: "0.8rem", color: "#ff9800" }}>
-              Última tentativa!
-            </p>
-          )}
         </div>
       ))}
 
@@ -195,8 +180,8 @@ export default function DesafioDireito2() {
         </div>
       )}
 
-      <div className="navigation-links">
-        <Link to="/desafios/Direito/DesafioDir1" className="back-link">
+<div className="navigation-links">
+        <Link to="/desafios/CapitulosDireito" className="back-link">
           <img src="/flecha1.png" alt="Voltar" className="logo-img" />
           Voltar
         </Link>
@@ -205,11 +190,14 @@ export default function DesafioDireito2() {
           <img src="/azulejos.png" alt="Menu" className="logo-img" />
         </Link>
 
-        <Link to="/desafios/Direito/DesafioDir3" className="next-link">
+        <Link to="/desafios/Direito/DesafioDir2" className="next-link">
           Próximo
           <img src="/flecha2.png" alt="Próximo" className="logo-img" />
         </Link>
       </div>
+
     </div>
   );
 }
+
+
