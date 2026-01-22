@@ -143,7 +143,7 @@ export default function DesafioDireito3() {
     <div className="pagina-desafios">
       <div className="scoreboard">{atualizarPlacar()}</div>
 
-      <h1>Desafio 3 - Direito Constitucional</h1>
+      <h1>Desafio 3 - Direito & Deveres</h1>
       <p className="subtitle">
         Cada pergunta permite <strong>duas tentativas</strong>
       </p>
