@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 export default function DesafioDir1() {
   const total = 6;
-  const corretas = ["b", "c", "a", "b", "c", "a"];
+const corretas = ["b", "a", "c", "b", "a", "c"];
 
   const [pontuacao, setPontuacao] = useState(0);
   const [respondidas, setRespondidas] = useState(Array(total).fill(false));
@@ -78,73 +78,74 @@ export default function DesafioDir1() {
   }, [verificarFim, salvo, pontuacao]);
 
   const desafios = [
-    {
-      titulo: "O que é o Direito?",
-      codigo: "O Direito pode ser definido como:",
-      alternativas: {
-        a: "Um conjunto de regras morais sem força obrigatória.",
-        b: "Um conjunto de normas que regulam a convivência em sociedade.",
-        c: "Apenas leis escritas pelo Poder Executivo.",
-        d: "Um ramo exclusivo da filosofia.",
-      },
+  {
+    titulo: "Conceito de Legislação",
+    codigo: "Legislação pode ser definida como:",
+    alternativas: {
+      a: "Conjunto de costumes sociais",
+      b: "Conjunto de leis que regem uma sociedade",
+      c: "Decisões exclusivas dos juízes",
+      d: "Normas morais sem obrigatoriedade",
     },
-    {
-      titulo: "Fontes do Direito",
-      codigo: "Qual das alternativas é considerada uma fonte formal do Direito?",
-      alternativas: {
-        a: "Opinião pessoal do juiz",
-        b: "Costumes sociais informais",
-        c: "A lei",
-        d: "Vontade individual",
-      },
+  },
+  {
+    titulo: "Lei",
+    codigo: "O que é uma lei?",
+    alternativas: {
+      a: "Norma jurídica escrita, criada pelo Poder competente",
+      b: "Opinião pessoal do legislador",
+      c: "Regra moral",
+      d: "Costume popular",
     },
-    {
-      titulo: "Direito Público e Privado",
-      codigo: "O Direito Constitucional pertence a qual ramo?",
-      alternativas: {
-        a: "Direito Público",
-        b: "Direito Privado",
-        c: "Direito Empresarial",
-        d: "Direito Internacional Privado",
-      },
+  },
+  {
+    titulo: "Hierarquia das Leis",
+    codigo: "Qual norma está no topo da hierarquia normativa brasileira?",
+    alternativas: {
+      a: "Lei ordinária",
+      b: "Decreto",
+      c: "Constituição Federal",
+      d: "Portaria",
     },
-    {
-      titulo: "Princípio da Legalidade",
-      codigo: "O princípio da legalidade determina que:",
-      alternativas: {
-        a: "Tudo é permitido ao cidadão",
-        b: "Ninguém é obrigado a fazer ou deixar de fazer algo senão em virtude de lei",
-        c: "A lei vale apenas para o Estado",
-        d: "As leis são opcionais",
-      },
+  },
+  {
+    titulo: "Vigência da Lei",
+    codigo: "Quando uma lei começa a produzir efeitos, em regra?",
+    alternativas: {
+      a: "No momento em que é proposta",
+      b: "Após sua publicação",
+      c: "Quando o juiz aplica",
+      d: "Quando o cidadão concorda",
     },
-    {
-      titulo: "Constituição Federal",
-      codigo: "Qual é a principal função da Constituição Federal?",
-      alternativas: {
-        a: "Criar leis municipais",
-        b: "Regular contratos privados",
-        c: "Organizar o Estado e garantir direitos fundamentais",
-        d: "Punir crimes",
-      },
+  },
+  {
+    titulo: "Obrigatoriedade da Lei",
+    codigo: "Sobre a obrigatoriedade da lei, é correto afirmar que:",
+    alternativas: {
+      a: "Ninguém pode alegar desconhecimento da lei para descumpri-la",
+      b: "A lei só vale para quem a conhece",
+      c: "A lei é opcional",
+      d: "A lei só se aplica a servidores públicos",
     },
-    {
-      titulo: "Direitos Fundamentais",
-      codigo: "Os direitos fundamentais têm como objetivo principal:",
-      alternativas: {
-        a: "Garantir dignidade, liberdade e igualdade às pessoas",
-        b: "Beneficiar apenas o Estado",
-        c: "Regular apenas a economia",
-        d: "Punir infrações administrativas",
-      },
+  },
+  {
+    titulo: "Revogação da Lei",
+    codigo: "Uma lei pode ser revogada quando:",
+    alternativas: {
+      a: "O juiz decide",
+      b: "O povo deixa de cumpri-la",
+      c: "Outra lei posterior a modifica ou elimina",
+      d: "O Executivo ignora sua aplicação",
     },
-  ];
+  },
+];
+
 
   return (
     <div className="pagina-desafios">
       <div className="scoreboard">{atualizarPlacar()}</div>
 
-      <h1>Desafio 1 - Noções Introdutórias de Direito</h1>
+      <h1>Desafio 1 - Legislação</h1>
       <p className="subtitle">
         Cada pergunta permite <strong>duas tentativas</strong>
       </p>

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 export default function DesafioDireito3() {
   const total = 6;
-  const corretas = ["b", "c", "a", "b", "c", "a"];
+const corretas = ["a", "c", "b", "a", "c", "b"];
 
   const [pontuacao, setPontuacao] = useState(0);
   const [respondidas, setRespondidas] = useState(Array(total).fill(false));
@@ -75,69 +75,69 @@ export default function DesafioDireito3() {
       salvarNoBanco();
     }
   }, [verificarFim, salvo, pontuacao]);
+const desafios = [
+  {
+    titulo: "Direitos Fundamentais",
+    codigo: "Qual artigo da Constituição Federal trata dos direitos e deveres individuais e coletivos?",
+    alternativas: {
+      a: "Artigo 5º",
+      b: "Artigo 1º",
+      c: "Artigo 14",
+      d: "Artigo 60",
+    },
+  },
+  {
+    titulo: "Direito à Vida",
+    codigo: "O direito à vida, segundo a Constituição Federal, é:",
+    alternativas: {
+      a: "Relativo e pode ser livremente retirado",
+      b: "Garantido apenas aos brasileiros natos",
+      c: "Inviolável",
+      d: "Garantido apenas em tempos de paz",
+    },
+  },
+  {
+    titulo: "Liberdade de Expressão",
+    codigo: "Sobre a liberdade de expressão, é correto afirmar que:",
+    alternativas: {
+      a: "É absoluta e sem limites",
+      b: "É garantida, vedado o anonimato",
+      c: "Só pode ser exercida com autorização do Estado",
+      d: "Não se aplica à internet",
+    },
+  },
+  {
+    titulo: "Igualdade",
+    codigo: "O princípio da igualdade previsto na Constituição significa que:",
+    alternativas: {
+      a: "Todos são iguais perante a lei",
+      b: "Todos devem ser tratados de forma idêntica",
+      c: "A lei pode favorecer determinados grupos sem justificativa",
+      d: "Apenas brasileiros são iguais perante a lei",
+    },
+  },
+  {
+    titulo: "Deveres do Cidadão",
+    codigo: "Qual das alternativas representa um dever do cidadão?",
+    alternativas: {
+      a: "Direito à vida",
+      b: "Liberdade de crença",
+      c: "Votar, quando obrigatório",
+      d: "Direito de propriedade",
+    },
+  },
+  {
+    titulo: "Direito de Propriedade",
+    codigo: "O direito de propriedade, segundo a Constituição Federal:",
+    alternativas: {
+      a: "É absoluto e ilimitado",
+      b: "Deve atender à sua função social",
+      c: "Não pode sofrer restrições",
+      d: "Só existe para bens imóveis",
+    },
+  },
+];
 
-  const desafios = [
-    {
-      titulo: "Constituição Federal",
-      codigo: "Qual é a principal função da Constituição Federal?",
-      alternativas: {
-        a: "Criar leis ordinárias",
-        b: "Organizar o Estado e garantir direitos fundamentais",
-        c: "Punir crimes",
-        d: "Regular contratos privados",
-      },
-    },
-    {
-      titulo: "Poder Constituinte",
-      codigo: "O poder constituinte originário é:",
-      alternativas: {
-        a: "Derivado e limitado",
-        b: "Controlado pelo STF",
-        c: "Inicial, ilimitado e incondicionado",
-        d: "Subordinado à Constituição anterior",
-      },
-    },
-    {
-      titulo: "Forma de Estado",
-      codigo: "O Brasil adota qual forma de Estado?",
-      alternativas: {
-        a: "Estado Federal",
-        b: "Estado Unitário",
-        c: "Estado Confederal",
-        d: "Estado Absolutista",
-      },
-    },
-    {
-      titulo: "Poderes da República",
-      codigo: "São poderes da República, segundo a Constituição:",
-      alternativas: {
-        a: "Executivo, Judiciário e Militar",
-        b: "Legislativo, Executivo e Judiciário",
-        c: "Executivo, Judiciário e Popular",
-        d: "Legislativo, Judiciário e Moderador",
-      },
-    },
-    {
-      titulo: "Separação dos Poderes",
-      codigo: "O princípio da separação dos poderes visa:",
-      alternativas: {
-        a: "Concentrar poder no Executivo",
-        b: "Eliminar conflitos entre poderes",
-        c: "Evitar abusos de poder",
-        d: "Fortalecer apenas o Judiciário",
-      },
-    },
-    {
-      titulo: "Supremacia da Constituição",
-      codigo: "O princípio da supremacia da Constituição significa que:",
-      alternativas: {
-        a: "A Constituição está acima de todas as normas",
-        b: "A Constituição pode ser ignorada",
-        c: "Leis ordinárias têm o mesmo valor",
-        d: "O Executivo pode alterá-la livremente",
-      },
-    },
-  ];
 
   return (
     <div className="pagina-desafios">
