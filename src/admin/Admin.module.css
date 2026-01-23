@@ -534,6 +534,47 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
+/* Customização para a Grade de Alternativas no Desafio */
+.alternativasGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background: #f1f5f9;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.alternativaItem {
+  background: #ffffff;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+}
+
+.altRadioHeader {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: var(--color-primary-light);
+}
+
+.altRadioHeader input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.fieldLabel {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #475569;
+  margin-bottom: 5px;
+  display: block;
+  text-transform: uppercase;
+}
+
 /* ESTILOS PARA MOBILE CARDS (Curtidas)*/
 .mobileCardsContainer {
   display: flex;

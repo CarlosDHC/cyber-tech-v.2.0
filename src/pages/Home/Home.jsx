@@ -11,8 +11,6 @@ import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/pagination';
 
-
-
 // Ícones
 import iconAlgoritmo from "../../assets/icons/icon-algoritmo.png";
 import iconPerson from "../../assets/icons/icon-person.png";
@@ -27,18 +25,20 @@ function Home() {
     algoritmo: iconAlgoritmo,
   };
 
-  const videoMap = {
-    "o-que-e-algoritmo": "/videos/comida.mp4",
-    "estudar-ou-descansar": "/videos/comida.mp4",
-    "fome": "/videos/comida.mp4",
-    "dia-ou-noite": "/videos/comida.mp4",
+  const imageMap = {
+    "o-que-e-algoritmo": "/img_desafios/desafio-algoritmo.jpg",
+    "estudar-ou-descansar": "/img_desafios/desafio-tecnologia.jpg",
+    "fome": "/img_desafios/desafio-engenharia.jpg",
+    "dia-ou-noite": "/img_desafios/desafio-direito.jpg",
+    "recursos-humanos": "/img_desafios/desafio-rh.jpg",
+    "marketing-digital": "/img_desafios/desafio-marketing.jpg",
   };
 
   const slugToRoute = {
     "o-que-e-algoritmo": "/desafios/desafio1",
-    "estudar-ou-descansar": "/desafios/desafio1",
-    "fome": "/desafios/desafio3",
-    "dia-ou-noite": "/desafios/desafio4",
+    "estudar-ou-descansar": "/desafios/CapitulosTecnologia",
+    "fome": "/desafios/CapitulosEngenharia",
+    "dia-ou-noite": "/desafios/CapitulosDireito",
   };
 
   const customTitles = {
@@ -148,11 +148,12 @@ function Home() {
     background: "#000",
     flexShrink: 0,
   };
-
+ 
+  // Coloque o caminho das suas imagens aqui
   const slides = [
     {
       id: 1,
-      image: '/tec-carro.jpg', // Coloque o caminho das suas imagens aqui
+      image: '/tec-carro.jpg', 
     
     },
     {
@@ -352,7 +353,7 @@ function Home() {
 
           <div className={styles.challengeCardsList}>
             {featuredChallenges.map((challenge) => {
-              const videoSrc = videoMap[challenge.slug] || null;
+              const imageSrc = imageMap[challenge.slug];
               const linkRoute = slugToRoute[challenge.slug] || "/desafios";
 
               // Busca o título customizado ou usa o original
@@ -369,24 +370,12 @@ function Home() {
                     to={linkRoute}
                     className={styles.challengeCard}
                   >
-                    {videoSrc ? (
-                      <video
-                        src={videoSrc}
-                        className={styles.challengeCardMedia}
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                        style={cardVideoStyle}
-                      />
-                    ) : (
-                      <img
-                        src={iconMap[challenge.icon] || iconAlgoritmo}
-                        alt={challenge.title}
-                        className={styles.challengeCardIcon}
-                        style={{ width: "100%", height: 140, objectFit: "cover" }}
-                      />
-                    )}
+                    <img
+                      src={imageSrc}
+                      alt={challenge.title}
+                      className={styles.challengeCardIcon}
+                      style={{ width: "100%", height: 140, objectFit: "cover" }}
+                    />
 
                     {/* Exibe o título customizado */}
                     <p>{tituloExibido}</p>
