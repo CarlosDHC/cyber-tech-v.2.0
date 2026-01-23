@@ -11,8 +11,6 @@ import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/pagination';
 
-
-
 // Ícones
 import iconAlgoritmo from "../../assets/icons/icon-algoritmo.png";
 import iconPerson from "../../assets/icons/icon-person.png";
@@ -32,6 +30,8 @@ function Home() {
     "estudar-ou-descansar": "/img_desafios/desafio-direito.jpg",
     "fome": "/img_desafios/desafio-engenharia.jpg",
     "dia-ou-noite": "/img_desafios/desafio-tecnologia.jpg",
+    "recursos-humanos": "/img_desafios/desafio-rh.jpg",
+    "marketing-digital": "/img_desafios/desafio-marketing.jpg",
   };
 
   const slugToRoute = {
