@@ -6,7 +6,6 @@ import styles from "../Admin.module.css";
 import { db } from "../../../FirebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 
-// Importação do CSS original para garantir a mesma estilização do blog
 import "../../pages/Blog/BlogPost.css";
 
 export default function NewBlog() {
@@ -80,35 +79,35 @@ export default function NewBlog() {
         <h2 className={styles.title}>Painel Admin</h2>
         <ul className={styles.navList}>
           <li>
-                      <Link to="/admin" data-tooltip="Home" className={styles.navLink}>
-                        <img src="/casa.png" alt="Home" />
-                        <span className={styles.linkText}>Home</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/admin/notas" data-tooltip="Notas" className={styles.navLink}>
-                        <img src="/estrela.png" alt="Notas" />
-                        <span className={styles.linkText}>Notas</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/admin/newblog" data-tooltip="Blog" className={styles.navLink}>
-                        <img src="/blog.png" alt="Blog" />
-                        <span className={styles.linkText}>Blog</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/admin/newdesafios" data-tooltip="Desafios" className={styles.navLink}>
-                        <img src="/desafio.png" alt="Desafios" />
-                        <span className={styles.linkText}>Desafios</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/admin/curtidas" data-tooltip="like" className={styles.navLink}>
-                        <img src="/curti.png" alt="curti" />
-                        <span className={styles.linkText}>like</span>
-                      </Link>
-                    </li>
+            <Link to="/admin" data-tooltip="Home" className={styles.navLink}>
+              <img src="/casa.png" alt="Home" />
+              <span className={styles.linkText}>Home</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/admin/notas" data-tooltip="Notas" className={styles.navLink}>
+              <img src="/estrela.png" alt="Notas" />
+              <span className={styles.linkText}>Notas</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/admin/newblog" data-tooltip="Blog" className={styles.navLink}>
+              <img src="/blog.png" alt="Blog" />
+              <span className={styles.linkText}>Blog</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/admin/newdesafios" data-tooltip="Desafios" className={styles.navLink}>
+              <img src="/desafio.png" alt="Desafios" />
+              <span className={styles.linkText}>Desafios</span>
+            </Link>
+          </li>
+          <li>
+            <Link to="/admin/curtidas" data-tooltip="like" className={styles.navLink}>
+              <img src="/curti.png" alt="curti" />
+              <span className={styles.linkText}>like</span>
+            </Link>
+          </li>
         </ul>
       </aside>
 
@@ -157,7 +156,7 @@ export default function NewBlog() {
                   <label className={styles.fieldLabel}>Título</label>
                   <input className={styles.inputField} value={titulo} onChange={e => setTitulo(e.target.value)} />
                 </div>
-                
+
                 <div style={{ display: 'flex', gap: '10px' }}>
                   <div className={styles.inputGroup} style={{ flex: 1 }}>
                     <label className={styles.fieldLabel}>Autor</label>
@@ -176,10 +175,10 @@ export default function NewBlog() {
 
                 <div className={styles.inputGroup}>
                   <label className={styles.fieldLabel}>URL da Capa</label>
-                  <input 
-                    className={styles.inputField} 
-                    value={capa} 
-                    onChange={e => setCapa(e.target.value)} 
+                  <input
+                    className={styles.inputField}
+                    value={capa}
+                    onChange={e => setCapa(e.target.value)}
                     placeholder="Cole o link da imagem aqui..."
                   />
                 </div>
@@ -188,10 +187,10 @@ export default function NewBlog() {
                 {capa && (
                   <div style={{ marginTop: '15px', textAlign: 'center' }}>
                     <p style={{ fontSize: '0.8rem', color: '#666', marginBottom: '8px' }}>Prévia da Capa:</p>
-                    <img 
-                      src={capa} 
-                      alt="Capa" 
-                      style={{ maxWidth: '100%', maxHeight: '250px', borderRadius: '8px', border: '1px solid #ddd' }} 
+                    <img
+                      src={capa}
+                      alt="Capa"
+                      style={{ maxWidth: '100%', maxHeight: '250px', borderRadius: '8px', border: '1px solid #ddd' }}
                       onError={(e) => e.target.style.display = 'none'}
                     />
                   </div>
@@ -213,16 +212,16 @@ export default function NewBlog() {
                       <textarea className={styles.textAreaBlock} value={secao.content} onChange={e => atualizarBloco(secao.id, e.target.value)} />
                     ) : (
                       <div className={styles.inputGroup}>
-                         <input className={styles.inputBlock} value={secao.content} onChange={e => atualizarBloco(secao.id, e.target.value)} />
-                         {/* PRÉ-VISUALIZAÇÃO IMEDIATA DA IMAGEM DO BLOCO AO COLAR O LINK */}
-                         {secao.type === 'image' && secao.content && (
-                           <img 
-                             src={secao.content} 
-                             alt="Bloco" 
-                             style={{ maxWidth: '100px', marginTop: '10px', borderRadius: '4px' }} 
-                             onError={(e) => e.target.style.display = 'none'}
-                           />
-                         )}
+                        <input className={styles.inputBlock} value={secao.content} onChange={e => atualizarBloco(secao.id, e.target.value)} />
+                        {/* PRÉ-VISUALIZAÇÃO IMEDIATA DA IMAGEM DO BLOCO AO COLAR O LINK */}
+                        {secao.type === 'image' && secao.content && (
+                          <img
+                            src={secao.content}
+                            alt="Bloco"
+                            style={{ maxWidth: '100px', marginTop: '10px', borderRadius: '4px' }}
+                            onError={(e) => e.target.style.display = 'none'}
+                          />
+                        )}
                       </div>
                     )}
                   </div>
