@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./DesafioDir.css";
+import "./Desafio.css";
 import { db, auth } from "../../../../FirebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
