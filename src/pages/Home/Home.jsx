@@ -30,7 +30,7 @@ function Home() {
     "estudar-ou-descansar": "/img_desafios/desafio-direito.jpg",
     "fome": "/img_desafios/desafio-engenharia.jpg",
     "dia-ou-noite": "/img_desafios/desafio-tecnologia.jpg",
-    "Marketing": "/img_desafios/desafio-marketing.jpg",
+    "Markenting": "/img_desafios/desafio-marketing.jpg",
     "Recursos Humanos": "/img_desafios/desafio-rh.jpg",
   };
 
@@ -44,7 +44,7 @@ function Home() {
   const customTitles = {
     "estudar-ou-descansar": "Tecnologia",  
     "fome": "Engenharia Civil",                
-    "dia-ou-noite": "Direito"    
+    "dia-ou-noite": "Direito",  
   };
 
   
