@@ -16,6 +16,7 @@ import iconAlgoritmo from "../../assets/icons/icon-algoritmo.png";
 import iconPerson from "../../assets/icons/icon-person.png";
 import iconFood from "../../assets/icons/icon-food.png";
 import iconSunMoon from "../../assets/icons/icon-sun-moon.png";
+import { title } from "framer-motion/client";
 
 function Home() {
   const iconMap = {
@@ -87,14 +88,14 @@ function Home() {
       title: "Tecnologia",
       image: "/tec-art.jpg",
       topics: [
-        "PYTHON",
+        "INTRODUÇÃO",
         "FRONT-END",
         "BACK-END",
         "ALGORITMOS",
         "DESENVOLVIMENTO",
         "BANCO DE DADOS",
         "CONCEITOS",
-        "INTRODUÇÃO"
+        "PYTHON"
       ]
     },
     {
@@ -161,7 +162,6 @@ function Home() {
     {
       id: 2,
       image: '/eng-carro.jpg',
-
     },
     {
       id: 3,
