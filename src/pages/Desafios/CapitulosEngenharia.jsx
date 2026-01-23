@@ -12,7 +12,7 @@ function ChallengeList() {
 
       <div className={styles.challengeCardsList}>
            {/* Desafio 1 */}
-               <Link to="/desafios/Engenharia/DesafioEng1" className={styles.challengeCard}>
+               <Link to="/Desafios/Engenharia/DesafioEng1" className={styles.challengeCard}>
                  <img
                    src="/img_desafios/algoritmo.jpg"
                  ></img>
