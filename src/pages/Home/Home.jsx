@@ -29,9 +29,9 @@ function Home() {
 
   const imageMap = {
     "o-que-e-algoritmo": "/img_desafios/desafio-algoritmo.jpg",
-    "estudar-ou-descansar": "/img_desafios/desafio-direito.jpg",
+    "estudar-ou-descansar": "/img_desafios/desafio-tecnologia.jpg",
     "fome": "/img_desafios/desafio-engenharia.jpg",
-    "dia-ou-noite": "/img_desafios/desafio-tecnologia.jpg",
+    "dia-ou-noite": "/img_desafios/desafio-direito.jpg",
   };
 
   const slugToRoute = {
