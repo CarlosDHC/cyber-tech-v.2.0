@@ -7,18 +7,17 @@ import { db } from "../../../FirebaseConfig";
 import { collection, addDoc } from "firebase/firestore";
 
 export default function NewDesafios() {
-    // Dados de Identificação e Capa
+    // Configurações Gerais e Capa
     const [titulo, setTitulo] = useState("");
-    const [resumo, setResumo] = useState("");
-    const [capa, setCapa] = useState(""); // Link da imagem do card/capa
-    const [area, setArea] = useState(""); // Direito, Engenharia, TI
+    const [area, setArea] = useState(""); // TI, Engenharia, Direito
+    const [capa, setCapa] = useState(""); 
     const [tentativas, setTentativas] = useState(1);
 
-    // Conteúdo do Desafio (Texto e Imagem)
+    // Conteúdo do Exercício (Texto e Imagem via Link)
     const [perguntaTexto, setPerguntaTexto] = useState("");
-    const [perguntaImagem, setPerguntaImagem] = useState(""); // Link da imagem do enunciado
+    const [perguntaImagem, setPerguntaImagem] = useState("");
 
-    // Alternativas (Texto e Imagem)
+    // Alternativas A-D (Texto e Imagem via Link)
     const [alternativas, setAlternativas] = useState({
         a: { texto: "", imagem: "" },
         b: { texto: "", imagem: "" },
@@ -30,42 +29,39 @@ export default function NewDesafios() {
     const [loading, setLoading] = useState(false);
     const [collapsed, setCollapsed] = useState(true);
 
-    // Funções de manipulação
-    const handleAlternativaChange = (letra, campo, valor) => {
+    const handleAltChange = (letra, campo, valor) => {
         setAlternativas(prev => ({
             ...prev,
             [letra]: { ...prev[letra], [campo]: valor }
         }));
     };
 
-    async function salvarDesafio() {
+    const salvarDesafio = async () => {
         if (!titulo || !area || !alternativaCorreta || (!perguntaTexto && !perguntaImagem)) {
             alert("Preencha os campos obrigatórios: Título, Área, Enunciado e Alternativa Correta.");
             return;
         }
 
         setLoading(true);
-
         try {
             await addDoc(collection(db, "desafios"), {
                 titulo,
-                resumo,
-                imagemCapa: capa,
                 area,
+                imagemCapa: capa,
                 tentativasPermitidas: Number(tentativas),
                 enunciado: {
                     texto: perguntaTexto,
                     imagem: perguntaImagem
                 },
                 alternativas,
-                alternativaCorreta,
+                alternativaCorreta, // Salva 'a', 'b', 'c' ou 'd'
                 dataCriacao: new Date().toISOString()
             });
 
-            alert("Desafio com imagens publicado!");
+            alert("Desafio publicado com sucesso!");
 
-            // Limpar formulário
-            setTitulo(""); setResumo(""); setCapa(""); setArea("");
+            // Limpa o formulário para o próximo dos 5 exercícios
+            setTitulo(""); setCapa(""); setArea("");
             setPerguntaTexto(""); setPerguntaImagem("");
             setAlternativas({
                 a: { texto: "", imagem: "" }, b: { texto: "", imagem: "" },
@@ -74,12 +70,12 @@ export default function NewDesafios() {
             setAlternativaCorreta("");
 
         } catch (error) {
-            console.error("Erro:", error);
-            alert("Erro ao salvar.");
+            console.error("Erro ao salvar:", error);
+            alert("Erro ao publicar no Firebase.");
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     return (
         <div className={styles.container}>
@@ -87,44 +83,16 @@ export default function NewDesafios() {
                 <button className={styles.toggleBtn} onClick={() => setCollapsed(!collapsed)}>
                     <img src="/menu.png" alt="menu" />
                 </button>
-                <h2 className={styles.title}>Painel Admin</h2>
+                <h2 className={styles.title}>Admin Academy</h2>
                 <ul className={styles.navList}>
-                    <li>
-                        <Link to="/admin" data-tooltip="Home" className={styles.navLink}>
-                            <img src="/casa.png" alt="Home" />
-                            <span className={styles.linkText}>Home</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/admin/notas" data-tooltip="Notas" className={styles.navLink}>
-                            <img src="/estrela.png" alt="Notas" />
-                            <span className={styles.linkText}>Notas</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/admin/newblog" data-tooltip="Blog" className={styles.navLink}>
-                            <img src="/blog.png" alt="Blog" />
-                            <span className={styles.linkText}>Blog</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/admin/newdesafios" data-tooltip="Desafios" className={styles.navLink}>
-                            <img src="/desafio.png" alt="Desafios" />
-                            <span className={styles.linkText}>Desafios</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to="/admin/curtidas" data-tooltip="like" className={styles.navLink}>
-                            <img src="/curti.png" alt="curti" />
-                            <span className={styles.linkText}>like</span>
-                        </Link>
-                    </li>
+                    <li><Link to="/admin" className={styles.navLink}><img src="/casa.png" alt="Home" /><span className={styles.linkText}>Home</span></Link></li>
+                    <li><Link to="/admin/newdesafios" className={styles.navLink}><img src="/desafio.png" alt="Novo" /><span className={styles.linkText}>Novo Desafio</span></Link></li>
                 </ul>
             </aside>
 
             <main className={styles.main}>
                 <div className={styles.headerFlex}>
-                    <h1>Novo Desafio (Multimídia)</h1>
+                    <h1>Cadastrar Exercício (Multimídia)</h1>
                     <button className={styles.publishBtn} onClick={salvarDesafio} disabled={loading}>
                         {loading ? "Publicando..." : "Publicar"}
                     </button>
@@ -132,63 +100,51 @@ export default function NewDesafios() {
 
                 <div className={styles.editorContainer}>
                     <div className={styles.formColumn}>
-
-                        {/* SEÇÃO 1: CABEÇALHO */}
+                        
+                        {/* SEÇÃO 1: CAPA E ÁREA */}
                         <div className={styles.metaBox}>
-                            <h3>Configurações e Capa</h3>
-                            <div className={styles.inputGroup}>
-                                <label className={styles.fieldLabel}>Título</label>
-                                <input className={styles.inputField} value={titulo} onChange={e => setTitulo(e.target.value)} />
+                            <h3>1. Identificação e Capa</h3>
+                            <input className={styles.inputField} placeholder="Título do Desafio" value={titulo} onChange={e => setTitulo(e.target.value)} />
+                            <div style={{ display: 'flex', gap: '10px', marginTop: '10px' }}>
+                                <select className={styles.inputField} value={area} onChange={e => setArea(e.target.value)} style={{ flex: 1 }}>
+                                    <option value="">Área...</option>
+                                    <option value="TI">TI</option>
+                                    <option value="Engenharia">Engenharia</option>
+                                    <option value="Direito">Direito</option>
+                                </select>
+                                <input className={styles.inputField} type="number" value={tentativas} onChange={e => setTentativas(e.target.value)} style={{ width: '80px' }} title="Tentativas" />
                             </div>
-                            <div style={{ display: 'flex', gap: '10px' }}>
-                                <div style={{ flex: 1 }}>
-                                    <label className={styles.fieldLabel}>Área</label>
-                                    <select className={styles.inputField} value={area} onChange={e => setArea(e.target.value)}>
-                                        <option value="">Selecione...</option>
-                                        <option value="Direito">Direito</option>
-                                        <option value="Engenharia">Engenharia</option>
-                                        <option value="TI">TI</option>
-                                    </select>
-                                </div>
-                                <div style={{ flex: 1 }}>
-                                    <label className={styles.fieldLabel}>Tentativas</label>
-                                    <input className={styles.inputField} type="number" value={tentativas} onChange={e => setTentativas(e.target.value)} />
-                                </div>
-                            </div>
-                            <div className={styles.inputGroup} style={{ marginTop: '10px' }}>
-                                <label className={styles.fieldLabel}>Link da Imagem de Capa</label>
-                                <input className={styles.inputField} value={capa} onChange={e => setCapa(e.target.value)} placeholder="URL da imagem principal" />
-                            </div>
+                            <input className={styles.inputField} style={{ marginTop: '10px' }} placeholder="Link da Imagem de Capa (URL)" value={capa} onChange={e => setCapa(e.target.value)} />
                         </div>
 
-                        {/* SEÇÃO 2: O DESAFIO */}
+                        {/* SEÇÃO 2: ENUNCIADO */}
                         <div className={styles.metaBox} style={{ marginTop: '20px' }}>
-                            <h3>Enunciado do Desafio</h3>
-                            <textarea className={styles.textAreaBlock} placeholder="Texto do enunciado..." value={perguntaTexto} onChange={e => setPerguntaTexto(e.target.value)} />
-                            <input className={styles.inputField} style={{ marginTop: '10px' }} placeholder="Link da Imagem do Desafio (Opcional)" value={perguntaImagem} onChange={e => setPerguntaImagem(e.target.value)} />
+                            <h3>2. Enunciado</h3>
+                            <textarea className={styles.textAreaBlock} placeholder="Texto da pergunta..." value={perguntaTexto} onChange={e => setPerguntaTexto(e.target.value)} />
+                            <input className={styles.inputField} style={{ marginTop: '10px' }} placeholder="Link da Imagem do Enunciado (Opcional)" value={perguntaImagem} onChange={e => setPerguntaImagem(e.target.value)} />
                         </div>
 
                         {/* SEÇÃO 3: ALTERNATIVAS */}
                         <div className={styles.metaBox} style={{ marginTop: '20px' }}>
-                            <h3>Alternativas (Texto e Link de Imagem)</h3>
+                            <h3>3. Alternativas (Selecione a Correta)</h3>
                             {['a', 'b', 'c', 'd'].map((letra) => (
-                                <div key={letra} style={{ borderBottom: '1px solid #eee', paddingBottom: '15px', marginBottom: '15px' }}>
-                                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '5px' }}>
+                                <div key={letra} style={{ marginBottom: '15px', padding: '10px', border: '1px solid #eee', borderRadius: '8px' }}>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
                                         <input type="radio" name="correta" checked={alternativaCorreta === letra} onChange={() => setAlternativaCorreta(letra)} />
-                                        <label className={styles.fieldLabel}>Alternativa {letra.toUpperCase()}</label>
+                                        <label style={{ fontWeight: 'bold' }}>Opção {letra.toUpperCase()}</label>
                                     </div>
-                                    <input
-                                        className={styles.inputField}
-                                        placeholder="Texto da alternativa"
-                                        value={alternativas[letra].texto}
-                                        onChange={e => handleAlternativaChange(letra, 'texto', e.target.value)}
+                                    <input 
+                                        className={styles.inputField} 
+                                        placeholder="Texto da resposta" 
+                                        value={alternativas[letra].texto} 
+                                        onChange={e => handleAltChange(letra, 'texto', e.target.value)} 
                                     />
-                                    <input
-                                        className={styles.inputField}
-                                        style={{ marginTop: '5px', fontSize: '0.85rem' }}
-                                        placeholder="URL da Imagem para esta resposta"
-                                        value={alternativas[letra].imagem}
-                                        onChange={e => handleAlternativaChange(letra, 'imagem', e.target.value)}
+                                    <input 
+                                        className={styles.inputField} 
+                                        style={{ marginTop: '5px', fontSize: '0.8rem' }} 
+                                        placeholder="Link da Imagem da resposta (Opcional)" 
+                                        value={alternativas[letra].imagem} 
+                                        onChange={e => handleAltChange(letra, 'imagem', e.target.value)} 
                                     />
                                 </div>
                             ))}

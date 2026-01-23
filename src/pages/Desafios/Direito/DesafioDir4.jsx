@@ -12,6 +12,7 @@ export default function DesafioDireito4() {
   const [respondidas, setRespondidas] = useState(Array(total).fill(false));
   const [feedbacks, setFeedbacks] = useState(Array(total).fill(""));
   const [valores, setValores] = useState(Array(total).fill(""));
+  const [tentativas, setTentativas] = useState(Array(total).fill(0));
   const [salvo, setSalvo] = useState(false);
 
   const atualizarPlacar = () => `Pontuação: ${pontuacao} / ${total}`;
@@ -22,17 +23,25 @@ export default function DesafioDireito4() {
     const novasRespondidas = [...respondidas];
     const novosFeedbacks = [...feedbacks];
     const novosValores = [...valores];
+    const novasTentativas = [...tentativas];
 
+    novasTentativas[num] += 1;
     novosValores[num] = alternativa;
 
     if (alternativa === corretas[num]) {
       novosFeedbacks[num] = "Correto!";
+      novasRespondidas[num] = true;
       setPontuacao((prev) => prev + 1);
     } else {
-      novosFeedbacks[num] = "Resposta incorreta. (sem nova tentativa)";
+      if (novasTentativas[num] < 2) {
+        novosFeedbacks[num] = "Resposta incorreta. Tente novamente!";
+      } else {
+        novosFeedbacks[num] = "Resposta incorreta.";
+        novasRespondidas[num] = true;
+      }
     }
 
-    novasRespondidas[num] = true;
+    setTentativas(novasTentativas);
     setValores(novosValores);
     setFeedbacks(novosFeedbacks);
     setRespondidas(novasRespondidas);
@@ -53,7 +62,7 @@ export default function DesafioDireito4() {
             uid: auth.currentUser.uid,
             email: auth.currentUser.email,
             nome: auth.currentUser.displayName || "Aluno",
-            desafio: "Desafio 4 - Direito Civil",
+            desafio: "Desafio 4 - Advocacia",
             nota: pontuacao,
             total: total,
             data: new Date().toISOString(),
@@ -69,63 +78,63 @@ export default function DesafioDireito4() {
 
   const desafios = [
     {
-      titulo: "Pessoa Natural",
-      codigo: "Quando começa a personalidade civil da pessoa natural?",
+      titulo: "Função Essencial à Justiça",
+      codigo: "Segundo a Constituição Federal, a advocacia é:",
       alternativas: {
-        a: "Com o nascimento com vida",
-        b: "Com a concepção",
-        c: "Com a maioridade",
-        d: "Com o registro civil",
+        a: "Atividade privada sem relevância pública",
+        b: "Função essencial à Justiça",
+        c: "Órgão auxiliar do Poder Judiciário",
+        d: "Serviço público delegado",
       },
     },
     {
-      titulo: "Capacidade Civil",
-      codigo: "Quem é absolutamente incapaz segundo o Código Civil?",
+      titulo: "Inviolabilidade do Advogado",
+      codigo: "De acordo com o Estatuto da OAB (Lei nº 8.906/94), o advogado é inviolável:",
       alternativas: {
-        a: "Maiores de 18 anos",
-        b: "Menores de 16 anos",
-        c: "Maiores de 16 e menores de 18",
-        d: "Pessoas casadas",
+        a: "Em qualquer situação, sem exceções",
+        b: "Apenas no exercício da defesa criminal",
+        c: "Por seus atos e manifestações no exercício da profissão, nos limites da lei",
+        d: "Somente quando atuando em juízo",
       },
     },
     {
-      titulo: "Pessoa Jurídica",
-      codigo: "A pessoa jurídica adquire personalidade com:",
+      titulo: "Sigilo Profissional",
+      codigo: "Sobre o sigilo profissional do advogado, é correto afirmar que:",
       alternativas: {
-        a: "A assinatura do contrato",
-        b: "O início das atividades",
-        c: "O registro do ato constitutivo",
-        d: "A aprovação judicial",
+        a: "Pode ser livremente quebrado por ordem judicial",
+        b: "É dever absoluto, mesmo para defesa própria",
+        c: "Pode ser relativizado em situações excepcionais previstas em leio",
+        d: "Não se aplica a informações recebidas do cliente",
       },
     },
     {
-      titulo: "Bens",
-      codigo: "Bens móveis são aqueles que:",
+      titulo: "Direitos do Advogado",
+      codigo: "Constitui direito do advogado, conforme o Estatuto da OAB:",
       alternativas: {
-        a: "Podem ser transportados sem alteração da substância",
-        b: "Estão ligados ao solo",
-        c: "São imóveis por natureza",
-        d: "Não podem ser removidos",
+        a: "Recusar-se a prestar contas ao cliente",
+        b: "Ter vista dos processos apenas com autorização judicial",
+        c: "Comunicar-se com o cliente preso, ainda que incomunicável",
+        d: "Praticar atos privativos de magistrados",
       },
     },
     {
-      titulo: "Fato Jurídico",
-      codigo: "O fato jurídico é:",
+      titulo: "Ética Profissional e Captação de Clientela",
+      codigo: "Segundo o Código de Ética e Disciplina da OAB, é vedado ao advogado:",
       alternativas: {
-        a: "A manifestação de vontade",
-        b: "Todo acontecimento que gera efeitos no direito",
-        c: "Um contrato",
-        d: "Um ato ilícito apenas",
+        a: "Divulgar conteúdos jurídicos com finalidade educativa",
+        b: "Participar de eventos jurídicos",
+        c: "Utilizar publicidade moderada e informativa",
+        d: "Captar clientela por meio de mercantilização da profissão",
       },
     },
     {
-      titulo: "Negócio Jurídico",
-      codigo: "O negócio jurídico é caracterizado principalmente por:",
+      titulo: "Exercício da Advocacia e Impedimentos",
+      codigo: "Conforme o Estatuto da OAB, estão impedidos de exercer a advocacia:",
       alternativas: {
-        a: "Imposição do Estado",
-        b: "Vontade das partes",
-        c: "Fato natural",
-        d: "Sanção jurídica",
+        a: "Todos os servidores públicos",
+        b: "Apenas os membros do Poder Judiciário",
+        c: "Os ocupantes de cargos que gerem incompatibilidade ou impedimento legal",
+        d: "Apenas os advogados públicos",
       },
     },
   ];
@@ -134,9 +143,9 @@ export default function DesafioDireito4() {
     <div className="pagina-desafios">
       <div className="scoreboard">{atualizarPlacar()}</div>
 
-      <h1>Desafio 4 - Direito Civil</h1>
+      <h1>Desafio 4 - Advocacia</h1>
       <p className="subtitle">
-        Clique na alternativa correta! (Apenas uma tentativa)
+        Cada pergunta permite <strong>duas tentativas</strong>
       </p>
 
       {desafios.map((d, i) => (
@@ -166,6 +175,12 @@ export default function DesafioDireito4() {
           >
             {feedbacks[i]}
           </div>
+
+          {!respondidas[i] && tentativas[i] === 1 && (
+            <p style={{ fontSize: "0.8rem", color: "#ff9800" }}>
+              Última tentativa!
+            </p>
+          )}
         </div>
       ))}
 
@@ -180,24 +195,21 @@ export default function DesafioDireito4() {
         </div>
       )}
 
-   <div className="navigation-links">
-          <Link to="/desafios/Direito/DesafioDir3" className="back-link">
-            <img src="/flecha1.png" alt="Voltar" className="logo-img" />
-            Voltar
-          </Link>
-  
-        <Link to="/desafios/CapitulosDireito" className="next-link">
-            <img src="/azulejos.png" alt="Menu" className="logo-img" />
-          </Link>
-
-
-          <Link to="/desafios/CapitulosDireito" className="next-link">
-            Próximo
-            <img src="/flecha2.png" alt="Próximo" className="logo-img" />
-          </Link>
-        </div>
-  
-      </div>
-    );
-  }
-
+       <div className="navigation-links">
+              <Link to="/desafios/Direito/DesafioDir3" className="back-link">
+                <img src="/flecha1.png" alt="Voltar" className="logo-img" />
+                Voltar
+              </Link>
+      
+              <Link to="/desafios/CapitulosDireito" className="menu-link">
+                <img src="/azulejos.png" alt="Menu" className="logo-img" />
+              </Link>
+      
+              <Link to="/desafios/Direito/DesafioDir5" className="next-link">
+                Próximo
+                <img src="/flecha2.png" alt="Próximo" className="logo-img" />
+              </Link>
+            </div>
+          </div>
+        );
+      }

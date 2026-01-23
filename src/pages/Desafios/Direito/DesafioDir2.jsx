@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 export default function DesafioDireito2() {
   const total = 6;
-  const corretas = ["c", "b", "a", "c", "b", "a"];
+const corretas = ["b", "c", "a", "b", "c", "a"];
 
   const [pontuacao, setPontuacao] = useState(0);
   const [respondidas, setRespondidas] = useState(Array(total).fill(false));
@@ -76,74 +76,74 @@ export default function DesafioDireito2() {
     }
   }, [verificarFim, salvo, pontuacao]);
 
-  const desafios = [
-    {
-      titulo: "Norma Jurídica",
-      codigo: "A norma jurídica pode ser definida como:",
-      alternativas: {
-        a: "Uma regra moral sem obrigatoriedade",
-        b: "Um conselho do Estado",
-        c: "Uma regra de conduta imposta pelo Estado",
-        d: "Uma opinião do juiz",
-      },
+ const desafios = [
+  {
+    titulo: "Ética Jurídica",
+    codigo: "A ética no sistema jurídico tem como principal objetivo:",
+    alternativas: {
+      a: "Punir apenas condutas ilegais",
+      b: "Orientar condutas justas e responsáveis",
+      c: "Substituir as leis",
+      d: "Beneficiar apenas operadores do direito",
     },
-    {
-      titulo: "Coercibilidade",
-      codigo: "O que significa dizer que a norma jurídica é coercitiva?",
-      alternativas: {
-        a: "Ela é opcional",
-        b: "Pode ser imposta com uso da força",
-        c: "Depende da vontade do cidadão",
-        d: "Só vale em contratos",
-      },
+  },
+  {
+    titulo: "Moral e Ética",
+    codigo: "Qual a diferença entre moral e ética?",
+    alternativas: {
+      a: "Não há diferença entre elas",
+      b: "A ética impõe sanções legais",
+      c: "A moral refere-se a costumes e a ética à reflexão crítica",
+      d: "A ética é individual e a moral é jurídica",
     },
-    {
-      titulo: "Sanção",
-      codigo: "A sanção jurídica é:",
-      alternativas: {
-        a: "A consequência do descumprimento da norma",
-        b: "Um prêmio dado pelo Estado",
-        c: "Uma regra moral",
-        d: "Uma sugestão",
-      },
+  },
+  {
+    titulo: "Conduta Ética",
+    codigo: "Uma conduta ética no sistema jurídico exige:",
+    alternativas: {
+      a: "Imparcialidade, honestidade e responsabilidade",
+      b: "Vantagem pessoal",
+      c: "Interesse político",
+      d: "Obediência cega à autoridade",
     },
-    {
-      titulo: "Direito Objetivo",
-      codigo: "Direito objetivo refere-se:",
-      alternativas: {
-        a: "Ao direito de uma pessoa específica",
-        b: "À vontade individual",
-        c: "Ao conjunto de normas jurídicas",
-        d: "À liberdade de pensamento",
-      },
+  },
+  {
+    titulo: "Operadores do Direito",
+    codigo: "É dever ético dos operadores do direito:",
+    alternativas: {
+      a: "Defender interesses pessoais",
+      b: "Atuar com honestidade e boa-fé",
+      c: "Ignorar princípios morais",
+      d: "Priorizar resultados a qualquer custo",
     },
-    {
-      titulo: "Direito Subjetivo",
-      codigo: "O direito subjetivo é:",
-      alternativas: {
-        a: "A norma criada pelo Estado",
-        b: "A faculdade de exigir um direito",
-        c: "Uma sanção",
-        d: "Um dever jurídico",
-      },
+  },
+  {
+    titulo: "Justiça",
+    codigo: "A ética contribui para a justiça quando:",
+    alternativas: {
+      a: "Favorece interesses particulares",
+      b: "É aplicada apenas em julgamentos",
+      c: "Promove decisões equilibradas e justas",
+      d: "Substitui a lei escrita",
     },
-    {
-      titulo: "Finalidade do Direito",
-      codigo: "Qual é a principal finalidade do Direito?",
-      alternativas: {
-        a: "Garantir a paz e a justiça social",
-        b: "Punir crimes apenas",
-        c: "Beneficiar o Estado",
-        d: "Regular somente contratos",
-      },
+  },
+  {
+    titulo: "Responsabilidade Social",
+    codigo: "No contexto jurídico, a responsabilidade social significa:",
+    alternativas: {
+      a: "Atuar pensando no bem da sociedade",
+      b: "Cumprir ordens sem questionar",
+      c: "Atender apenas clientes ricos",
+      d: "Evitar envolvimento social",
     },
-  ];
+  },
+];
 
   return (
     <div className="pagina-desafios">
       <div className="scoreboard">{atualizarPlacar()}</div>
 
-      <h1>Desafio 2 - Os Pilares do Direito</h1>
+      <h1>Desafio 2 - Ética do sistema juridico</h1>
       <p className="subtitle">
         Cada pergunta permite <strong>duas tentativas</strong>
       </p>
