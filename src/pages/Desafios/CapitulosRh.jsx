@@ -11,34 +11,56 @@ function ChallengeList() {
       </p>
       <div className={styles.challengeCardsList}>
         {/* Desafio 1 */}
-        <Link to="/desafios/Tecnologia/DesafioTec1" className={styles.challengeCard}>
+        <Link to="/desafios/Rh/DesafioRh1" className={styles.challengeCard}>
           <img
             src="https://imgur.com/IBcmitz.jpg" 
           ></img>
-          <p>O que é um algoritmo?</p> 
+          <p>Recrutamento & Seleção</p> 
         </Link>
 
         {/* Desafio 2 */}
-        <Link to="/desafios/Tecnologia/DesafioTec2" className={styles.challengeCard}>
+        <Link to="/desafios/Rh/DesafioRh2" className={styles.challengeCard}>
           <img
             src="https://imgur.com/7VyVCw2.jpg"
           ></img>
-          <p>Operações</p> 
+          <p>Treinamento & Desenvolvimento</p> 
         </Link>
 
         {/* Desafio 3 */}
-        <Link to="/desafios/Tecnologia/DesafioTec3" className={styles.challengeCard}>
+        <Link to="/desafios/Rh/DesafioRh3" className={styles.challengeCard}>
          <img
             src="https://imgur.com/uAH3O0f.jpg" 
           ></img>
-          <p>Condicionais</p>
+          <p>Relações Trabalhistas</p>
         </Link>
         {/* Desafio 4 */}
-        <Link to="/desafios/Tecnologia/DesafioTec4" className={styles.challengeCard}>
+        <Link to="/desafios/Rh/DesafioRh4" className={styles.challengeCard}>
          <img
             src="https://imgur.com/n4dfJ4f.jpg"
           ></img>
-          <p>Funções</p>
+          <p>Cultura & Engajamento</p>
+        </Link>
+        <Link to="/desafios/Rh/DesafioRh5" className={styles.challengeCard}>
+         <img
+            src="https://imgur.com/n4dfJ4f.jpg"
+          ></img>
+          <p>Folha de Pagamento</p>
+        </Link>
+        <Link to="/desafios/Rh/DesafioRh6" className={styles.challengeCard}>
+         <img
+            src="https://imgur.com/n4dfJ4f.jpg"
+          ></img>
+          <p>Benefícios</p>
+        </Link><Link to="/desafios/Rh/DesafioRh7" className={styles.challengeCard}>
+         <img
+            src="https://imgur.com/n4dfJ4f.jpg"
+          ></img>
+          <p>Avaliação e Desempenho</p>
+        </Link><Link to="/desafios/Rh/DesafioRh8" className={styles.challengeCard}>
+         <img
+            src="https://imgur.com/n4dfJ4f.jpg"
+          ></img>
+          <p>Segurança do Trabalho</p>
         </Link>
       </div>
     </div>
