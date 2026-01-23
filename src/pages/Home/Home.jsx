@@ -36,9 +36,9 @@ function Home() {
 
   const slugToRoute = {
     "o-que-e-algoritmo": "/desafios/desafio1",
-    "estudar-ou-descansar": "/desafios/desafio1",
-    "fome": "/desafios/desafio3",
-    "dia-ou-noite": "/desafios/desafio4",
+    "estudar-ou-descansar": "/desafios/CapitulosTecnologia",
+    "fome": "/desafios/CapitulosEngenharia",
+    "dia-ou-noite": "/desafios/CapitulosDireito",
   };
 
   const customTitles = {
