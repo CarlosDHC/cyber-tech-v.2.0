@@ -18,33 +18,50 @@ function ChallengeList() {
           ></img>
           <p>Legislação</p> 
         </Link> 
-
-        {/* Desafio 2 */}
         <Link to="/desafios/Direito/DesafioDir2" className={styles.challengeCard}>
+          <img
+            src="https://imgur.com/oBy3VFB.jpg"
+          ></img>
+          <p>Justiça</p> 
+        </Link> 
+        {/* Desafio 2 */}
+        <Link to="/desafios/Direito/DesafioDir3" className={styles.challengeCard}>
           <img
             src="https://imgur.com/pKlyga5.jpg"
           ></img>
-          <p>Ética do sistema judiciário</p> 
+          <p>Direitos e Deveres</p> 
         </Link>
 
         {/* Desafio 3 */}
-        <Link to="/desafios/Direito/DesafioDir3" className={styles.challengeCard}>
-         <img
-            src="https://imgur.com/0cMEy3T.jpg"
-          ></img>
-          <p>Direitos & Deveres</p>
-        </Link>
         <Link to="/desafios/Direito/DesafioDir4" className={styles.challengeCard}>
          <img
-            src="https://imgur.com/wcyzeFf.jpg"
+            src="https://imgur.com/0cMEy3T.jpg"
           ></img>
           <p>Advocacia</p>
         </Link>
         <Link to="/desafios/Direito/DesafioDir5" className={styles.challengeCard}>
          <img
+            src="https://imgur.com/wcyzeFf.jpg"
+          ></img>
+          <p>Constituição</p>
+        </Link>
+        <Link to="/desafios/Direito/DesafioDir6" className={styles.challengeCard}>
+         <img
             src="https://imgur.com/XAHCgaS.jpg"
           ></img>
-          <p>Constituição e Jurisprudência</p>
+          <p>Processo</p>
+        </Link>
+        <Link to="/desafios/Direito/DesafioDir7" className={styles.challengeCard}>
+         <img
+            src="https://imgur.com/XAHCgaS.jpg"
+          ></img>
+          <p>Jurisprudência</p>
+        </Link>
+        <Link to="/desafios/Direito/DesafioDir8" className={styles.challengeCard}>
+         <img
+            src="https://imgur.com/XAHCgaS.jpg"
+          ></img>
+          <p>Ética</p>
         </Link>
       </div>
     </div>
