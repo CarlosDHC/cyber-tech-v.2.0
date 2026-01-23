@@ -50,7 +50,8 @@ import ProtectedAdminRoute from './context/ProtectedAdminRoute.jsx';
 import CapitulosTecnologia from './pages/Desafios/CapitulosTecnologia.jsx';
 import CapitulosDireito from './pages/Desafios/CapitulosDireito.jsx';
 import CapitulosEngenharia from './pages/Desafios/CapitulosEngenharia.jsx';
-
+import CapitulosMarketing from './pages/Desafios/CapitulosMarketing.jsx';
+import CapitulosRh from './pages/Desafios/CapitulosRh.jsx';
 
 // Desafios tecnologia 
 import DesafioTec1 from './pages/Desafios/Tecnologia/DesafioTec1.jsx';
@@ -70,7 +71,17 @@ import DesafioDir2 from './pages/Desafios/Direito/DesafioDir2.jsx';
 import DesafioDir3 from './pages/Desafios/Direito/DesafioDir3.jsx';
 import DesafioDir4 from './pages/Desafios/Direito//DesafioDir4.jsx';
 
+// Desafios Marketing
+import DesafioMar1 from './pages/Desafios/Marketing/DesafioMar1.jsx';
+import DesafioMar2 from './pages/Desafios/Marketing/DesafioMar2.jsx';
+import DesafioMar3 from './pages/Desafios/Marketing/DesafioMar3.jsx';
+import DesafioMar4 from './pages/Desafios/Marketing/DesafioMar4.jsx';
 
+// Desafios Rh
+import DesafioRh1 from './pages/Desafios/Rh/DesafioRh1.jsx';
+import DesafioRh2 from './pages/Desafios/Rh/DesafioRh2.jsx';
+import DesafioRh3 from './pages/Desafios/Rh/DesafioRh3.jsx';
+import DesafioRh4 from './pages/Desafios/Rh/DesafioRh4.jsx';
 
 // Novas páginas
 import Sobre from './pages/Sobre/Sobre.jsx';
@@ -131,6 +142,8 @@ function App() {
             <Route path="/desafios/capitulostecnologia" element={<ProtectedRoute><AnimatedPage><CapitulosTecnologia /></AnimatedPage></ProtectedRoute>} />
             <Route path="/desafios/capitulosengenharia" element={<ProtectedRoute><AnimatedPage><CapitulosEngenharia /></AnimatedPage></ProtectedRoute>} />
             <Route path="/desafios/capitulosdireito" element={<ProtectedRoute><AnimatedPage><CapitulosDireito /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/desafios/capitulosmarketing" element={<ProtectedRoute><AnimatedPage><CapitulosMarketing /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/desafios/capitulosrh" element={<ProtectedRoute><AnimatedPage><CapitulosRh /></AnimatedPage></ProtectedRoute>} />
 
             {/* --- Rotas Tecnologia --- */}
             <Route path="/desafios" element={<ProtectedRoute><AnimatedPage><ChallengeList /></AnimatedPage></ProtectedRoute>} />
@@ -152,6 +165,17 @@ function App() {
             <Route path="/desafios/direito/desafiodir2" element={<ProtectedRoute><AnimatedPage><DesafioDir2 /></AnimatedPage></ProtectedRoute>} />
             <Route path="/desafios/direito/desafiodir3" element={<ProtectedRoute><AnimatedPage><DesafioDir3 /></AnimatedPage></ProtectedRoute>} />
             <Route path="/desafios/direito/desafiodir4" element={<ProtectedRoute><AnimatedPage><DesafioDir4 /></AnimatedPage></ProtectedRoute>} />
+            {/* --- Rotas Direito --- */}
+            <Route path="/desafios/marketing/desafiomar1" element={<ProtectedRoute><AnimatedPage><DesafioMar1 /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/desafios/marketing/desafiomar2" element={<ProtectedRoute><AnimatedPage><DesafioMar2 /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/desafios/marketing/desafiomar3" element={<ProtectedRoute><AnimatedPage><DesafioMar3 /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/desafios/marketing/desafiomar4" element={<ProtectedRoute><AnimatedPage><DesafioMar4 /></AnimatedPage></ProtectedRoute>} />
+            {/* --- Rotas Direito --- */}
+            <Route path="/desafios/rh/desafiorh1" element={<ProtectedRoute><AnimatedPage><DesafioRh1 /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/desafios/rh/desafiorh2" element={<ProtectedRoute><AnimatedPage><DesafioRh2 /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/desafios/rh/desafiorh3" element={<ProtectedRoute><AnimatedPage><DesafioRh3 /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/desafios/rh/desafiorh4" element={<ProtectedRoute><AnimatedPage><DesafioRh4 /></AnimatedPage></ProtectedRoute>} />
+
 
             <Route path="/perfil" element={<ProtectedRoute><AnimatedPage><Perfil /></AnimatedPage></ProtectedRoute>} />
             <Route path="/forum" element={
