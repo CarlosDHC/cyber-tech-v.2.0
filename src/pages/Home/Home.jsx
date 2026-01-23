@@ -95,7 +95,7 @@ function Home() {
         "DESENVOLVIMENTO",
         "BANCO DE DADOS",
         "CONCEITOS",
-        ""
+        "PYTHON"
       ]
     },
     {
@@ -124,8 +124,8 @@ function Home() {
         "ANÁLISE & ESTRATÉGIA",
         "CRM & FERRAMENTAS",
         "CRM",
-        "CONVERSÃO & VENDAS",
-        "CONVERSÃO & VENDAS"
+        "CONVERSÃO",
+        "VENDAS"
       ]
     }
   ];
