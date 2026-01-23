@@ -35,6 +35,18 @@ function ChallengeList() {
           ></img>
           <p>Engenharia</p>
         </Link>
+        <Link to="/desafios/CapitulosMarketing" className={styles.challengeCard}>
+         <img
+            src="https://imgur.com/5KHksLP.jpg"
+          ></img>
+          <p>Marketing Digital</p>
+        </Link>
+        <Link to="/desafios/CapitulosRh" className={styles.challengeCard}>
+         <img
+            src="https://imgur.com/5KHksLP.jpg"
+          ></img>
+          <p>Recursos Humanos</p>
+        </Link>
       </div>
     </div>
   );
