@@ -44,7 +44,7 @@ function Home() {
   const customTitles = {
     "estudar-ou-descansar": "Tecnologia",  
     "fome": "Engenharia Civil",                
-    "dia-ou-noite": "Direito"    
+    "dia-ou-noite": "Direito",  
   };
 
   
