@@ -156,32 +156,26 @@ function Home() {
     {
       id: 1,
       image: '/tec-carro.jpg',
-      title: 'Tecnologia',
-      subtitle: 'Domine as ferramentas do futuro'
+
     },
     {
       id: 2,
       image: '/eng-carro.jpg',
-      title: 'Engenharia Civil',
-      subtitle: 'Construa o amanhã'
+
     },
     {
       id: 3,
       image: '/di-carro.jpg',
-      title: 'Direito',
-      subtitle: 'Compreenda as leis que nos regem'
+
     },
     {
       id: 4,
       image: '/rh-carro.jpg',
-      title: 'Recursos Humanos',
-      subtitle: 'Gerencie o maior ativo da empresa'
     },
     {
       id: 5,
       image: '/marketing-carro.jpg',
-      title: 'Marketing Digital',
-      subtitle: 'Impulsione sua marca'
+
     }
   ];
 
