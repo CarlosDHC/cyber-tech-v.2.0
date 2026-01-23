@@ -18,6 +18,39 @@ import iconFood from "../../assets/icons/icon-food.png";
 import iconSunMoon from "../../assets/icons/icon-sun-moon.png";
 import { title } from "framer-motion/client";
 
+const BrickText = ({ text }) => {
+  return (
+    <motion.span
+      key={text}
+      initial="hidden"
+      animate="visible"
+      variants={{
+        hidden: {},
+        visible: {
+          transition: {
+            staggerChildren: 0.07, // tempo entre cada letra
+          },
+        },
+      }}
+      style={{ display: "inline-block" }}
+    >
+      {text.split("").map((char, index) => (
+        <motion.span
+          key={index}
+          variants={{
+            hidden: { opacity: 0, y: 25 },
+            visible: { opacity: 1, y: 0 },
+          }}
+          transition={{ duration: 0.3, ease: "easeOut" }}
+          style={{ display: "inline-block" }}
+        >
+          {char === " " ? "\u00A0" : char}
+        </motion.span>
+      ))}
+    </motion.span>
+  );
+};
+
 function Home() {
   const iconMap = {
     person: iconPerson,
@@ -51,6 +84,7 @@ function Home() {
   
 
   const [activeCarouselIndex, setActiveCarouselIndex] = React.useState(0);
+  const [activeSlide, setActiveSlide] = React.useState(0);
 
   const coursesData = [
     {
@@ -209,6 +243,8 @@ function Home() {
         pagination={{ clickable: true }}
         loop={true}
         className={styles.mySwiper}
+        onSlideChange={(swiper) => setActiveSlide(swiper.realIndex)}
+
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id} className={styles.slideItem}>
@@ -217,6 +253,26 @@ function Home() {
             
             {/* Overlay para o texto aparecer sobre a imagem */}
             <div className={styles.overlay}>
+              <motion.h1
+                key={`title-${activeSlide}`} // Key necessária para reiniciar animação
+                  className={styles.mainTitle}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                  
+              >
+                <BrickText text={slide.title} />    
+              </motion.h1>
+              
+              <motion.h2
+                key={`sub-${slide.id}`}
+                className={styles.subtitle}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                {slide.subtitle}
+              </motion.h2>
             </div>
           </SwiperSlide>
         ))}
