@@ -27,11 +27,11 @@ function Home() {
 
   const imageMap = {
     "o-que-e-algoritmo": "/img_desafios/desafio-algoritmo.jpg",
-    "estudar-ou-descansar": "/img_desafios/desafio-tecnologia.jpg",
+    "estudar-ou-descansar": "/img_desafios/desafio-direito.jpg",
     "fome": "/img_desafios/desafio-engenharia.jpg",
-    "dia-ou-noite": "/img_desafios/desafio-direito.jpg",
-    "recursos-humanos": "/img_desafios/desafio-rh.jpg",
-    "marketing-digital": "/img_desafios/desafio-marketing.jpg",
+    "dia-ou-noite": "/img_desafios/desafio-tecnologia.jpg",
+    "Marketing": "/img_desafios/desafio-marketing.jpg",
+    "Recursos Humanos": "/img_desafios/desafio-rh.jpg",
   };
 
   const slugToRoute = {
@@ -46,6 +46,8 @@ function Home() {
     "fome": "Engenharia Civil",                
     "dia-ou-noite": "Direito",  
   };
+
+  
 
   const [activeCarouselIndex, setActiveCarouselIndex] = React.useState(0);
 
@@ -129,7 +131,7 @@ function Home() {
 
   const featuredChallenges = challenges
     .filter((c) => c.slug !== "o-que-e-algoritmo")
-    .slice(0, 3);
+    .slice(0, 6);
 
   const cardVideoStyle = {
     width: "100%",
@@ -153,28 +155,27 @@ function Home() {
   const slides = [
     {
       id: 1,
-      image: '/tec-carro.jpg', 
-    
+      image: '/tec-carro.jpg',
+
     },
     {
       id: 2,
-      image: '/eng-carro.jpg'
-     
+      image: '/eng-carro.jpg',
+
     },
     {
       id: 3,
       image: '/di-carro.jpg',
- 
+
     },
     {
       id: 4,
-      image: '/rh-carro.jpg'
-     
+      image: '/rh-carro.jpg',
     },
     {
       id: 5,
-      image: '/marketing-carro.jpg'
-     
+      image: '/marketing-carro.jpg',
+
     }
   ];
 
@@ -381,12 +382,14 @@ function Home() {
                     <p>{tituloExibido}</p>
                   </Link>
                 </motion.div>
+                
               );
             })}
           </div>
         </motion.section>
       </div>
     </motion.div>
+    
   );
 }
 

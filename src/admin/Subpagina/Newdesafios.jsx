@@ -16,7 +16,7 @@ export default function NewDesafios() {
     const [tentativas, setTentativas] = useState(1);
 
     const [exercicios, setExercicios] = useState(
-        Array(5).fill(null).map(() => ({
+        Array(6).fill(null).map(() => ({
             perguntaTexto: "",
             perguntaImagem: "",
             alternativaCorreta: "",
@@ -24,8 +24,7 @@ export default function NewDesafios() {
                 a: { texto: "", imagem: "" },
                 b: { texto: "", imagem: "" },
                 c: { texto: "", imagem: "" },
-                d: { texto: "", imagem: "" },
-                e: { texto: "", imagem: "" } 
+                d: { texto: "", imagem: "" }
             }
         }))
     );
@@ -60,7 +59,7 @@ export default function NewDesafios() {
                 questoes: exercicios,
                 dataCriacao: new Date().toISOString()
             });
-            alert("Bloco de 5 desafios publicado com sucesso!");
+            alert("Bloco de 6 desafios publicado com sucesso!");
             window.location.reload(); 
         } catch (error) {
             console.error("Erro ao salvar:", error);
@@ -94,7 +93,6 @@ export default function NewDesafios() {
 
                 <div className={styles.editorContainer}>
                     <div className={styles.formColumn}>
-                        
                         <div className={styles.metaBox}>
                             <h3>1. Configurações do Bloco (Capa e Área)</h3>
                             <div className={styles.inputGroup}>
@@ -121,7 +119,6 @@ export default function NewDesafios() {
                             <div className={styles.inputGroup}>
                                 <label className={styles.fieldLabel}>Link da Capa do Bloco</label>
                                 <input className={styles.inputField} placeholder="URL da imagem..." value={capa} onChange={e => setCapa(e.target.value)} />
-                                {/* PRÉ-VISUALIZAÇÃO DA CAPA */}
                                 {capa && (
                                     <img src={capa} alt="Preview Capa" style={{ maxWidth: '200px', marginTop: '10px', borderRadius: '8px', border: '1px solid #ddd' }} onError={(e) => e.target.style.display = 'none'} />
                                 )}
@@ -145,7 +142,6 @@ export default function NewDesafios() {
                                     <div className={styles.inputGroup}>
                                         <label className={styles.fieldLabel}>Link da Imagem da Questão (Opcional)</label>
                                         <input className={styles.inputField} value={ex.perguntaImagem} onChange={e => handleQuestaoChange(index, 'perguntaImagem', e.target.value)} />
-                                        {/* PRÉ-VISUALIZAÇÃO DA IMAGEM DO ENUNCIADO */}
                                         {ex.perguntaImagem && (
                                             <img src={ex.perguntaImagem} alt="Preview Questão" style={{ maxWidth: '150px', marginTop: '10px', borderRadius: '4px' }} onError={(e) => e.target.style.display = 'none'} />
                                         )}
@@ -153,7 +149,8 @@ export default function NewDesafios() {
 
                                     <div className={styles.alternativasGrid} style={{ marginTop: '20px' }}>
                                         <label className={styles.fieldLabel}>Alternativas (Marque a Correta)</label>
-                                        {['a', 'b', 'c', 'd', 'e'].map((letra) => (
+                                        {/* Mapeando apenas de A até D */}
+                                        {['a', 'b', 'c', 'd'].map((letra) => (
                                             <div key={letra} className={styles.alternativaItem}>
                                                 <div className={styles.altRadioHeader}>
                                                     <input type="radio" name={`correta-${index}`} checked={ex.alternativaCorreta === letra} onChange={() => handleQuestaoChange(index, 'alternativaCorreta', letra)} />
@@ -161,7 +158,6 @@ export default function NewDesafios() {
                                                 </div>
                                                 <input className={styles.inputBlock} placeholder="Texto da resposta" value={ex.alternativas[letra].texto} onChange={e => handleAltChange(index, letra, 'texto', e.target.value)} style={{marginBottom: '5px'}} />
                                                 <input className={styles.inputBlock} placeholder="Link da imagem (opcional)" value={ex.alternativas[letra].imagem} onChange={e => handleAltChange(index, letra, 'imagem', e.target.value)} style={{fontSize: '0.8rem'}} />
-                                                {/* PRÉ-VISUALIZAÇÃO DA IMAGEM DA ALTERNATIVA */}
                                                 {ex.alternativas[letra].imagem && (
                                                     <img src={ex.alternativas[letra].imagem} alt={`Preview ${letra}`} style={{ maxWidth: '80px', marginTop: '5px', borderRadius: '4px' }} onError={(e) => e.target.style.display = 'none'} />
                                                 )}
