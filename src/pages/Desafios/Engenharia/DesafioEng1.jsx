@@ -53,7 +53,7 @@ export default function DesafioEng2() {
             uid: auth.currentUser.uid,
             email: auth.currentUser.email,
             nome: auth.currentUser.displayName || "Aluno",
-            desafio: "Desafio 1 - Noções Introdutórias de Direito",
+            desafio: "Desafio 1 - Projeto Estrutural",
             nota: pontuacao,
             total: total,
             data: new Date().toISOString(),
@@ -69,53 +69,53 @@ export default function DesafioEng2() {
 
   const desafios = [
     {
-      titulo: "O que é o Direito?",
-      codigo: "O Direito pode ser definido como:",
+      titulo: "Compatibilização de Projetos",
+      codigo: "O projeto estrutural deve ser compatibilizado com:",
       alternativas: {
-        a: "Um conjunto de regras morais sem força obrigatória.",
-        b: "Um conjunto de normas que regulam a convivência em sociedade.",
-        c: "Apenas leis escritas pelo Poder Executivo.",
-        d: "Um ramo exclusivo da filosofia.",
+        a: "Apenas o projeto hidráulico",
+        b: "Projetos arquitetônico e complementares",
+        c: "Somente o cronograma",
+        d: "Apenas o orçamento",
       },
     },
     {
-      titulo: "Fontes do Direito",
-      codigo: "Qual das alternativas é considerada uma fonte formal do Direito?",
+      titulo: "Finalidade da Análise Estrutural",
+      codigo: "A análise estrutural visa determinar:",
       alternativas: {
-        a: "Opinião pessoal do juiz",
-        b: "Costumes sociais informais",
-        c: "A lei",
-        d: "Vontade individual",
+        a: "Custos da obra",
+        b: "Esforços e deslocamentos",
+        c: "Tipo de acabamento",
+        d: "Layout arquitetônico",
       },
     },
     {
-      titulo: "Direito Público e Privado",
-      codigo: "O Direito Constitucional pertence a qual ramo?",
+      titulo: "Base do Dimensionamento Estrutural",
+      codigo: "O dimensionamento estrutural baseia-se:",
       alternativas: {
-        a: "Direito Público",
-        b: "Direito Privado",
-        c: "Direito Empresarial",
-        d: "Direito Internacional Privado",
+        a: "Na experiência do engenheiro",
+        b: "Em normas técnicas",
+        c: "Em preferências do cliente",
+        d: "No menor custo possível",
       },
     },
     {
-      titulo: "Princípio da Legalidade",
-      codigo: "O princípio da legalidade determina que:",
+      titulo: "Ações Permanentes",
+      codigo: "As ações permanentes incluem:",
       alternativas: {
-        a: "Tudo é permitido ao cidadão",
-        b: "Ninguém é obrigado a fazer ou deixar de fazer algo senão em virtude de lei",
-        c: "A lei vale apenas para o Estado",
-        d: "As leis são opcionais",
+        a: "Vento e sismo",
+        b: "Cargas de uso",
+        c: "Peso próprio da estrutura",
+        d: "Impactos acidentais",
       },
     },
     {
-      titulo: "Constituição Federal",
-      codigo: "Qual é a principal função da Constituição Federal?",
+      titulo: "Ações Variáveis",
+      codigo: "As ações variáveis incluem:",
       alternativas: {
-        a: "Criar leis municipais",
-        b: "Regular contratos privados",
-        c: "Organizar o Estado e garantir direitos fundamentais",
-        d: "Punir crimes",
+        a: "Peso das fundações",
+        b: "Peso das vigas",
+        c: "Sobrecargas de uso",
+        d: "Peso próprio",
       },
     },
     {
@@ -181,7 +181,7 @@ export default function DesafioEng2() {
       )}
 
       <div className="navigation-links">
-        <Link to="/desafios/CapitulosDireito" className="back-link">
+        <Link to="/desafios/Capitulos/Engenharia" className="back-link">
           <img src="/flecha1.png" alt="Voltar" className="logo-img" />
           Voltar
         </Link>
@@ -190,7 +190,7 @@ export default function DesafioEng2() {
           <img src="/azulejos.png" alt="Menu" className="logo-img" />
         </Link>
 
-        <Link to="/desafios/Direito/DesafioDir2" className="next-link">
+        <Link to="/desafios/Engenharia/DesafioEng2" className="next-link">
           Próximo
           <img src="/flecha2.png" alt="Próximo" className="logo-img" />
         </Link>
