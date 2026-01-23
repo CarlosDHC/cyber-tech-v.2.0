@@ -15,7 +15,7 @@ function ChallengeList() {
           <img
             src="https://imgur.com/IBcmitz.jpg" 
           ></img>
-          <p>SEO e Conteúdo</p> 
+          <p>SEO & Conteúdo</p> 
         </Link>
 
         {/* Desafio 2 */}
@@ -44,7 +44,7 @@ function ChallengeList() {
          <img
             src="https://imgur.com/n4dfJ4f.jpg"
           ></img>
-          <p>Ferramentas</p>
+          <p>CRM & Ferramentas</p>
         </Link>
         <Link to="/desafios/Tecnologia/DesafioTec4" className={styles.challengeCard}>
          <img
@@ -56,7 +56,13 @@ function ChallengeList() {
          <img
             src="https://imgur.com/n4dfJ4f.jpg"
           ></img>
-          <p>Conversão e Vendas</p>
+          <p>Conversão</p>
+        </Link>
+         <Link to="/desafios/Tecnologia/DesafioTec4" className={styles.challengeCard}>
+         <img
+            src="https://imgur.com/n4dfJ4f.jpg"
+          ></img>
+          <p>Vendas</p>
         </Link>
       </div>
     </div>
