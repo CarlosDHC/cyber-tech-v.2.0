@@ -58,30 +58,50 @@ import DesafioTec1 from './pages/Desafios/Tecnologia/DesafioTec1.jsx';
 import DesafioTec2 from './pages/Desafios/Tecnologia/DesafioTec2.jsx';
 import DesafioTec3 from './pages/Desafios/Tecnologia/DesafioTec3.jsx';
 import DesafioTec4 from './pages/Desafios/Tecnologia/DesafioTec4.jsx';
+import DesafioTec5 from './pages/Desafios/Tecnologia/DesafioTec5.jsx';  
+import DesafioTec6 from './pages/Desafios/Tecnologia/DesafioTec6.jsx';
+import DesafioTec7 from './pages/Desafios/Tecnologia/DesafioTec7.jsx';
+import DesafioTec8 from './pages/Desafios/Tecnologia/DesafioTec8.jsx';
 
 // Desafios engenharia
 import DesafioEng1 from './pages/Desafios/Engenharia/DesafioEng1.jsx';
 import DesafioEng2 from './pages/Desafios/Engenharia/DesafioEng2.jsx';
 import DesafioEng3 from './pages/Desafios/Engenharia/DesafioEng3.jsx';
 import DesafioEng4 from './pages/Desafios/Engenharia/DesafioEng4.jsx';
+import DesafioEng5 from './pages/Desafios/Engenharia/DesafioEng5.jsx';
+import DesafioEng6 from './pages/Desafios/Engenharia/DesafioEng6.jsx';
+import DesafioEng7 from './pages/Desafios/Engenharia/DesafioEng7.jsx';
+import DesafioEng8 from './pages/Desafios/Engenharia/DesafioEng8.jsx';
 
 // Desafios direito 
 import DesafioDir1 from './pages/Desafios/Direito/DesafioDir1.jsx';
 import DesafioDir2 from './pages/Desafios/Direito/DesafioDir2.jsx';
 import DesafioDir3 from './pages/Desafios/Direito/DesafioDir3.jsx';
 import DesafioDir4 from './pages/Desafios/Direito//DesafioDir4.jsx';
+import DesafioDir5 from './pages/Desafios/Direito/DesafioDir5.jsx';
+import DesafioDir6 from './pages/Desafios/Direito/DesafioDir6.jsx';
+import DesafioDir7 from './pages/Desafios/Direito/DesafioDir7.jsx';
+import DesafioDir8 from './pages/Desafios/Direito/DesafioDir8.jsx';
 
 // Desafios Marketing
 import DesafioMar1 from './pages/Desafios/Marketing/DesafioMar1.jsx';
 import DesafioMar2 from './pages/Desafios/Marketing/DesafioMar2.jsx';
 import DesafioMar3 from './pages/Desafios/Marketing/DesafioMar3.jsx';
 import DesafioMar4 from './pages/Desafios/Marketing/DesafioMar4.jsx';
+import DesafioMar5 from './pages/Desafios/Marketing/DesafioMar5.jsx';
+import DesafioMar6 from './pages/Desafios/Marketing/DesafioMar6.jsx';
+import DesafioMar7 from './pages/Desafios/Marketing/DesafioMar7.jsx';
+import DesafioMar8 from './pages/Desafios/Marketing/DesafioMar8.jsx';
 
 // Desafios Rh
 import DesafioRh1 from './pages/Desafios/Rh/DesafioRh1.jsx';
 import DesafioRh2 from './pages/Desafios/Rh/DesafioRh2.jsx';
 import DesafioRh3 from './pages/Desafios/Rh/DesafioRh3.jsx';
 import DesafioRh4 from './pages/Desafios/Rh/DesafioRh4.jsx';
+import DesafioRh5 from './pages/Desafios/Rh/DesafioRh5.jsx';
+import DesafioRh6 from './pages/Desafios/Rh/DesafioRh6.jsx';
+import DesafioRh7 from './pages/Desafios/Rh/DesafioRh7.jsx';
+import DesafioRh8 from './pages/Desafios/Rh/DesafioRh8.jsx';
 
 // Novas páginas
 import Sobre from './pages/Sobre/Sobre.jsx';
@@ -135,6 +155,9 @@ function App() {
             <Route path="/tecnologia" element={<ProtectedRoute><AnimatedPage><Tecnologia /></AnimatedPage></ProtectedRoute>} />
             <Route path="/engenharia" element={<ProtectedRoute><AnimatedPage><Engenharia /></AnimatedPage></ProtectedRoute>} />
             <Route path="/direito" element={<ProtectedRoute><AnimatedPage><Direito /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/marketing" element={<ProtectedRoute><AnimatedPage><Marketing /></AnimatedPage></ProtectedRoute>} />
+            <Route path="/rh" element={<ProtectedRoute><AnimatedPage><Rh /></AnimatedPage></ProtectedRoute>} />
+
             <Route path="/blog/post/:id" element={
               <ProtectedRoute><AnimatedPage><PostDinamico /></AnimatedPage></ProtectedRoute>
             } />
