@@ -95,7 +95,7 @@ function Home() {
         "DESENVOLVIMENTO",
         "BANCO DE DADOS",
         "CONCEITOS",
-        "PYTHON"
+        ""
       ]
     },
     {
@@ -157,24 +157,34 @@ function Home() {
     {
       id: 1,
       image: '/tec-carro.jpg',
+      title: 'Tecnologia',
+      subtitle: 'Domine as habilidades digitais essenciais para o futuro.'
 
     },
     {
       id: 2,
       image: '/eng-carro.jpg',
+      title: 'Engenharia Civil',  
+      subtitle: 'Construa o futuro com inovação e sustentabilidade.'
     },
     {
       id: 3,
       image: '/di-carro.jpg',
+      title: 'Direito',
+      subtitle: 'Navegue com segurança pelas normas jurídicas e regulamentações.'
 
     },
     {
       id: 4,
       image: '/rh-carro.jpg',
+      title: 'Recursos Humanos',
+      subtitle: 'Gestão estratégica do capital humano para o sucesso organizacional.'
     },
     {
       id: 5,
       image: '/marketing-carro.jpg',
+      title: 'Marketing Digital',
+      subtitle: 'Construa marcas fortes e conecte-se com seu público-alvo.'
 
     }
   ];
@@ -207,25 +217,6 @@ function Home() {
             
             {/* Overlay para o texto aparecer sobre a imagem */}
             <div className={styles.overlay}>
-              <motion.h1
-                key={`title-${slide.id}`} // Key necessária para reiniciar animação
-                className={styles.mainTitle}
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-              >
-                {slide.title}
-              </motion.h1>
-              
-              <motion.h2
-                key={`sub-${slide.id}`}
-                className={styles.subtitle}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-              >
-                {slide.subtitle}
-              </motion.h2>
             </div>
           </SwiperSlide>
         ))}
