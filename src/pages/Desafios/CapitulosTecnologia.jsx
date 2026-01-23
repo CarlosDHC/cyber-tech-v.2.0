@@ -1,48 +1,29 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styles from "../Home/Home.module.css";
+import React, { useEffect, useState } from "react";
+import { db } from "../../../FirebaseConfig"; //
+import { collection, query, where, getDocs } from "firebase/firestore";
+import styles from "./Capitulos.module.css"; 
 
-function ChallengeList() {
-  return (
-    <div className={`container ${styles.challengeListContainer}`}>
-      <h1 className={styles.pageTitle}>Desafios</h1>
-      <p className={styles.pageSubtitle}>
-        Hora de praticar! Teste sua lógica com os nossos exercícios práticos. 
-      </p>
-      <div className={styles.challengeCardsList}>
-        {/* Desafio 1 */}
-        <Link to="/desafios/Tecnologia/DesafioTec1" className={styles.challengeCard}>
-          <img
-            src="https://imgur.com/IBcmitz.jpg" 
-          ></img>
-          <p>O que é um algoritmo?</p> 
-        </Link>
+export default function CapitulosTecnologia() {
+    const [desafios, setDesafios] = useState([]);
 
-        {/* Desafio 2 */}
-        <Link to="/desafios/Tecnologia/DesafioTec2" className={styles.challengeCard}>
-          <img
-            src="https://imgur.com/7VyVCw2.jpg"
-          ></img>
-          <p>Operações</p> 
-        </Link>
+    useEffect(() => {
+        const fetchDesafios = async () => {
+            const q = query(collection(db, "desafios"), where("area", "==", "Tecnologia"));
+            const querySnapshot = await getDocs(q);
+            setDesafios(querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })));
+        };
+        fetchDesafios();
+    }, []);
 
-        {/* Desafio 3 */}
-        <Link to="/desafios/Tecnologia/DesafioTec3" className={styles.challengeCard}>
-         <img
-            src="https://imgur.com/uAH3O0f.jpg" 
-          ></img>
-          <p>Condicionais</p>
-        </Link>
-        {/* Desafio 4 */}
-        <Link to="/desafios/Tecnologia/DesafioTec4" className={styles.challengeCard}>
-         <img
-            src="https://imgur.com/n4dfJ4f.jpg"
-          ></img>
-          <p>Funções</p>
-        </Link>
-      </div>
-    </div>
-  ); 
+    return (
+        <div className={styles.container}>
+            {desafios.map(d => (
+                <div key={d.id} className={styles.card}>
+                    <img src={d.imagemCapa} alt={d.titulo} />
+                    <h3>{d.titulo}</h3>
+                    <button onClick={() => window.location.href = `/challenge/${d.id}`}>Começar</button>
+                </div>
+            ))}
+        </div>
+    );
 }
-
-export default ChallengeList;
