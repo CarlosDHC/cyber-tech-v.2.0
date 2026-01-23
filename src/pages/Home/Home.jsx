@@ -11,8 +11,6 @@ import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/pagination';
 
-
-
 // Ícones
 import iconAlgoritmo from "../../assets/icons/icon-algoritmo.png";
 import iconPerson from "../../assets/icons/icon-person.png";
@@ -32,8 +30,8 @@ function Home() {
     "estudar-ou-descansar": "/img_desafios/desafio-direito.jpg",
     "fome": "/img_desafios/desafio-engenharia.jpg",
     "dia-ou-noite": "/img_desafios/desafio-tecnologia.jpg",
-    "dia-ou-noite1": "/img_desafios/desafio-tecnologia.jpg",
-    "dia-ou-noite2": "/img_desafios/desafio-tecnologia.jpg",
+    "Marketing" : "/img_desafios/desafio-tecnologia.jpg",
+    "Recursos Humanos" : "/img_desafios/desafio-tecnologia.jpg",
   };
 
   const slugToRoute = {
@@ -133,7 +131,7 @@ function Home() {
 
   const featuredChallenges = challenges
     .filter((c) => c.slug !== "o-que-e-algoritmo")
-    .slice(0, 5);
+    .slice(0, 6);
 
   const cardVideoStyle = {
     width: "100%",
@@ -157,28 +155,33 @@ function Home() {
   const slides = [
     {
       id: 1,
-      image: '/tec-carro.jpg', 
-    
+      image: '/tec-carro.jpg',
+      title: 'Tecnologia',
+      subtitle: 'Domine as ferramentas do futuro'
     },
     {
       id: 2,
-      image: '/eng-carro.jpg'
-     
+      image: '/eng-carro.jpg',
+      title: 'Engenharia Civil',
+      subtitle: 'Construa o amanhã'
     },
     {
       id: 3,
       image: '/di-carro.jpg',
- 
+      title: 'Direito',
+      subtitle: 'Compreenda as leis que nos regem'
     },
     {
       id: 4,
-      image: '/rh-carro.jpg'
-     
+      image: '/rh-carro.jpg',
+      title: 'Recursos Humanos',
+      subtitle: 'Gerencie o maior ativo da empresa'
     },
     {
       id: 5,
-      image: '/marketing-carro.jpg'
-     
+      image: '/marketing-carro.jpg',
+      title: 'Marketing Digital',
+      subtitle: 'Impulsione sua marca'
     }
   ];
 
