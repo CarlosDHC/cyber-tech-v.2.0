@@ -41,35 +41,29 @@ function ChallengeList() {
                  ></img>
                  <p>Geotecnia e Solos</p>
                </Link>
-               <Link to="/desafios/Engenharia/DesafioEng4" className={styles.challengeCard}>
+               <Link to="/desafios/Engenharia/DesafioEng5" className={styles.challengeCard}>
                 <img
                    src="/img_desafios/funcoes.jpg"
                  ></img>
                  <p>Pontes e Viadutos</p>
                </Link>
-               <Link to="/desafios/Engenharia/DesafioEng5" className={styles.challengeCard}>
+               <Link to="/desafios/Engenharia/DesafioEng6" className={styles.challengeCard}>
                 <img
                    src="/img_desafios/funcoes.jpg"
                  ></img>
                  <p>Constituição</p>
                </Link>
-               <Link to="/desafios/Engenharia/DesafioEng6" className={styles.challengeCard}>
+               <Link to="/desafios/Engenharia/DesafioEng7" className={styles.challengeCard}>
                 <img
                    src="/img_desafios/funcoes.jpg"
                  ></img>
                  <p>Processo</p>
                </Link>
-               <Link to="/desafios/Engenharia/DesafioEng7" className={styles.challengeCard}>
-                <img
-                   src="/img_desafios/funcoes.jpg"
-                 ></img>
-                 <p>Fundações</p>
-               </Link>
                <Link to="/desafios/Engenharia/DesafioEng8" className={styles.challengeCard}>
                 <img
                    src="/img_desafios/funcoes.jpg"
                  ></img>
-                 <p>Solos e Hidráulica</p>
+                 <p>Fundações</p>
                </Link>
              </div>
            </div>

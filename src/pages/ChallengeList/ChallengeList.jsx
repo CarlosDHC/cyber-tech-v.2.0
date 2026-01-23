@@ -25,7 +25,7 @@ function ChallengeList() {
           <img
             src="https://imgur.com/6RTD2WO.jpg"
           ></img>
-          <p>Direito Civil</p> 
+          <p>Direito</p> 
         </Link>
 
         {/* Desafio 3 */}
