@@ -17,7 +17,7 @@ function ChallengeList() {
           <img 
             src="https://imgur.com/A6MA8Ua.jpg"> 
           </img>
-          <p>Tecnologia</p>
+          <p>Tecnologia </p>
         </Link>
 
         {/* Desafio 2 */}
@@ -25,7 +25,7 @@ function ChallengeList() {
           <img
             src="https://imgur.com/6RTD2WO.jpg"
           ></img>
-          <p>Direito</p> 
+          <p>Direito Civil</p> 
         </Link>
 
         {/* Desafio 3 */}
@@ -33,7 +33,7 @@ function ChallengeList() {
          <img
             src="https://imgur.com/5KHksLP.jpg"
           ></img>
-          <p>Engenharia</p>
+          <p>Engenharia Civil</p>
         </Link>
         <Link to="/desafios/CapitulosMarketing" className={styles.challengeCard}>
          <img
