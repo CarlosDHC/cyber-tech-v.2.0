@@ -26,5 +26,22 @@
     "title": "Dia ou Noite?",
     "concept": "Determine a rotina baseado no período.",
     "icon": "sun-moon"
+  },
+
+  {
+    "id": 5,
+    "slug": "dia-ou-noite1",
+    "title": "Dia ou Noite?",
+    "concept": "Determine a rotina baseado no período.",
+    "icon": "sun-moon"
+  },
+
+    {
+    "id": 6,
+    "slug": "dia-ou-noite2",
+    "title": "Dia ou Noite?",
+    "concept": "Determine a rotina baseado no período.",
+    "icon": "sun-moon"
   }
+
 ]

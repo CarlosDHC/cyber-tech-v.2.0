@@ -32,6 +32,8 @@ function Home() {
     "estudar-ou-descansar": "/img_desafios/desafio-direito.jpg",
     "fome": "/img_desafios/desafio-engenharia.jpg",
     "dia-ou-noite": "/img_desafios/desafio-tecnologia.jpg",
+    "dia-ou-noite1": "/img_desafios/desafio-tecnologia.jpg",
+    "dia-ou-noite2": "/img_desafios/desafio-tecnologia.jpg",
   };
 
   const slugToRoute = {
@@ -46,6 +48,8 @@ function Home() {
     "fome": "Engenharia Civil",                
     "dia-ou-noite": "Direito"    
   };
+
+  
 
   const [activeCarouselIndex, setActiveCarouselIndex] = React.useState(0);
 
@@ -129,7 +133,7 @@ function Home() {
 
   const featuredChallenges = challenges
     .filter((c) => c.slug !== "o-que-e-algoritmo")
-    .slice(0, 3);
+    .slice(0, 5);
 
   const cardVideoStyle = {
     width: "100%",
@@ -381,12 +385,14 @@ function Home() {
                     <p>{tituloExibido}</p>
                   </Link>
                 </motion.div>
+                
               );
             })}
           </div>
         </motion.section>
       </div>
     </motion.div>
+    
   );
 }
 
