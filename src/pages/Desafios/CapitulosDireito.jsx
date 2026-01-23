@@ -40,7 +40,7 @@ function ChallengeList() {
           ></img>
           <p>Advocacia</p>
         </Link>
-        <Link to="/desafios/Direito/DesafioDir4" className={styles.challengeCard}>
+        <Link to="/desafios/Direito/DesafioDir5" className={styles.challengeCard}>
          <img
             src="https://imgur.com/XAHCgaS.jpg"
           ></img>
