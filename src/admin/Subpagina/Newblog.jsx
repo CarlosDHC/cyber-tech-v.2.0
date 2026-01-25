@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "../Admin.module.css";
 
@@ -14,6 +14,9 @@ export default function NewBlog() {
   const [capa, setCapa] = useState("");
   const [autor, setAutor] = useState("");
   const [tempoLeitura, setTempoLeitura] = useState("");
+  
+  // Estado para categoria
+  const [categoria, setCategoria] = useState(""); 
 
   const [secoes, setSecoes] = useState([
     { id: Date.now(), type: "paragraph", content: "" }
@@ -22,6 +25,25 @@ export default function NewBlog() {
   const [loading, setLoading] = useState(false);
   const [collapsed, setCollapsed] = useState(true);
   const [modoPreview, setModoPreview] = useState(false);
+
+  // --- CÁLCULO AUTOMÁTICO DE TEMPO DE LEITURA ---
+  useEffect(() => {
+    const textoTotal = secoes.reduce((acc, bloco) => {
+      if (bloco.type === 'paragraph' || bloco.type === 'subtitle') {
+        return acc + " " + (bloco.content || "");
+      }
+      return acc;
+    }, "");
+
+    const contagemPalavras = textoTotal.trim().split(/\s+/).length;
+    
+    // Média de leitura: 200 palavras por minuto
+    const minutosCalculados = Math.ceil(contagemPalavras / 200);
+    const tempoFinal = contagemPalavras > 0 ? minutosCalculados : "";
+
+    setTempoLeitura(tempoFinal.toString());
+
+  }, [secoes]);
 
   const adicionarBloco = (tipo) => {
     setSecoes([...secoes, { id: Date.now(), type: tipo, content: "" }]);
@@ -44,8 +66,8 @@ export default function NewBlog() {
   };
 
   async function salvarPost() {
-    if (!titulo || !resumo || !autor || !tempoLeitura) {
-      alert("Preencha todos os campos do editor.");
+    if (!titulo || !resumo || !autor || !tempoLeitura || !categoria) {
+      alert("Preencha todos os campos, incluindo a Categoria.");
       return;
     }
     setLoading(true);
@@ -55,16 +77,19 @@ export default function NewBlog() {
         resumo,
         autor,
         tempoLeitura,
+        categoria,
         imagemUrl: capa || "https://placehold.co/600x400?text=Capa",
         conteudo: secoes,
         dataCriacao: new Date().toISOString()
       });
       alert("Post publicado com sucesso!");
-      setTitulo(""); setResumo(""); setCapa(""); setAutor(""); setTempoLeitura("");
+      
+      setTitulo(""); setResumo(""); setCapa(""); setAutor(""); setTempoLeitura(""); setCategoria("");
       setSecoes([{ id: Date.now(), type: "paragraph", content: "" }]);
       setModoPreview(false);
     } catch (error) {
       console.error("Erro ao salvar:", error);
+      alert("Erro ao salvar o post. Veja o console.");
     } finally {
       setLoading(false);
     }
@@ -125,9 +150,13 @@ export default function NewBlog() {
         </div>
 
         {modoPreview ? (
-          /* --- VISUALIZAÇÃO PADRONIZADA COM POSTDINAMICO.JSX --- */
           <div className="blog-post-container">
             <header className="blog-post-header">
+              {categoria && <span style={{
+                  background:'#2563EB', color:'white', padding:'4px 12px', 
+                  borderRadius:'20px', fontSize:'0.85rem', textTransform:'uppercase',
+                  marginBottom:'10px', display:'inline-block'
+              }}>{categoria}</span>}
               <h1 className="blog-title">{titulo || "Título do Post"}</h1>
               {resumo && <p className="blog-subtitle">{resumo}</p>}
             </header>
@@ -147,14 +176,31 @@ export default function NewBlog() {
             </section>
           </div>
         ) : (
-          /* --- ÁREA DO EDITOR --- */
           <div className={styles.editorContainer}>
             <div className={styles.formColumn}>
               <div className={styles.metaBox}>
                 <h3>Metadados (Dados do Firebase)</h3>
+                
                 <div className={styles.inputGroup}>
                   <label className={styles.fieldLabel}>Título</label>
                   <input className={styles.inputField} value={titulo} onChange={e => setTitulo(e.target.value)} />
+                </div>
+
+                <div className={styles.inputGroup}>
+                  <label className={styles.fieldLabel}>Categoria (Área)</label>
+                  <select 
+                    className={styles.inputField} 
+                    value={categoria} 
+                    onChange={e => setCategoria(e.target.value)}
+                    style={{ height: '45px', background: 'white' }}
+                  >
+                    <option value="">Selecione a área...</option>
+                    <option value="Tecnologia">Tecnologia</option>
+                    <option value="Engenharia">Engenharia</option>
+                    <option value="Direito">Direito</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Rh">RH (Gestão de Pessoas)</option>
+                  </select>
                 </div>
 
                 <div style={{ display: 'flex', gap: '10px' }}>
@@ -162,9 +208,22 @@ export default function NewBlog() {
                     <label className={styles.fieldLabel}>Autor</label>
                     <input className={styles.inputField} value={autor} onChange={e => setAutor(e.target.value)} />
                   </div>
+                  
+                  {/* --- CAMPO DE TEMPO MELHORADO --- */}
                   <div className={styles.inputGroup} style={{ flex: 1 }}>
-                    <label className={styles.fieldLabel}>Minutos de Leitura</label>
-                    <input className={styles.inputField} type="number" value={tempoLeitura} onChange={e => setTempoLeitura(e.target.value)} />
+                    <label className={styles.fieldLabel}>
+                      Tempo Estimado de Leitura (min)
+                    </label>
+                    <input 
+                      className={styles.inputField} 
+                      type="number" 
+                      value={tempoLeitura} 
+                      onChange={e => setTempoLeitura(e.target.value)} 
+                      placeholder="Calculado automaticamente..."
+                    />
+                    <small style={{ color: '#666', fontSize: '0.75rem', marginTop: '4px', display: 'block' }}>
+                      Estimativa de quanto tempo o usuário levará para ler o artigo.
+                    </small>
                   </div>
                 </div>
 
@@ -183,7 +242,6 @@ export default function NewBlog() {
                   />
                 </div>
 
-                {/* PRÉ-VISUALIZAÇÃO IMEDIATA DA CAPA AO COLAR O LINK */}
                 {capa && (
                   <div style={{ marginTop: '15px', textAlign: 'center' }}>
                     <p style={{ fontSize: '0.8rem', color: '#666', marginBottom: '8px' }}>Prévia da Capa:</p>
@@ -213,7 +271,6 @@ export default function NewBlog() {
                     ) : (
                       <div className={styles.inputGroup}>
                         <input className={styles.inputBlock} value={secao.content} onChange={e => atualizarBloco(secao.id, e.target.value)} />
-                        {/* PRÉ-VISUALIZAÇÃO IMEDIATA DA IMAGEM DO BLOCO AO COLAR O LINK */}
                         {secao.type === 'image' && secao.content && (
                           <img
                             src={secao.content}

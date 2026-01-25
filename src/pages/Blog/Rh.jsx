@@ -2,83 +2,117 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Blog.css'; 
 
-import { 
-  collection, getDocs, orderBy, query, 
-  addDoc, deleteDoc, where, onSnapshot, doc 
-} from "firebase/firestore";
+import { collection, getDocs, orderBy, query, addDoc, deleteDoc, where, onSnapshot, doc } from "firebase/firestore";
 import { db, auth } from "../../../FirebaseConfig"; 
 
-const PostCard = ({ post }) => {
+// --- PostCard (Mesmo código) ---
+function PostCard({ post }) {
+  const [likesCount, setLikesCount] = useState(0);
+  const [userLiked, setUserLiked] = useState(false);
+  const [likeDocId, setLikeDocId] = useState(null); 
+  useEffect(() => {
+    const q = query(collection(db, "likes"), where("postId", "==", post.id));
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      setLikesCount(snapshot.size);
+      if (auth.currentUser) {
+        const meuLike = snapshot.docs.find(d => d.data().userId === auth.currentUser.uid);
+        if (meuLike) { setUserLiked(true); setLikeDocId(meuLike.id); } 
+        else { setUserLiked(false); setLikeDocId(null); }
+      } else { setUserLiked(false); }
+    });
+    return () => unsubscribe();
+  }, [post.id]);
+  const handleLike = async (e) => {
+    e.preventDefault(); 
+    if (!auth.currentUser) return alert("Você precisa estar logado para curtir!");
+    try {
+      if (userLiked && likeDocId) await deleteDoc(doc(db, "likes", likeDocId));
+      else await addDoc(collection(db, "likes"), {
+          postId: post.id, postTitle: post.titulo,
+          userId: auth.currentUser.uid, userEmail: auth.currentUser.email,
+          userName: auth.currentUser.displayName || "Usuário", data: new Date().toISOString()
+      });
+    } catch (error) { console.error("Erro ao curtir:", error); }
+  };
   const linkDestino = post.slug ? `/${post.slug}` : `/blog/post/${post.id}`;
   return (
     <div className="post-card-alg">
       <Link to={linkDestino} className="read-more-link">
         <div className="post-image">
-           <img 
-            src={post.imagem || "/placeholder-blog.png"} 
-            alt={post.titulo} 
-            className="post-img-blog"
-            onError={(e) => e.target.src = "https://placehold.co/600x400?text=RH+e+Gestão"}
-          />
+          <img src={post.imagem || "/placeholder-blog.png"} alt={post.titulo} className="post-img-blog" onError={(e) => e.target.src = "https://placehold.co/600x400?text=RH+e+Gestao"} />
         </div>
         <div className="post-info">
           <h3 className="post-title">{post.titulo}</h3>
           <div className="post-meta">
-            <p>{post.data} • {post.autor || "RH Team"}</p>
+            <p><img src='/user.png' className='user' alt="Autor" /> {post.autor || "Equipe"}</p>
+            <p><img src='/calendar.png' alt="Data" className='user' /> {post.data}</p>
+            <p><img src='/time-left.png' className='user' alt="Tempo" /> {post.tempoLeitura}</p>
           </div>
         </div>
       </Link>
+      <div className="post-feedback">
+        <button className={`like-btn ${userLiked ? 'curtido' : ''}`} onClick={handleLike}>
+          <span className="heart-icon" style={{fontSize: '1.4rem'}}>{userLiked ? '❤️' : '🤍'}</span> 
+          <span style={{fontWeight: 'bold', color: '#555', fontSize: '1rem'}}>{likesCount > 0 ? likesCount : ''}</span>
+        </button>
+      </div>
     </div>
   );
-};
+}
 
 function Rh() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [mostrarMais, setMostrarMais] = useState(false);
 
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        // --- FILTRO PARA RH ---
+        // FILTRO: Rh
         const q = query(
           collection(db, "blog"), 
-          where("categoria", "==", "Rh"), // Verifique se salva como "Rh" ou "RH" no Admin
+          where("categoria", "==", "Rh"), 
           orderBy("dataCriacao", "desc")
         );
-        
         const querySnapshot = await getDocs(q);
-        const listaPosts = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data(),
-          data: doc.data().dataCriacao ? new Date(doc.data().dataCriacao).toLocaleDateString('pt-BR') : "Recente"
+        const lista = querySnapshot.docs.map(doc => ({
+          id: doc.id, ...doc.data(),
+          data: doc.data().dataCriacao ? new Date(doc.data().dataCriacao).toLocaleDateString('pt-BR') : "Recente",
+          tempoLeitura: doc.data().tempoLeitura ? `${doc.data().tempoLeitura} min` : "Leitura rápida"
         }));
-        setPosts(listaPosts);
-      } catch (error) {
-        console.error("Erro ao buscar posts de RH:", error);
-      } finally {
-        setLoading(false);
-      }
+        setPosts(lista);
+      } catch (error) { console.error("Erro:", error); } 
+      finally { setLoading(false); }
     };
-
     fetchPosts();
   }, []);
 
   return (
     <div className="blog-page">
-      <div className='hero-section-rh' style={{
-          backgroundColor: '#27ae60', 
-          padding: '60px 20px', 
-          textAlign: 'center', 
-          color: 'white',
-          marginBottom: '30px'
-      }}>
-          <h1>Gestão de Pessoas & RH</h1>
+      <div className='hero-section hero-rh'>
+          <h1>Gestão de Pessoas (RH)</h1>
       </div>
 
       <div className="post-container-blog">
-        {loading && <p>Carregando...</p>}
-        {!loading && posts.length === 0 && <p>Nenhum post de RH encontrado.</p>}
+        {loading && <p style={{textAlign:'center'}}>Carregando...</p>}
+        {!loading && posts.length === 0 && <p style={{textAlign:'center'}}>Nenhum post encontrado.</p>}
         {posts.map((post) => <PostCard key={post.id} post={post} />)}
+      </div>
+
+      <div className="curiosidade-card" style={{borderLeftColor: '#11998e'}}>
+        <h2>Curiosidades de RH</h2>
+        <strong>Soft Skills</strong>
+        <p>Estudos indicam que 92% dos recrutadores consideram as Soft Skills (habilidades comportamentais) tão importantes quanto as Hard Skills.</p>
+        
+        {mostrarMais && (
+          <div className="conteudo-extra">
+            <strong>Turnover</strong>
+            <p>Empresas com cultura forte de feedback têm taxas de rotatividade (turnover) 14.9% menores.</p>
+          </div>
+        )}
+        <button className="btn-ver-mais" onClick={() => setMostrarMais(!mostrarMais)}>
+          {mostrarMais ? 'Ver menos ▲' : 'Ver mais curiosidades ▼'}
+        </button>
       </div>
     </div>
   );
