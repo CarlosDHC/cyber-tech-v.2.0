@@ -16,16 +16,13 @@ import Blog from './pages/Blog/Blog.jsx';
 import ChallengeList from './pages/ChallengeList/ChallengeList.jsx';
 import Forum from './pages/Forum/Forum.jsx';
 
-// Blognpm
-import Algoritmo from "./pages/Blog/Algoritmo";
-import Variavel from "./pages/Blog/Variavel.jsx";
-import Condicionais from "./pages/Blog/Condicionais.jsx";
-import Funcoes from "./pages/Blog/Funcoes.jsx";
-import Operacao from "./pages/Blog/Operacao.jsx";
-import Tipo from "./pages/Blog/Tipo.jsx"
+// Blog Pages (Categorias)
 import Tecnologia from "./pages/Blog/Tecnologia.jsx"
 import Engenharia from "./pages/Blog/Engenharia.jsx"
 import Direito from "./pages/Blog/Direito.jsx"
+// Imports adicionados para as novas categorias:
+import Marketing from "./pages/Blog/Marketing.jsx";
+import Rh from "./pages/Blog/Rh.jsx";
 
 const PostDinamico = React.lazy(() => import("./pages/Blog/PostDinamico"));
 
@@ -33,7 +30,7 @@ const PostDinamico = React.lazy(() => import("./pages/Blog/PostDinamico"));
 import Login from './pages/Login/Login.jsx';
 import Cadastro from './pages/Cadastro/Cadastro.jsx';
 import EsqueciSenha from './pages/EsqueciSenha/EsqueciSenha.jsx';
-import EsqueciSenhaPerfil from './pages/EsqueciSenha/EsqueciSenhaPerfil.jsx'; // <--- IMPORT NOVO
+import EsqueciSenhaPerfil from './pages/EsqueciSenha/EsqueciSenhaPerfil.jsx';
 import Perfil from './pages/Perfil/Perfil.jsx';
 
 // Admin
@@ -46,6 +43,7 @@ import Notas from './admin/Subpagina/Notas.jsx';
 // Rotas protegidas
 import ProtectedRoute from './context/ProtectedRoute.jsx';
 import ProtectedAdminRoute from './context/ProtectedAdminRoute.jsx';
+
 // Capitulos 
 import CapitulosTecnologia from './pages/Desafios/CapitulosTecnologia.jsx';
 import CapitulosDireito from './pages/Desafios/CapitulosDireito.jsx';
@@ -144,14 +142,8 @@ function App() {
             <Route path="/sobre" element={<AnimatedPage><Sobre /></AnimatedPage>} />
             <Route path="/privacidade" element={<AnimatedPage><Privacidade /></AnimatedPage>} />
 
-            {/* --- Rotas Protegidas --- */}
+            {/* --- Rotas Protegidas Blog --- */}
             <Route path="/blog" element={<ProtectedRoute><AnimatedPage><Blog /></AnimatedPage></ProtectedRoute>} />
-            <Route path="/algoritmo" element={<ProtectedRoute><AnimatedPage><Algoritmo /></AnimatedPage></ProtectedRoute>} />
-            <Route path="/variavel" element={<ProtectedRoute><AnimatedPage><Variavel /></AnimatedPage></ProtectedRoute>} />
-            <Route path="/condicionais" element={<ProtectedRoute><AnimatedPage><Condicionais /></AnimatedPage></ProtectedRoute>} />
-            <Route path="/funcoes" element={<ProtectedRoute><AnimatedPage><Funcoes /></AnimatedPage></ProtectedRoute>} />
-            <Route path="/operacao" element={<ProtectedRoute><AnimatedPage><Operacao /></AnimatedPage></ProtectedRoute>} />
-            <Route path="/tipo" element={<ProtectedRoute><AnimatedPage><Tipo /></AnimatedPage></ProtectedRoute>} />
             <Route path="/tecnologia" element={<ProtectedRoute><AnimatedPage><Tecnologia /></AnimatedPage></ProtectedRoute>} />
             <Route path="/engenharia" element={<ProtectedRoute><AnimatedPage><Engenharia /></AnimatedPage></ProtectedRoute>} />
             <Route path="/direito" element={<ProtectedRoute><AnimatedPage><Direito /></AnimatedPage></ProtectedRoute>} />
@@ -161,6 +153,7 @@ function App() {
             <Route path="/blog/post/:id" element={
               <ProtectedRoute><AnimatedPage><PostDinamico /></AnimatedPage></ProtectedRoute>
             } />
+            
             {/* --- Rotas Capitulos --- */}
             <Route path="/desafios/capitulostecnologia" element={<ProtectedRoute><AnimatedPage><CapitulosTecnologia /></AnimatedPage></ProtectedRoute>} />
             <Route path="/desafios/capitulosengenharia" element={<ProtectedRoute><AnimatedPage><CapitulosEngenharia /></AnimatedPage></ProtectedRoute>} />
@@ -230,7 +223,7 @@ function App() {
                 </AnimatedPage>
               </ProtectedRoute>
             } />
-            {/* --- NOVA ROTA ADICIONADA --- */}
+            
             <Route path="/alterar-senha" element={
               <ProtectedRoute>
                 <AnimatedPage>
@@ -251,8 +244,6 @@ function App() {
       </main>
 
       <main className={isAdminRoute ? 'admin-main' : 'public-main'}>
-        {/* Este bloco main extra parece redundante se você já tem o main acima com as rotas, 
-             mas mantive conforme seu arquivo original para não quebrar layout */}
       </main>
 
       <Footer />
