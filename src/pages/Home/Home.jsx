@@ -112,8 +112,8 @@ function Home() {
         "INFRAESTRUTURA",
         "GEOTECNIA E SOLOS",
         "PONTES E VIADUTOS",
-        "CONSTITUIÇÃO",
-        "PROCESSO",
+        "CONSTITUIÇÃO FEDERAL",
+        "PROCESSO ADMINISTRATIVO",
         "FUNDAÇÕES"
       ]
     },
