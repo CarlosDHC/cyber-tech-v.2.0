@@ -64,15 +64,17 @@ function Home() {
     "estudar-ou-descansar": "/img_desafios/desafio-direito.jpg",
     "fome": "/img_desafios/desafio-engenharia.jpg",
     "dia-ou-noite": "/img_desafios/desafio-tecnologia.jpg",
-    "Markenting": "/img_desafios/desafio-marketing.jpg",
+    "Marketing": "/img_desafios/desafio-marketing.jpg",
     "Recursos Humanos": "/img_desafios/desafio-rh.jpg",
   };
 
   const slugToRoute = {
-    "o-que-e-algoritmo": "/desafios/desafio1",
     "estudar-ou-descansar": "/desafios/CapitulosTecnologia",
     "fome": "/desafios/CapitulosEngenharia",
     "dia-ou-noite": "/desafios/CapitulosDireito",
+    "Marketing": "/desafios/CapitulosMarketing",
+    "Recursos Humanos": "/desafios/CapitulosRh",
+
   };
 
   const customTitles = {
@@ -112,8 +114,8 @@ function Home() {
         "INFRAESTRUTURA",
         "GEOTECNIA E SOLOS",
         "PONTES E VIADUTOS",
-        "CONSTITUIÇÃO",
-        "PROCESSO",
+        "CONSTITUIÇÃO FEDERAL",
+        "PROCESSO ADMINISTRATIVO",
         "FUNDAÇÕES"
       ]
     },
@@ -248,10 +250,7 @@ function Home() {
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id} className={styles.slideItem}>
-            {/* Imagem de fundo */}
-            <img src={slide.image} alt={slide.title} className={styles.carouselImage} />
-            
-            {/* Overlay para o texto aparecer sobre a imagem */}
+            {/* Overlay para o texto aparecer sobre o gradiente */}
             <div className={styles.overlay}>
               <motion.h1
                 key={`title-${activeSlide}`} // Key necessária para reiniciar animação
@@ -288,7 +287,7 @@ function Home() {
           transition={{ delay: 0.3 }}
         >
           <div className={styles.introductionContent}>
-            <h2 className={styles.introductionTitle}>Bem-vindos à Jornada Multiprofissional Cyber Tech</h2>
+            <h2 className={styles.introductionTitle}>Bem-vindos à Jornada Multiprofissional CyberTech</h2>
             
             <p className={styles.introductionText}>
               Nesta plataforma, você não apenas aprenderá conceitos isolados, mas como as engrenagens do mercado atual se conectam. Prepare-se para dominar as competências essenciais que definem o profissional do futuro:

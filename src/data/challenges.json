@@ -30,7 +30,7 @@
 
   {
     "id": 5,
-    "slug": "Markenting",
+    "slug": "Marketing",
     "title": "Marketing Digital",
     "concept": "Venha ser um empreendedor.",
     "icon": "sun-moon"
@@ -39,7 +39,7 @@
     {
     "id": 6,
     "slug": "Recursos Humanos",
-    "title": "RH",
+    "title": "Recursos Humanos",
     "concept": "pessoas.",
     "icon": "sun-moon"
   }

@@ -4,6 +4,7 @@
   min-height: 100vh;
   padding-bottom: 60px;
   padding-top: 100px; /* Ajuste conforme a altura do seu Header */
+  margin-top: -60px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -11,7 +12,7 @@
 .contentWrapper {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 5px 0 0 0;
+  padding: 0 20px;
   display: flex;
   gap: 30px;
   position: relative;
@@ -27,12 +28,21 @@
   gap: 20px;
 }
 
+/* Header com Título e Busca */
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
 /* Título da Página */
 .pageTitle {
   font-size: 1.8rem;
   font-weight: 700;
   color: #111827;
-  margin-bottom: 10px;
   padding-left: 15px;
   border-left: 5px solid #2563EB; /* Detalhe azul */
   line-height: 1.2;
@@ -44,6 +54,31 @@
   font-weight: 400;
   color: #6b7280;
   margin-top: 5px;
+}
+
+/* Barra de Pesquisa */
+.searchBar {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 8px 15px;
+  border-radius: 25px;
+  border: 1px solid #d1d5db;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+  width: 100%;
+  max-width: 300px;
+}
+
+.searchIcon { 
+  margin-right: 8px; 
+  opacity: 0.6; 
+}
+
+.searchBar input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 0.9rem;
 }
 
 /* --- BADGE DE FILTRO ATIVO (NOVO) --- */
@@ -59,6 +94,8 @@
   font-size: 0.9rem;
   box-shadow: 0 2px 4px rgba(37, 99, 235, 0.1);
   animation: fadeIn 0.3s ease;
+  width: fit-content;
+  margin-bottom: 10px;
 }
 
 .clearFilterBtn {
@@ -67,8 +104,7 @@
   color: #666;
   font-weight: bold;
   cursor: pointer;
-  font-size: 0.8rem;
-  padding: 4px 8px;
+  padding: 0 5px;
   border-radius: 4px;
   transition: background 0.2s;
 }
@@ -357,49 +393,85 @@
   font-style: italic;
 }
 
-/* --- SELETOR DE TAGS (CHIPS) --- */
-.tagsLabel {
+/* --- INPUT DE TAGS INTELIGENTE (CHIPS) --- */
+.tagInputContainer label {
   font-size: 0.9rem;
-  color: #374151;
   font-weight: 600;
-  margin-bottom: 5px;
+  color: #374151;
+  display: block;
+  margin-bottom: 8px;
 }
 
-.tagSelectorContainer {
+.tagsWrapper {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 8px;
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  align-items: center; /* Centraliza verticalmente input e botão */
 }
 
-.tagOption {
-  background-color: #f3f4f6;
-  border: 1px solid #e5e7eb;
-  color: #4b5563;
-  padding: 8px 16px;
-  border-radius: 20px;
+.tagsWrapper:focus-within {
+  border-color: #2563EB;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.selectedTagChip {
+  background-color: #2563EB;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 15px;
   font-size: 0.85rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s ease;
   display: flex;
   align-items: center;
+  gap: 6px;
 }
 
-.tagOption:hover {
-  background-color: #e5e7eb;
-  border-color: #d1d5db;
+.selectedTagChip button {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  line-height: 1;
 }
 
-.tagOptionSelected {
+.tagTextInput {
+  border: none;
+  outline: none;
+  flex: 1;
+  min-width: 120px;
+  padding: 6px;
+  font-size: 0.95rem;
+  background: transparent;
+}
+
+/* --- Botão Adicionar Tag (+) --- */
+.addTagBtn {
+  background-color: #f3f4f6;
+  border: 1px solid #d1d5db;
+  color: #2563EB;
+  font-weight: bold;
+  font-size: 1.2rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:none 0.1s;
+  margin-left: 5px;
+  line-height: 1;
+}
+
+.addTagBtn:hover {
   background-color: #2563EB;
   color: white;
   border-color: #2563EB;
-  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3);
-}
-
-.tagOptionSelected:hover {
-  background-color: #1d4ed8;
-  border-color: #1d4ed8;
 }
 
 /* --- BARRA LATERAL (SIDEBAR) --- */
@@ -442,29 +514,34 @@
 }
 
 .topicItem {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   padding: 12px 10px;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s;
-  color: #4b5563;
+  border-bottom: 1px solid #f9fafb;
 }
 
 .topicItem:hover {
   background-color: #f3f4f6;
-  color: #2563EB;
   padding-left: 15px; /* Efeito de movimento */
 }
 
-/* NOVO: Item de Tópico Selecionado (Filtro Ativo) */
 .topicItemActive {
   background-color: #eff6ff;
-  color: #2563EB;
   border-left: 4px solid #2563EB;
-  font-weight: 700;
-  padding-left: 12px; /* Compensa a borda */
+  padding-left: 12px;
+}
+
+.topicHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.topicName {
+  color: #2563EB;
+  font-weight: 600;
 }
 
 .topicCount {
@@ -477,10 +554,18 @@
   transition: background 0.2s, color 0.2s;
 }
 
-/* Contador fica azul quando ativo */
 .topicItemActive .topicCount {
   background-color: #2563EB;
   color: white;
+}
+
+.topicHighlight {
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-style: italic;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .rulesList {
