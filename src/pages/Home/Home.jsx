@@ -248,10 +248,7 @@ function Home() {
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id} className={styles.slideItem}>
-            {/* Imagem de fundo */}
-            <img src={slide.image} alt={slide.title} className={styles.carouselImage} />
-            
-            {/* Overlay para o texto aparecer sobre a imagem */}
+            {/* Overlay para o texto aparecer sobre o gradiente */}
             <div className={styles.overlay}>
               <motion.h1
                 key={`title-${activeSlide}`} // Key necessária para reiniciar animação

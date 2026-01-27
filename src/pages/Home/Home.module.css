@@ -14,19 +14,22 @@
 }
 
 .mainTitle {
-  font-size: 1.1rem;
+  font-size: 3.5rem;
   font-weight: 800;
   margin-bottom: 0.4rem;
   color: #ffffff;
   text-shadow: 0 0 10px rgba(192, 220, 238, 0.8), 0 0 20px rgba(9, 94, 139, 0.6), 2px 2px 4px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  width: 100%;
 }
 
 .subtitle {
   color: #ffffff;
-  font-size: 0.65rem;
+  font-size: 1.1rem;
   font-weight: 500;
   text-shadow: 0 0 8px rgba(192, 220, 238, 0.7), 0 0 15px rgba(9, 94, 139, 0.5), 1px 1px 3px rgba(0, 0, 0, 0.4);
-  max-width: 250px;
+  max-width: 500px;
+  text-align: center;
 }
 
 .infoText h3 {
@@ -71,12 +74,11 @@
 .slideItem {
   position: relative;
   overflow: hidden;
+  background: linear-gradient(135deg, #095e8b 0%, #0d4f78 50%, #0a3a55 100%);
 }
 
 .carouselImage {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Garante que a imagem cubra o fundo sem esticar */
+  display: none;
 }
 
 .overlay {
@@ -85,11 +87,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(to bottom, rgba(9, 94, 139, 0.8) 0%, rgba(5, 65, 97, 0.5) 100%);
+  background: linear-gradient(to bottom, rgba(9, 94, 139, 0.4) 0%, rgba(5, 65, 97, 0.2) 100%);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   color: white;
   z-index: 10;
   padding: 1.5rem 2rem;
