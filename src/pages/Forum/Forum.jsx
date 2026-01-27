@@ -12,7 +12,7 @@ import {
   serverTimestamp, 
   updateDoc, 
   doc, 
-  arrayUnion,
+  arrayUnion, 
   arrayRemove 
 } from "firebase/firestore";
 
@@ -23,22 +23,27 @@ const Forum = () => {
   // Estado para os Tópicos em Alta (Sidebar)
   const [trendingTags, setTrendingTags] = useState([]);
   
-  // NOVO: Estado para o Filtro Ativo (Tag clicada na sidebar)
-  const [activeFilter, setActiveFilter] = useState(null);
+  // Filtros
+  const [activeFilter, setActiveFilter] = useState(null); // Filtro de Tag
+  const [searchQuery, setSearchQuery] = useState(""); // Filtro de Busca (Texto)
 
   // Estados para nova pergunta
   const [newTitle, setNewTitle] = useState("");
   const [newContent, setNewContent] = useState("");
+  
+  // Gerenciamento de Tags (Input + Lista Selecionada)
   const [selectedTags, setSelectedTags] = useState(["Geral"]); 
+  const [tagInput, setTagInput] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Estados para comentários
   const [commentInputs, setCommentInputs] = useState({}); 
 
-  // Lista de Tags Disponíveis para criar pergunta
-  const availableTags = [
+  // Sugestões de Tags (Base inicial)
+  const tagSuggestions = [
     "Geral", "Python", "JavaScript", "React", "HTML/CSS", 
-    "Lógica", "Carreira", "Banco de Dados", "Mobile", "DevOps"
+    "Lógica", "Carreira", "Banco de Dados", "Mobile", "DevOps",
+    "Engenharia", "Direito Digital", "Marketing", "RH"
   ];
 
   const getSafeUserName = (user) => {
@@ -47,7 +52,7 @@ const Forum = () => {
     return "Usuário da Comunidade";
   };
 
-  // 1. Carregar posts e Calcular Tags
+  // 1. Carregar posts e Calcular Tags em Alta + Top Post
   useEffect(() => {
     const q = query(collection(db, "forum_posts"), orderBy("createdAt", "desc"));
     
@@ -58,20 +63,39 @@ const Forum = () => {
       }));
       setPosts(postsData);
 
-      // Lógica de Trending Topics
-      const tagCounts = {};
+      // --- Lógica de Trending Topics Avançada ---
+      const tagStats = {}; // { tagName: { count: 0, posts: [] } }
+
       postsData.forEach(post => {
         if (post.tags && Array.isArray(post.tags)) {
           post.tags.forEach(tag => {
-            tagCounts[tag] = (tagCounts[tag] || 0) + 1;
+            if (!tagStats[tag]) {
+              tagStats[tag] = { count: 0, posts: [] };
+            }
+            tagStats[tag].count += 1;
+            tagStats[tag].posts.push(post);
           });
         }
       });
 
-      const sortedTags = Object.entries(tagCounts)
-        .sort(([, countA], [, countB]) => countB - countA)
+      // Ordena tags por contagem
+      const sortedTags = Object.entries(tagStats)
+        .sort(([, statA], [, statB]) => statB.count - statA.count)
         .slice(0, 5) // Top 5
-        .map(([tag, count]) => ({ tag, count }));
+        .map(([tag, stat]) => {
+          // Encontra o post mais relevante (mais likes) dessa tag
+          const topPost = stat.posts.sort((a, b) => {
+            const likesA = a.likedBy ? a.likedBy.length : 0;
+            const likesB = b.likedBy ? b.likedBy.length : 0;
+            return likesB - likesA;
+          })[0];
+
+          return { 
+            tag, 
+            count: stat.count,
+            topPostTitle: topPost ? topPost.title : "Sem discussões ainda"
+          };
+        });
 
       setTrendingTags(sortedTags);
       setLoading(false);
@@ -80,36 +104,74 @@ const Forum = () => {
     return () => unsubscribe();
   }, []);
 
-  // NOVO: Lógica para ativar/desativar filtro ao clicar na sidebar
+  // Lógica de Filtros (Tag + Busca)
   const handleFilterClick = (tag) => {
     if (activeFilter === tag) {
-      setActiveFilter(null); // Remove filtro se clicar no mesmo
+      setActiveFilter(null);
     } else {
-      setActiveFilter(tag); // Ativa novo filtro
+      setActiveFilter(tag);
     }
-    window.scrollTo({ top: 0, behavior: 'smooth' }); // Rola para o topo
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  // NOVO: Filtra os posts para exibição
-  const displayedPosts = activeFilter 
-    ? posts.filter(post => post.tags && post.tags.includes(activeFilter))
-    : posts;
+  // Filtra os posts combinando Tag e Busca
+  const displayedPosts = posts.filter(post => {
+    const matchesTag = activeFilter ? (post.tags && post.tags.includes(activeFilter)) : true;
+    const matchesSearch = searchQuery 
+      ? (post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+         post.content.toLowerCase().includes(searchQuery.toLowerCase()))
+      : true;
+    return matchesTag && matchesSearch;
+  });
 
-  // ... (Funções toggleTag, handlePublish, handleLike, handleAddComment mantidas iguais) ...
-  // Repetindo brevemente para contexto:
-  const toggleTag = (tag) => {
-    if (selectedTags.includes(tag)) {
-      const newTags = selectedTags.filter(t => t !== tag);
-      setSelectedTags(newTags);
-    } else {
-      setSelectedTags([...selectedTags, tag]);
+  // --- Gerenciamento de Tags Customizadas (Lógica Melhorada) ---
+  
+  // Função centralizada para adicionar tag
+  const addTagLogic = () => {
+    const val = tagInput.trim();
+    if (val) {
+      // Adiciona se não existir ainda na lista selecionada
+      if (!selectedTags.includes(val)) {
+        setSelectedTags([...selectedTags, val]);
+      }
+      setTagInput(""); // Limpa o input
     }
   };
 
+  // Adiciona via Teclado (Enter ou Vírgula)
+  const handleTagKeyDown = (e) => {
+    if (e.key === 'Enter' || e.key === ',') {
+      e.preventDefault(); // Impede o submit do formulário principal
+      addTagLogic();
+    }
+  };
+
+  // Adiciona via Botão (+)
+  const handleManualAddTag = (e) => {
+    e.preventDefault();
+    addTagLogic();
+  };
+
+  const removeTag = (tagToRemove) => {
+    setSelectedTags(selectedTags.filter(tag => tag !== tagToRemove));
+  };
+
+  // Publicar Pergunta
   const handlePublish = async (e) => {
     e.preventDefault();
     if (!newTitle.trim() || !newContent.trim()) return;
-    if (selectedTags.length === 0) { alert("Selecione pelo menos uma categoria."); return; }
+    
+    // Se sobrou texto no input de tag, adiciona antes de enviar
+    let finalTags = [...selectedTags];
+    if (tagInput.trim() && !finalTags.includes(tagInput.trim())) {
+      finalTags.push(tagInput.trim());
+    }
+
+    if (finalTags.length === 0) {
+      alert("Adicione pelo menos uma tag (ex: Dúvida, Python).");
+      return;
+    }
+
     const user = auth.currentUser;
     if (!user) { alert("Faça login para publicar."); return; }
 
@@ -119,14 +181,17 @@ const Forum = () => {
       await addDoc(collection(db, "forum_posts"), {
         title: newTitle, content: newContent, author: safeName, authorId: user.uid,
         authorInitial: safeName[0].toUpperCase(), createdAt: serverTimestamp(),
-        tags: selectedTags, likedBy: [], comments: [] 
+        tags: finalTags, likedBy: [], comments: [] 
       });
-      setNewTitle(""); setNewContent(""); setSelectedTags(["Geral"]);
-      setActiveFilter(null); // Reseta filtro para ver o novo post
+      setNewTitle(""); setNewContent(""); 
+      setSelectedTags(["Geral"]); setTagInput("");
+      setActiveFilter(null); 
+      setSearchQuery(""); // Limpa busca
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (error) { console.error(error); } finally { setIsSubmitting(false); }
   };
 
+  // ... Funções Like, Comment e FormatTime ...
   const handleLike = async (postId, likedByArray = []) => {
     const user = auth.currentUser;
     if (!user) { alert("Faça login."); return; }
@@ -168,36 +233,41 @@ const Forum = () => {
         
         {/* FEED PRINCIPAL */}
         <main className={styles.feedSection}>
-          <div className={styles.pageTitle}>
-            Fórum da Comunidade
-            <span>Tire dúvidas, compartilhe conhecimento e evolua.</span>
+          <div className={styles.headerRow}>
+            <div className={styles.pageTitle}>
+              Fórum Geral
+              <span>Explore múltiplos assuntos e tire suas dúvidas.</span>
+            </div>
             
-            {/* NOVO: Feedback visual do filtro ativo */}
-            {activeFilter && (
-              <div className={styles.activeFilterBadge}>
-                Exibindo: <strong>#{activeFilter}</strong>
-                <button onClick={() => setActiveFilter(null)} className={styles.clearFilterBtn}>
-                  ✕ Limpar filtro
-                </button>
-              </div>
-            )}
+            {/* BARRA DE PESQUISA */}
+            <div className={styles.searchBar}>
+              <span className={styles.searchIcon}>🔍</span>
+              <input 
+                type="text" 
+                placeholder="Pesquisar por título..." 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
           </div>
+
+          {/* Badge de Filtro Ativo */}
+          {activeFilter && (
+            <div className={styles.activeFilterBadge}>
+              Filtro: <strong>#{activeFilter}</strong>
+              <button onClick={() => setActiveFilter(null)} className={styles.clearFilterBtn}>✕</button>
+            </div>
+          )}
 
           {loading && <p className={styles.loadingMsg}>Carregando discussões...</p>}
 
           {!loading && displayedPosts.length === 0 && (
             <div className={styles.postCard}>
-              <h3>Nenhum post encontrado {activeFilter ? `na categoria #${activeFilter}` : ''}.</h3>
-              <p>{activeFilter ? "Tente limpar o filtro ou" : "Seja o primeiro a"} criar uma pergunta!</p>
-              {activeFilter && (
-                <button onClick={() => setActiveFilter(null)} className={styles.submitBtn} style={{marginTop: '10px'}}>
-                  Ver todos os posts
-                </button>
-              )}
+              <h3>Nenhum resultado encontrado.</h3>
+              <p>Tente buscar por outro termo ou seja o primeiro a postar!</p>
             </div>
           )}
           
-          {/* Renderiza APENAS os posts filtrados */}
           {displayedPosts.map((post) => {
             const likedBy = post.likedBy || [];
             const userHasLiked = auth.currentUser && likedBy.includes(auth.currentUser.uid);
@@ -205,7 +275,14 @@ const Forum = () => {
             return (
               <div key={post.id} className={styles.postCard}>
                 <div className={styles.postHeader}>
-                  <div className={styles.avatar}>{post.authorInitial || "?"}</div>
+                  {/* Ícone de Identificação (Opção 2) */}
+                  <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: '10px'}}>
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{color: '#2563EB'}}>
+                      <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M20 21C20 18.2386 17.7614 16 15 16H9C6.23858 16 4 18.2386 4 21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+
                   <div className={styles.authorInfo}>
                     <h4>{post.author}</h4>
                     <span>{formatTime(post.createdAt)}</span>
@@ -220,8 +297,7 @@ const Forum = () => {
                       <span 
                         key={idx} 
                         className={styles.tag} 
-                        onClick={() => handleFilterClick(tag)} // Clicar na tag do post também filtra
-                        style={{cursor: 'pointer'}}
+                        onClick={() => handleFilterClick(tag)}
                         title="Filtrar por esta tag"
                       >
                         #{tag}
@@ -275,9 +351,9 @@ const Forum = () => {
 
           {/* NOVA PERGUNTA */}
           <div className={styles.newQuestionArea}>
-            <h3>Tem alguma dúvida?</h3>
+            <h3>Criar nova discussão</h3>
             {!auth.currentUser ? (
-              <p className={styles.loginWarn}>Faça login para publicar uma pergunta.</p>
+              <p className={styles.loginWarn}>Faça login para publicar.</p>
             ) : (
               <form onSubmit={handlePublish} className={styles.inputGroup}>
                 <input 
@@ -289,70 +365,107 @@ const Forum = () => {
                   className={styles.mainInput}
                 />
                 
-                <div className={styles.tagsLabel}>Selecione as categorias:</div>
-                <div className={styles.tagSelectorContainer}>
-                  {availableTags.map(tag => (
-                    <button
-                      key={tag}
-                      type="button"
-                      onClick={() => toggleTag(tag)}
-                      className={`${styles.tagOption} ${selectedTags.includes(tag) ? styles.tagOptionSelected : ''}`}
-                    >
-                      {tag}
-                      {selectedTags.includes(tag) && <span style={{marginLeft:'4px'}}>✓</span>}
-                    </button>
-                  ))}
+                {/* --- ÁREA DE TAGS COM BOTÃO '+' --- */}
+                <div className={styles.tagInputContainer}>
+                  <label>Tags (Digite e clique em + ou pressione Enter):</label>
+                  <div className={styles.tagsWrapper}>
+                    {selectedTags.map(tag => (
+                      <span key={tag} className={styles.selectedTagChip}>
+                        {tag} 
+                        <button type="button" onClick={() => removeTag(tag)}>×</button>
+                      </span>
+                    ))}
+                    
+                    <div style={{display:'flex', alignItems:'center', flex: 1}}>
+                      <input 
+                        type="text" 
+                        list="tagSuggestions"
+                        placeholder="Ex: React, Marketing..."
+                        value={tagInput}
+                        onChange={(e) => setTagInput(e.target.value)}
+                        onKeyDown={handleTagKeyDown} // Suporte a Enter
+                        className={styles.tagTextInput}
+                      />
+                      {/* BOTÃO PARA ADICIONAR TAG MANUALMENTE */}
+                      <button 
+                        type="button" 
+                        onClick={handleManualAddTag}
+                        className={styles.addTagBtn}
+                        title="Adicionar Tag"
+                      >
+                        +
+                      </button>
+                    </div>
+
+                    <datalist id="tagSuggestions">
+                      {tagSuggestions.map(tag => <option key={tag} value={tag} />)}
+                    </datalist>
+                  </div>
                 </div>
 
                 <textarea 
                   rows="4" 
-                  placeholder="Descreva seu problema..."
+                  placeholder="Descreva seu tópico..."
                   value={newContent}
                   onChange={(e) => setNewContent(e.target.value)}
                   disabled={isSubmitting}
                   className={styles.mainTextarea}
                 />
                 <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>
-                  {isSubmitting ? "Publicando..." : "Publicar Pergunta"}
+                  {isSubmitting ? "Publicando..." : "Publicar"}
                 </button>
               </form>
             )}
           </div>
         </main>
         
-        {/* BARRA LATERAL (Agora interativa) */}
+        {/* SIDEBAR - Estilos mantidos conforme solicitado */}
         <aside className={styles.sidebarSection}>
-          
-          {/* Card de Boas Vindas */}
-          <div className={`${styles.sidebarCard} bg-blue-600 text-white`} style={{background: 'linear-gradient(135deg, #2563EB 0%, #1d4ed8 100%)', color: 'white'}}>
-            <h3 className="font-bold text-lg mb-2"><span style={{color: 'whitesmoke'}}>Comunidade Cyber Tech</span></h3>
-            <p className="text-sm opacity-90 mb-4">
-              Junte-se a discussões, compartilhe conhecimento e evolua sua carreira na programação.
-            </p>
-            <div className="flex -space-x-2 overflow-hidden">
-               <div className="inline-block h-8 w-8 rounded-full ring-2 ring-white bg-gray-200"></div>
-               <div className="inline-block h-8 w-8 rounded-full ring-2 ring-white bg-gray-300"></div>
-               <div className="inline-block h-8 w-8 rounded-full ring-2 ring-white bg-gray-400"></div>
-               <div className="flex items-center justify-center h-8 w-8 rounded-full ring-2 ring-white bg-gray-500 text-xs text-white font-bold">+99</div>
-            </div>
+          <div className={styles.sidebarCard} style={{background: 'linear-gradient(135deg, #2563EB 0%, #1d4ed8 100%)', color: 'white'}}>
+            <h3 className="font-bold text-lg mb-2"><span style={{
+              color:'white', fontWeight:'bolder',
+              fontFamily:'sans-serif',
+              fontSize:'19px'
+            }}>Comunidade Cyber Tech</span></h3>
+            <p className="text-sm opacity-90 mb-4"><span style={{
+              fontWeight:'bolder',
+              fontFamily:'sans-serif',
+              fontSize:'13px',
+              color:'white'
+            }}>Conecte-se com diversas áreas do conhecimento.</span></p>
           </div>
 
           <div className={styles.sidebarCard}>
-            <div className={styles.sidebarTitle}><span>🔥</span> Tópicos em Alta</div>
+            <div className={styles.sidebarTitle}><span>🔥</span> Assuntos em Alta</div>
             
             {trendingTags.length === 0 ? (
-              <p style={{fontSize: '0.9rem', color:'#666', fontStyle: 'italic'}}>Ainda sem dados suficientes.</p>
+              <p style={{fontSize: '0.9rem', color:'#666', fontStyle: 'italic'}}>Aguardando dados...</p>
             ) : (
               <ul className={styles.topicList}>
                 {trendingTags.map((item) => (
                   <li 
                     key={item.tag} 
-                    // Aplica estilo extra se for o filtro ativo
                     className={`${styles.topicItem} ${activeFilter === item.tag ? styles.topicItemActive : ''}`}
                     onClick={() => handleFilterClick(item.tag)}
                   >
-                    <span>#{item.tag}</span>
-                    <span className={styles.topicCount}>{item.count}</span>
+                    <div className={styles.topicHeader}>
+                      <span className={styles.topicName}>#{item.tag}</span>
+                      <span className={styles.topicCount}>{item.count}</span>
+                    </div>
+                    {/* Título do post mais relevante */}
+                    <div className={styles.topicHighlight}>
+                      <small><span style={{
+                        fontWeight:'bolder',
+                        fontFamily:'sans-serif',
+                        fontSize:'20px',
+                        color:'rgb(42 86 186)'
+                      }}>Relacionado <br /></span> <span style={{
+                          fontWeight:'bolder',
+                          fontFamily:'sans-serif',
+                          fontSize:'19px',
+                          color:'#493d3f'
+                      }}>{item.topPostTitle}</span></small>
+                    </div>
                   </li>
                 ))}
               </ul>
@@ -360,11 +473,11 @@ const Forum = () => {
           </div>
 
           <div className={styles.sidebarCard}>
-            <div className={styles.sidebarTitle}><span>⚠️</span> Regras Rápidas</div>
+            <div className={styles.sidebarTitle}><span>⚠️</span> Regras</div>
             <ul className={styles.rulesList}>
-              <li>Seja respeitoso.</li>
-              <li>Use as tags corretas.</li>
-              <li>Não compartilhe senhas.</li>
+              <li>Respeite os colegas.</li>
+              <li>Use tags adequadas.</li>
+              <li>Evite spam.</li>
             </ul>
           </div>
         </aside>

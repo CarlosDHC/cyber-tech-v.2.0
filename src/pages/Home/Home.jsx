@@ -112,8 +112,8 @@ function Home() {
         "INFRAESTRUTURA",
         "GEOTECNIA E SOLOS",
         "PONTES E VIADUTOS",
-        "CONSTITUIÇÃO",
-        "PROCESSO",
+        "CONSTITUIÇÃO FEDERAL",
+        "PROCESSO ADMINISTRATIVO",
         "FUNDAÇÕES"
       ]
     },
@@ -288,7 +288,7 @@ function Home() {
           transition={{ delay: 0.3 }}
         >
           <div className={styles.introductionContent}>
-            <h2 className={styles.introductionTitle}>Bem-vindos à Jornada Multiprofissional Cyber Tech</h2>
+            <h2 className={styles.introductionTitle}>Bem-vindos à Jornada Multiprofissional CyberTech</h2>
             
             <p className={styles.introductionText}>
               Nesta plataforma, você não apenas aprenderá conceitos isolados, mas como as engrenagens do mercado atual se conectam. Prepare-se para dominar as competências essenciais que definem o profissional do futuro:
