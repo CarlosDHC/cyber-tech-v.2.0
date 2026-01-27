@@ -1,70 +1,196 @@
-.container {
-    padding: 40px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    color: #fff;
+/* Container Principal da Página */
+.pageContainer {
+  min-height: 100vh;
+  background-color: #121212; /* Fundo Escuro Padrão */
+  color: #e0e0e0;
+  font-family: 'Inter', sans-serif;
+  padding-bottom: 4rem;
 }
 
-.grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 25px;
-    margin-top: 30px;
+/* --- HEADERS DAS ÁREAS (Gradientes) --- */
+/* Estes estilos base garantem que o header fique bonito e responsivo */
+.headerTec, .headerEng, .headerDir, .headerMkt, .headerRh {
+  padding: 4rem 2rem;
+  text-align: center;
+  color: white;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  margin-bottom: 3rem;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 
-.card {
-    background: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 12px;
-    overflow: hidden;
-    transition: transform 0.3s ease, border-color 0.3s ease;
-    display: flex;
-    flex-direction: column;
+.headerTec h1, .headerEng h1, .headerDir h1, .headerMkt h1, .headerRh h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  letter-spacing: -1px;
 }
 
-.card:hover {
-    transform: translateY(-5px);
-    border-color: #007bff;
+.headerTec p, .headerEng p, .headerDir p, .headerMkt p, .headerRh p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-.card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
+/* --- CONTEÚDO E SEÇÕES --- */
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
 }
 
-.cardContent {
-    padding: 20px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
+.chapterSection {
+  margin-bottom: 4rem;
 }
 
-.card h3 {
-    margin: 0 0 10px;
-    font-size: 1.4rem;
-    color: #f8f9fa;
+/* Títulos das Subcategorias (Capítulos) */
+.chapterHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
-.card p {
-    color: #aaa;
-    font-size: 0.9rem;
-    margin-bottom: 20px;
+.chapterTitle {
+  font-size: 1.5rem;
+  color: #fff;
+  font-weight: 600;
+  white-space: nowrap;
 }
 
-.btnStart {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    text-align: center;
-    transition: background 0.3s;
-    margin-top: auto;
+.chapterLine {
+  height: 2px;
+  background: #333;
+  width: 100%;
+  border-radius: 2px;
 }
 
-.btnStart:hover {
-    background-color: #0056b3;
+/* --- GRID DE CARDS --- */
+.cardsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* --- O CARD DO DESAFIO --- */
+.challengeCard {
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.challengeCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  border-color: #555;
+}
+
+/* Imagem/Ícone do Card */
+.cardIcon {
+  height: 160px;
+  background-color: #252525;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cardIcon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.challengeCard:hover .cardIcon img {
+  transform: scale(1.05);
+}
+
+/* Informações do Card */
+.cardInfo {
+  padding: 1.2rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cardInfo h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+  color: #f5f5f5;
+  line-height: 1.4;
+}
+
+/* Badges (XP e Dificuldade) */
+.cardMeta {
+  display: flex;
+  gap: 10px;
+  margin-top: auto;
+}
+
+.badgeXp, .badgeDif {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badgeXp {
+  background-color: #333;
+  color: #ffd700; /* Dourado para XP */
+  border: 1px solid #444;
+}
+
+.badgeDif {
+  background-color: #2563eb; /* Azul padrão */
+  color: white;
+}
+
+/* --- ESTADOS DE CARREGAMENTO E VAZIO --- */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  color: #888;
+  font-size: 1.2rem;
+}
+
+.emptyMsg {
+  text-align: center;
+  color: #666;
+  font-size: 1.1rem;
+  margin-top: 3rem;
+  font-style: italic;
+}
+
+/* --- RESPONSIVIDADE (Mobile) --- */
+@media (max-width: 768px) {
+  .headerTec, .headerEng, .headerDir, .headerMkt, .headerRh {
+    padding: 3rem 1.5rem;
+    border-radius: 0 0 15px 15px;
+  }
+
+  .headerTec h1, .headerEng h1, .headerDir h1, .headerMkt h1, .headerRh h1 {
+    font-size: 2rem;
+  }
+  
+  .cardsGrid {
+    grid-template-columns: 1fr; 
+  }
+
+  .chapterTitle {
+    font-size: 1.3rem;
+  }
 }
