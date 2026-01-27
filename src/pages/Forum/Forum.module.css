@@ -463,7 +463,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s;
+  transition:none 0.1s;
   margin-left: 5px;
   line-height: 1;
 }
