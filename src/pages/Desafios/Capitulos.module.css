@@ -1,70 +1,87 @@
+/* Container da página */
 .container {
-    padding: 40px 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    color: #fff;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  text-align: center;
+  font-family: 'Arial', sans-serif;
 }
 
+.title {
+  font-size: 2.5rem;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 40px;
+}
+
+/* Grid responsivo: ajusta quantos cards cabem na tela */
 .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 25px;
-    margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  justify-items: center;
 }
 
+/* O Card individual */
 .card {
-    background: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 12px;
-    overflow: hidden;
-    transition: transform 0.3s ease, border-color 0.3s ease;
-    display: flex;
-    flex-direction: column;
+  background: #ffffff;
+  width: 100%;
+  max-width: 300px;
+  height: 220px;
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none; /* Remove sublinhado do link */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  border: 1px solid #e0e0e0;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
+/* Efeito ao passar o mouse */
 .card:hover {
-    transform: translateY(-5px);
-    border-color: #007bff;
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.15); /* Sombra azulada */
+  border-color: #2563EB;
 }
 
-.card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
+/* Barra colorida no topo do card */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, #2563EB, #60A5FA);
 }
 
-.cardContent {
-    padding: 20px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
+.icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 15px;
+  object-fit: contain;
 }
 
-.card h3 {
-    margin: 0 0 10px;
-    font-size: 1.4rem;
-    color: #f8f9fa;
+.cardTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 5px;
 }
 
-.card p {
-    color: #aaa;
-    font-size: 0.9rem;
-    margin-bottom: 20px;
-}
-
-.btnStart {
-    background-color: #007bff;
-    color: white;
-    border: none;
-    padding: 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
-    text-align: center;
-    transition: background 0.3s;
-    margin-top: auto;
-}
-
-.btnStart:hover {
-    background-color: #0056b3;
+.cardDesc {
+  font-size: 0.9rem;
+  color: #777;
 }
