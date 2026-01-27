@@ -64,15 +64,17 @@ function Home() {
     "estudar-ou-descansar": "/img_desafios/desafio-direito.jpg",
     "fome": "/img_desafios/desafio-engenharia.jpg",
     "dia-ou-noite": "/img_desafios/desafio-tecnologia.jpg",
-    "Markenting": "/img_desafios/desafio-marketing.jpg",
+    "Marketing": "/img_desafios/desafio-marketing.jpg",
     "Recursos Humanos": "/img_desafios/desafio-rh.jpg",
   };
 
   const slugToRoute = {
-    "o-que-e-algoritmo": "/desafios/desafio1",
     "estudar-ou-descansar": "/desafios/CapitulosTecnologia",
     "fome": "/desafios/CapitulosEngenharia",
     "dia-ou-noite": "/desafios/CapitulosDireito",
+    "Marketing": "/desafios/CapitulosMarketing",
+    "Recursos Humanos": "/desafios/CapitulosRh",
+
   };
 
   const customTitles = {
