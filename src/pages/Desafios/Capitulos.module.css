@@ -1,196 +1,87 @@
-/* Container Principal da Página */
-.pageContainer {
-  min-height: 100vh;
-  background-color: #121212; /* Fundo Escuro Padrão */
-  color: #e0e0e0;
-  font-family: 'Inter', sans-serif;
-  padding-bottom: 4rem;
-}
-
-/* --- HEADERS DAS ÁREAS (Gradientes) --- */
-/* Estes estilos base garantem que o header fique bonito e responsivo */
-.headerTec, .headerEng, .headerDir, .headerMkt, .headerRh {
-  padding: 4rem 2rem;
-  text-align: center;
-  color: white;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  margin-bottom: 3rem;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-}
-
-.headerTec h1, .headerEng h1, .headerDir h1, .headerMkt h1, .headerRh h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  font-weight: 700;
-  letter-spacing: -1px;
-}
-
-.headerTec p, .headerEng p, .headerDir p, .headerMkt p, .headerRh p {
-  font-size: 1.1rem;
-  opacity: 0.9;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-/* --- CONTEÚDO E SEÇÕES --- */
-.content {
+/* Container da página */
+.container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 1.5rem;
-}
-
-.chapterSection {
-  margin-bottom: 4rem;
-}
-
-/* Títulos das Subcategorias (Capítulos) */
-.chapterHeader {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.chapterTitle {
-  font-size: 1.5rem;
-  color: #fff;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.chapterLine {
-  height: 2px;
-  background: #333;
-  width: 100%;
-  border-radius: 2px;
-}
-
-/* --- GRID DE CARDS --- */
-.cardsGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-}
-
-/* --- O CARD DO DESAFIO --- */
-.challengeCard {
-  background-color: #1e1e1e;
-  border: 1px solid #333;
-  border-radius: 12px;
-  overflow: hidden;
-  text-decoration: none;
-  color: inherit;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.challengeCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-  border-color: #555;
-}
-
-/* Imagem/Ícone do Card */
-.cardIcon {
-  height: 160px;
-  background-color: #252525;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.cardIcon img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.challengeCard:hover .cardIcon img {
-  transform: scale(1.05);
-}
-
-/* Informações do Card */
-.cardInfo {
-  padding: 1.2rem;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.cardInfo h3 {
-  font-size: 1.1rem;
-  margin-bottom: 0.8rem;
-  color: #f5f5f5;
-  line-height: 1.4;
-}
-
-/* Badges (XP e Dificuldade) */
-.cardMeta {
-  display: flex;
-  gap: 10px;
-  margin-top: auto;
-}
-
-.badgeXp, .badgeDif {
-  font-size: 0.75rem;
-  padding: 4px 8px;
-  border-radius: 6px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.badgeXp {
-  background-color: #333;
-  color: #ffd700; /* Dourado para XP */
-  border: 1px solid #444;
-}
-
-.badgeDif {
-  background-color: #2563eb; /* Azul padrão */
-  color: white;
-}
-
-/* --- ESTADOS DE CARREGAMENTO E VAZIO --- */
-.loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 60vh;
-  color: #888;
-  font-size: 1.2rem;
-}
-
-.emptyMsg {
+  padding: 40px 20px;
   text-align: center;
-  color: #666;
-  font-size: 1.1rem;
-  margin-top: 3rem;
-  font-style: italic;
+  font-family: 'Arial', sans-serif;
 }
 
-/* --- RESPONSIVIDADE (Mobile) --- */
-@media (max-width: 768px) {
-  .headerTec, .headerEng, .headerDir, .headerMkt, .headerRh {
-    padding: 3rem 1.5rem;
-    border-radius: 0 0 15px 15px;
-  }
+.title {
+  font-size: 2.5rem;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
 
-  .headerTec h1, .headerEng h1, .headerDir h1, .headerMkt h1, .headerRh h1 {
-    font-size: 2rem;
-  }
-  
-  .cardsGrid {
-    grid-template-columns: 1fr; 
-  }
+.subtitle {
+  font-size: 1.1rem;
+  color: #666;
+  margin-bottom: 40px;
+}
 
-  .chapterTitle {
-    font-size: 1.3rem;
-  }
+/* Grid responsivo: ajusta quantos cards cabem na tela */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  justify-items: center;
+}
+
+/* O Card individual */
+.card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 300px;
+  height: 220px;
+  border-radius: 15px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none; /* Remove sublinhado do link */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  border: 1px solid #e0e0e0;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Efeito ao passar o mouse */
+.card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.15); /* Sombra azulada */
+  border-color: #2563EB;
+}
+
+/* Barra colorida no topo do card */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(90deg, #2563EB, #60A5FA);
+}
+
+.icon {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 15px;
+  object-fit: contain;
+}
+
+.cardTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.cardDesc {
+  font-size: 0.9rem;
+  color: #777;
 }
