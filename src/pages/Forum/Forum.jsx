@@ -3,48 +3,42 @@ import styles from './Forum.module.css';
 
 // Imports do Firebase
 import { db, auth } from "../../../FirebaseConfig";
-import {
-  collection,
-  addDoc,
-  query,
-  orderBy,
-  onSnapshot,
-  serverTimestamp,
-  updateDoc,
-  doc,
-  arrayUnion,
-  arrayRemove
+import { 
+  collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, 
+  updateDoc, doc, arrayUnion, arrayRemove 
 } from "firebase/firestore";
 
 const Forum = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // Sidebar
+  
   const [trendingTags, setTrendingTags] = useState([]);
-
+  
   // Filtros
-  const [activeFilter, setActiveFilter] = useState(null);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [activeFilter, setActiveFilter] = useState("Todas"); // Começa exibindo tudo
+  const [searchQuery, setSearchQuery] = useState(""); 
 
   // Nova pergunta
   const [newTitle, setNewTitle] = useState("");
   const [newContent, setNewContent] = useState("");
-  const [imageLink, setImageLink] = useState("");
-
-  // Tags
-  const [selectedTags, setSelectedTags] = useState(["Geral"]);
+  const [imageLink, setImageLink] = useState(""); 
+  
+  // Tags e Inputs
+  const [selectedTags, setSelectedTags] = useState(["Geral"]); 
   const [tagInput, setTagInput] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [commentInputs, setCommentInputs] = useState({}); 
 
-  // Comentários
-  const [commentInputs, setCommentInputs] = useState({});
+  // Categorias Principais (Filtro Rápido)
+  const mainCategories = [
+    "Todas", "Tecnologia", "Direito", "Engenharia", 
+    "Marketing", "RH", "Geral"
+  ];
 
-  // Sugestões
+  // Sugestões de Tags
   const tagSuggestions = [
-    "Geral", "Python", "JavaScript", "React", "HTML/CSS",
-    "Lógica", "Carreira", "Banco de Dados", "Mobile", "DevOps",
-    "Engenharia", "Direito Digital", "Marketing", "RH"
+    "Python", "JavaScript", "React", "HTML/CSS", "Lógica", 
+    "Banco de Dados", "Mobile", "DevOps", "Carreira", "Gestão"
   ];
 
   const getSafeUserName = (user) => {
@@ -59,7 +53,8 @@ const Forum = () => {
       const postsData = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
       setPosts(postsData);
 
-      const tagStats = {};
+      // Lógica de Trending Tags
+      const tagStats = {}; 
       postsData.forEach(post => {
         if (post.tags && Array.isArray(post.tags)) {
           post.tags.forEach(tag => {
@@ -79,7 +74,7 @@ const Forum = () => {
             const likesB = b.likedBy ? b.likedBy.length : 0;
             return likesB - likesA;
           })[0];
-          return { tag, count: stat.count, topPostTitle: topPost ? topPost.title : "Sem discussões ainda" };
+          return { tag, count: stat.count, topPostTitle: topPost ? topPost.title : "Sem discussões" };
         });
 
       setTrendingTags(sortedTags);
@@ -88,21 +83,29 @@ const Forum = () => {
     return () => unsubscribe();
   }, []);
 
-  const handleFilterClick = (tag) => {
-    if (activeFilter === tag) setActiveFilter(null);
-    else setActiveFilter(tag);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+  // Lógica de Clique nas Categorias (Áreas)
+  const handleCategoryClick = (category) => {
+    setActiveFilter(category);
+    setSearchQuery(""); // Limpa a busca textual ao mudar de categoria
   };
 
+  // Filtragem dos Posts
   const displayedPosts = posts.filter(post => {
-    const matchesTag = activeFilter ? (post.tags && post.tags.includes(activeFilter)) : true;
-    const matchesSearch = searchQuery
-      ? (post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        post.content.toLowerCase().includes(searchQuery.toLowerCase()))
+    // 1. Filtro por Categoria/Tag
+    const matchesCategory = activeFilter === "Todas" 
+      ? true 
+      : (post.tags && post.tags.some(t => t.toLowerCase() === activeFilter.toLowerCase()));
+
+    // 2. Filtro por Busca de Texto
+    const matchesSearch = searchQuery 
+      ? (post.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+         post.content.toLowerCase().includes(searchQuery.toLowerCase()))
       : true;
-    return matchesTag && matchesSearch;
+
+    return matchesCategory && matchesSearch;
   });
 
+  // --- LÓGICA DE TAGS (Mantida) ---
   const addTagLogic = () => {
     const val = tagInput.trim();
     if (val) {
@@ -110,24 +113,18 @@ const Forum = () => {
       setTagInput("");
     }
   };
-
-  const handleTagKeyDown = (e) => {
-    if (e.key === 'Enter' || e.key === ',') { e.preventDefault(); addTagLogic(); }
-  };
-
+  const handleTagKeyDown = (e) => { if (e.key === 'Enter' || e.key === ',') { e.preventDefault(); addTagLogic(); } };
   const handleManualAddTag = (e) => { e.preventDefault(); addTagLogic(); };
-
   const removeTag = (tagToRemove) => { setSelectedTags(selectedTags.filter(tag => tag !== tagToRemove)); };
 
   const handlePublish = async (e) => {
     e.preventDefault();
     if (!newTitle.trim() || !newContent.trim()) return;
-
+    
     let finalTags = [...selectedTags];
     if (tagInput.trim() && !finalTags.includes(tagInput.trim())) finalTags.push(tagInput.trim());
 
     if (finalTags.length === 0) { alert("Adicione pelo menos uma tag."); return; }
-
     const user = auth.currentUser;
     if (!user) { alert("Faça login para publicar."); return; }
 
@@ -136,11 +133,11 @@ const Forum = () => {
       const safeName = getSafeUserName(user);
       await addDoc(collection(db, "forum_posts"), {
         title: newTitle, content: newContent, imageUrl: imageLink.trim(),
-        author: safeName, authorId: user.uid, authorInitial: safeName[0].toUpperCase(),
-        createdAt: serverTimestamp(), tags: finalTags, likedBy: [], comments: []
+        author: safeName, authorId: user.uid, authorInitial: safeName[0].toUpperCase(), 
+        createdAt: serverTimestamp(), tags: finalTags, likedBy: [], comments: [] 
       });
-      setNewTitle(""); setNewContent(""); setImageLink("");
-      setSelectedTags(["Geral"]); setTagInput(""); setActiveFilter(null); setSearchQuery("");
+      setNewTitle(""); setNewContent(""); setImageLink(""); 
+      setSelectedTags(["Geral"]); setTagInput(""); setActiveFilter("Todas"); setSearchQuery("");
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (error) { console.error(error); } finally { setIsSubmitting(false); }
   };
@@ -183,29 +180,54 @@ const Forum = () => {
   return (
     <div className={styles.forumPage}>
       <div className={styles.contentWrapper}>
-
+        
         <main className={styles.feedSection}>
-          <div className={styles.headerRow}>
-            <div className={styles.pageTitle}>Fórum Geral<span>Explore múltiplos assuntos e tire suas dúvidas.</span></div>
+          <div className={styles.headerBlock}>
+            <h1 className={styles.pageTitle}>Fórum de Discussões</h1>
+            <p className={styles.pageSubtitle}>Conecte-se com especialistas e tire suas dúvidas.</p>
+            
+            {/* BARRA DE PESQUISA REFINADA */}
             <div className={styles.searchBar}>
-              <span className={styles.searchIcon}>🔍</span>
-              <input type="text" placeholder="Pesquisar por título..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+              <div className={styles.searchIcon}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+              </div>
+              <input 
+                type="text" 
+                placeholder="Buscar por título ou assunto..." 
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+
+            {/* --- NOVO: FILTRO POR ÁREAS (CATEGORY PILLS) --- */}
+            <div className={styles.categoryFilterContainer}>
+              {mainCategories.map((cat) => (
+                <button 
+                  key={cat} 
+                  className={`${styles.categoryPill} ${activeFilter === cat ? styles.activePill : ''}`}
+                  onClick={() => handleCategoryClick(cat)}
+                >
+                  {cat}
+                </button>
+              ))}
             </div>
           </div>
 
-          {activeFilter && (
-            <div className={styles.activeFilterBadge}>
-              Filtro: <strong>#{activeFilter}</strong>
-              <button onClick={() => setActiveFilter(null)} className={styles.clearFilterBtn}>✕</button>
-            </div>
-          )}
-
-          {loading && <p className={styles.loadingMsg}>Carregando discussões...</p>}
+          {loading && <p className={styles.loadingMsg}>Carregando...</p>}
 
           {!loading && displayedPosts.length === 0 && (
-            <div className={styles.postCard}><h3>Nenhum resultado encontrado.</h3><p>Tente buscar por outro termo ou seja o primeiro a postar!</p></div>
+            <div className={styles.emptyState}>
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+              <h3>Nenhuma discussão encontrada</h3>
+              <p>Seja o primeiro a iniciar um tópico em <strong>{activeFilter}</strong>!</p>
+            </div>
           )}
-
+          
           {displayedPosts.map((post) => {
             const likedBy = post.likedBy || [];
             const userHasLiked = auth.currentUser && likedBy.includes(auth.currentUser.uid);
@@ -213,137 +235,163 @@ const Forum = () => {
             return (
               <div key={post.id} className={styles.postCard}>
                 <div className={styles.postHeader}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginRight: '10px' }}>
-                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ color: '#2563EB' }}>
-                      <path d="M12 12C14.7614 12 17 9.76142 17 7C17 4.23858 14.7614 2 12 2C9.23858 2 7 4.23858 7 7C7 9.76142 9.23858 12 12 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      <path d="M20 21C20 18.2386 17.7614 16 15 16H9C6.23858 16 4 18.2386 4 21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  <div className={styles.authorBadge}>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
                     </svg>
                   </div>
-                  <div className={styles.authorInfo}><h4>{post.author}</h4><span>{formatTime(post.createdAt)}</span></div>
+                  <div className={styles.authorInfo}>
+                    <h4>{post.author}</h4>
+                    <span>{formatTime(post.createdAt)}</span>
+                  </div>
                 </div>
 
                 <div className={styles.postContent}>
                   <h3>{post.title}</h3>
                   <p>{post.content}</p>
-
-                  {/* IMAGEM NO POST */}
+                  
                   {post.imageUrl && (
-                    <div style={{ margin: '15px 0', borderRadius: '8px', overflow: 'hidden' }}>
-                      <img src={post.imageUrl} alt="Anexo" style={{ maxWidth: '100%', maxHeight: '400px', objectFit: 'contain', display: 'block' }} onError={(e) => e.target.style.display = 'none'} />
+                    <div className={styles.postImageWrapper}>
+                      <img src={post.imageUrl} alt="Anexo" onError={(e) => e.target.style.display = 'none'} />
                     </div>
                   )}
 
                   <div className={styles.tags}>
                     {post.tags?.map((tag, idx) => (
-                      <span key={idx} className={styles.tag} onClick={() => handleFilterClick(tag)} title="Filtrar por esta tag">#{tag}</span>
+                      <span key={idx} className={styles.tag}>#{tag}</span>
                     ))}
                   </div>
                 </div>
 
                 <div className={styles.postFooter}>
                   <button className={`${styles.actionBtn} ${userHasLiked ? styles.liked : ''}`} onClick={() => handleLike(post.id, likedBy)}>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill={userHasLiked ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2"><path d="M12 19V5M5 12l7-7 7 7" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill={userHasLiked ? "currentColor" : "none"} stroke="currentColor" strokeWidth="2"><path d="M12 19V5M5 12l7-7 7 7" strokeLinecap="round" strokeLinejoin="round"/></svg>
                     {likedBy.length} Relevância
                   </button>
-                  <button className={styles.actionBtn}>💬 {post.comments?.length || 0} Comentários</button>
+                  <button className={styles.actionBtn}>
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                    {post.comments?.length || 0} Comentários
+                  </button>
                 </div>
 
                 <div className={styles.commentsSection}>
-                  {post.comments && post.comments.length > 0 && (
-                    <div className={styles.commentsList}>
-                      {post.comments.map((comment, idx) => (
-                        <div key={idx} className={styles.comment}>
-                          <span className={styles.commentAuthor}>{comment.author}:</span>
-                          <span className={styles.commentText}>{comment.text}</span>
-                        </div>
-                      ))}
+                  {post.comments?.map((comment, idx) => (
+                    <div key={idx} className={styles.comment}>
+                      <span className={styles.commentAuthor}>{comment.author}:</span>
+                      <span className={styles.commentText}>{comment.text}</span>
                     </div>
-                  )}
+                  ))}
                   <div className={styles.commentInputGroup}>
-                    <input type="text" placeholder="Escreva uma resposta..." value={commentInputs[post.id] || ""} onChange={(e) => setCommentInputs({ ...commentInputs, [post.id]: e.target.value })} onKeyDown={(e) => {
-                      if (e.key === 'Enter') {
-                        e.preventDefault(); // Evita comportamentos padrões indesejados
-                        handleAddComment(post.id); // Chama a função de enviar
-                      }
-                    }} />
-                    <button className={styles.commentBtn} onClick={() => handleAddComment(post.id)}>Responder</button>
+                    <input 
+                      type="text" 
+                      placeholder="Adicionar resposta..." 
+                      value={commentInputs[post.id] || ""} 
+                      onChange={(e) => setCommentInputs({ ...commentInputs, [post.id]: e.target.value })} 
+                      onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleAddComment(post.id); }}} 
+                    />
+                    <button className={styles.sendBtn} onClick={() => handleAddComment(post.id)}>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                    </button>
                   </div>
                 </div>
               </div>
             );
           })}
 
+          {/* ÁREA DE CRIAÇÃO (DESIGN LIMPO) */}
           <div className={styles.newQuestionArea}>
-            <h3>Criar nova discussão</h3>
+            <h3>Iniciar nova discussão</h3>
             {!auth.currentUser ? (
-              <p className={styles.loginWarn}>Faça login para publicar.</p>
+              <p className={styles.loginWarn}>Faça login para participar.</p>
             ) : (
               <form onSubmit={handlePublish} className={styles.inputGroup}>
-                <input type="text" placeholder="Título da sua pergunta..." value={newTitle} onChange={(e) => setNewTitle(e.target.value)} disabled={isSubmitting} className={styles.mainInput} />
-
+                <input 
+                  type="text" 
+                  placeholder="Título da discussão" 
+                  value={newTitle} 
+                  onChange={(e) => setNewTitle(e.target.value)} 
+                  disabled={isSubmitting} 
+                  className={styles.cleanInput} 
+                />
+                
                 <div className={styles.tagInputContainer}>
-                  <label>Tags (Digite e clique em + ou pressione Enter):</label>
                   <div className={styles.tagsWrapper}>
                     {selectedTags.map(tag => (
-                      <span key={tag} className={styles.selectedTagChip}>{tag} <button type="button" onClick={() => removeTag(tag)}>×</button></span>
+                      <span key={tag} className={styles.cleanTag}>{tag} <button type="button" onClick={() => removeTag(tag)}>×</button></span>
                     ))}
-                    <div style={{ display: 'flex', alignItems: 'center', flex: 1 }}>
-                      <input type="text" list="tagSuggestions" placeholder="Ex: React, Marketing..." value={tagInput} onChange={(e) => setTagInput(e.target.value)} onKeyDown={handleTagKeyDown} className={styles.tagTextInput} />
-                      <button type="button" onClick={handleManualAddTag} className={styles.addTagBtn} title="Adicionar Tag">+</button>
-                    </div>
+                    <input 
+                      type="text" 
+                      list="tagSuggestions" 
+                      placeholder="Tags (ex: Tecnologia, React)" 
+                      value={tagInput} 
+                      onChange={(e) => setTagInput(e.target.value)} 
+                      onKeyDown={handleTagKeyDown} 
+                      className={styles.tagTextInput} 
+                    />
                     <datalist id="tagSuggestions">{tagSuggestions.map(tag => <option key={tag} value={tag} />)}</datalist>
+                    <button type="button" onClick={handleManualAddTag} className={styles.addTagBtn}>+</button>
                   </div>
                 </div>
 
-                {/* CAMPO DE IMAGEM + PRÉ-VISUALIZAÇÃO */}
                 <div className={styles.imageInputContainer}>
-                  <label style={{ fontSize: '0.9rem', fontWeight: '600', color: '#374151', display: 'block', marginBottom: '5px' }}>
-                    Link da Imagem (Opcional):
-                  </label>
-                  <input
-                    type="url"
-                    placeholder="Cole aqui o link da imagem (https://...)"
-                    value={imageLink}
-                    onChange={(e) => setImageLink(e.target.value)}
-                    disabled={isSubmitting}
-                    className={styles.mainInput}
-                    style={{ fontSize: '0.9rem' }}
+                  <input 
+                    type="url" 
+                    placeholder="Cole aqui o link da imagem (http://...)" 
+                    value={imageLink} 
+                    onChange={(e) => setImageLink(e.target.value)} 
+                    disabled={isSubmitting} 
+                    className={styles.cleanInput}
                   />
-
-                  {/* --- AQUI ESTÁ A LÓGICA DE PRÉ-VISUALIZAÇÃO --- */}
                   {imageLink && (
-                    <div className={styles.imagePreview}>
-                      <span className={styles.previewLabel}>Pré-visualização:</span>
-                      <img
-                        src={imageLink}
-                        alt="Pré-visualização"
-                        onError={(e) => e.target.style.display = 'none'} // Oculta se o link for inválido
-                      />
+                    <div className={styles.miniPreview}>
+                      <img src={imageLink} alt="Preview" onError={(e) => e.target.style.display = 'none'} />
                     </div>
                   )}
                 </div>
 
-                <textarea rows="4" placeholder="Descreva seu tópico..." value={newContent} onChange={(e) => setNewContent(e.target.value)} disabled={isSubmitting} className={styles.mainTextarea} />
-                <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>{isSubmitting ? "Publicando..." : "Publicar"}</button>
+                <textarea 
+                  rows="3" 
+                  placeholder="No que você está pensando?" 
+                  value={newContent} 
+                  onChange={(e) => setNewContent(e.target.value)} 
+                  disabled={isSubmitting} 
+                  className={styles.cleanTextarea} 
+                />
+                <button type="submit" className={styles.submitBtn} disabled={isSubmitting}>Publicar</button>
               </form>
             )}
           </div>
         </main>
-
+        
+        {/* SIDEBAR COM SVG E DESIGN FLAT */}
         <aside className={styles.sidebarSection}>
-          <div className={styles.sidebarCard} style={{ background: 'linear-gradient(135deg, #2563EB 0%, #1d4ed8 100%)', color: 'white' }}>
-            <h3 className="font-bold text-lg mb-2"><span style={{ color: 'white', fontWeight: 'bolder', fontFamily: 'sans-serif', fontSize: '19px' }}>Comunidade Cyber Tech</span></h3>
-            <p className="text-sm opacity-90 mb-4"><span style={{ fontWeight: 'bolder', fontFamily: 'sans-serif', fontSize: '13px', color: 'white' }}>Conecte-se com diversas áreas do conhecimento.</span></p>
+          <div className={styles.sidebarCard}>
+            <div className={styles.sidebarHeader}>
+              <div className={styles.iconBox} style={{backgroundColor: '#e0e7ff', color: '#2563EB'}}>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+              </div>
+              <div>
+                <h3>Comunidade</h3>
+                <p>Conecte-se e evolua.</p>
+              </div>
+            </div>
           </div>
 
           <div className={styles.sidebarCard}>
-            <div className={styles.sidebarTitle}><span>🔥</span> Assuntos em Alta</div>
-            {trendingTags.length === 0 ? <p style={{ fontSize: '0.9rem', color: '#666', fontStyle: 'italic' }}>Aguardando dados...</p> : (
+            <div className={styles.sidebarTitle}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ef4444" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path><path d="M2 12h20"></path></svg>
+              Em Alta
+            </div>
+            {trendingTags.length === 0 ? <p className={styles.emptyMsg}>Sem dados recentes</p> : (
               <ul className={styles.topicList}>
                 {trendingTags.map((item) => (
-                  <li key={item.tag} className={`${styles.topicItem} ${activeFilter === item.tag ? styles.topicItemActive : ''}`} onClick={() => handleFilterClick(item.tag)}>
-                    <div className={styles.topicHeader}><span className={styles.topicName}>#{item.tag}</span><span className={styles.topicCount}>{item.count}</span></div>
-                    <div className={styles.topicHighlight}><small><span style={{ fontWeight: 'bolder', fontFamily: 'sans-serif', fontSize: '20px', color: 'rgb(42 86 186)' }}>Relacionado <br /></span> <span style={{ fontWeight: 'bolder', fontFamily: 'sans-serif', fontSize: '19px', color: '#493d3f' }}>{item.topPostTitle}</span></small></div>
+                  <li key={item.tag} className={styles.topicItem} onClick={() => setActiveFilter(item.tag)}>
+                    <div className={styles.topicHeader}>
+                      <span className={styles.topicName}>#{item.tag}</span>
+                      <span className={styles.topicCount}>{item.count}</span>
+                    </div>
+                    <div className={styles.topicHighlight}>{item.topPostTitle}</div>
                   </li>
                 ))}
               </ul>
@@ -351,8 +399,15 @@ const Forum = () => {
           </div>
 
           <div className={styles.sidebarCard}>
-            <div className={styles.sidebarTitle}><span>⚠️</span> Regras</div>
-            <ul className={styles.rulesList}><li>Respeite os colegas.</li><li>Use tags adequadas.</li><li>Evite spam.</li></ul>
+            <div className={styles.sidebarTitle}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+              Regras
+            </div>
+            <ul className={styles.rulesList}>
+              <li>Respeito mútuo sempre.</li>
+              <li>Mantenha o foco do tópico.</li>
+              <li>Não compartilhe dados sensíveis.</li>
+            </ul>
           </div>
         </aside>
 
