@@ -45,4 +45,4 @@ const ForumButton = () => {
   );
 };
 
-export default FloatingForumButton;
+export default ForumButton;
