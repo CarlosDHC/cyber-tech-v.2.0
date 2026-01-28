@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 // Importamos o mesmo CSS module usado na ChallengeList para garantir o design idêntico
 import styles from "../Home/Home.module.css"; 
-import FloatingForumButton from '../../components/ForumButton';
+import ForumButton from '../../components/ForumButton';
 
 function Blog() {
   const navigate = useNavigate();
