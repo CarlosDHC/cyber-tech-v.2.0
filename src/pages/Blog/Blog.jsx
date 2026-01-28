@@ -68,24 +68,6 @@ function Blog() {
           <p>Recursos Humanos</p>
         </Link>
 
-          {/* Marketing */}
-          <Link to="/marketing" className={styles.challengeCard}>
-            <img 
-              src="/marketing-art.jpg" 
-              alt="Marketing" 
-
-            />
-            <p>Marketing Digital</p>
-          </Link>
-
-          {/* RH */}
-          <Link to="/rh" className={styles.challengeCard}>
-            <img 
-              src="/rh-art.jpg" 
-              alt="RH"  
-            />
-            <p>Recursos Humanos</p>
-          </Link>
         </div>
 
       </div>
