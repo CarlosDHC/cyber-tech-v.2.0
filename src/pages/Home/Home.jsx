@@ -266,7 +266,7 @@ function Home() {
               <h2 className={styles.introductionTitle}>Bem-vindos à Jornada Profissional CyberTech</h2>
               
               <p className={styles.introductionText}>
-                Nesta plataforma, você não apenas aprenderá conceitos isolados, mas como as engrenagens do mercado atual se conectam. Prepare-se para dominar as competências essenciais que definem o profissional do futuro:
+                Nesta plataforma, você aprenderá conceitos isolados, mas como as engrenagens do mercado atual se conectam. Prepare-se para dominar as competências essenciais que definem o profissional do futuro:
               </p>
 
               <div className={styles.introductionCards}>
