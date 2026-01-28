@@ -13,7 +13,7 @@ function ChallengeList() {
         {/* Desafio 1 */}
         <Link to="/desafios/Tecnologia/DesafioTec1" className={styles.challengeCard}>
           <img
-            src="https://imgur.com/oBy3VFB.jpg"
+            src="https://images.pexels.com/photos/1181359/pexels-photo-1181359.jpeg"
           ></img>
           <p>Introdução</p> 
         </Link> 
@@ -21,7 +21,7 @@ function ChallengeList() {
         {/* Desafio 2 */}
         <Link to="/desafios/Tecnologia/DesafioTec2" className={styles.challengeCard}>
           <img
-            src="https://imgur.com/pKlyga5.jpg"
+            src="https://images.pexels.com/photos/7241413/pexels-photo-7241413.jpeg"
           ></img>
           <p>Front-End</p> 
         </Link>
@@ -29,7 +29,7 @@ function ChallengeList() {
         {/* Desafio 3 */}
         <Link to="/desafios/Tecnologia/DesafioTec3" className={styles.challengeCard}>
          <img
-            src="https://imgur.com/0cMEy3T.jpg"
+            src="https://images.pexels.com/photos/16592498/pexels-photo-16592498.jpeg"
           ></img>
           <p>Back-End</p>
         </Link>
@@ -59,7 +59,7 @@ function ChallengeList() {
         </Link>
         <Link to="/desafios/Tecnologia/DesafioTec5" className={styles.challengeCard}>
          <img
-            src="https://imgur.com/XAHCgaS.jpg"
+            src="https://images.pexels.com/photos/1181671/pexels-photo-1181671.jpeg"
           ></img>
           <p>Python</p>
         </Link>
