@@ -49,9 +49,9 @@ function Blog() {
         {/* Marketing */}
         <Link to="/marketing" className={styles.challengeCard}>
           <img 
-            src="/marketing-art.jpg" 
+            src="/Mk-blog.png" 
             alt="Marketing" 
-            onError={(e) => e.target.src = "https://imgur.com/rjp7qWU.jpg"} 
+            onError={(e) => e.target.src = "Mk.jpg"} 
           />
           <p>Marketing Digital</p>
         </Link>
@@ -59,7 +59,7 @@ function Blog() {
         {/* RH */}
         <Link to="/rh" className={styles.challengeCard}>
           <img 
-            src="/rh-art.jpg" 
+            src="/Rh-blog.png" 
             alt="RH" 
             onError={(e) => e.target.src = "https://imgur.com/NRn7mwt.jpg"} 
           />
